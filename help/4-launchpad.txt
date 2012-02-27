@@ -1,0 +1,39 @@
+sudo add-apt-repository ppa:marutter/c2d4u
+sudo apt-get update
+sudo apt-get install r-cran*
+
+#in R
+ubuntu.libs <- grep("local",.libPaths(), value=T, invert=T);
+cran.libs <- grep("local",.libPaths(), value=T);
+ubuntu.package.names <- row.names(installed.packages(ubuntu.libs));
+cran.packages <- installed.packages(cran.libs); 
+cran.package.names <- row.names(cran.packages);
+
+#check mirror
+options(repos="http://cran.cnr.berkeley.edu/");
+all.packages <- available.packages();
+all.package.names <- row.names(all.packages);
+
+#remove packages that are now also available from Launchpad
+new.ubuntu.package.names <- cran.package.names[cran.package.names %in% ubuntu.package.names];
+remove.packages(new.ubuntu.package.names, cran.libs);
+
+#remove packages that are not on CRAN
+exceptions <- c("opencpu.tools", "opencpu.server");
+removed.package.names <- cran.package.names[!(cran.package.names %in% c(exceptions,all.package.names))];
+remove.packages(removed.package.names, cran.libs);
+cran.packages <- installed.packages(cran.libs); 
+cran.package.names <- row.names(cran.packages);
+
+#update cran packages
+update.packages(cran.libs);
+
+#install new packages
+installed.package.names <- c(ubuntu.package.names, cran.package.names);
+new.package.names <- all.package.names[!(all.package.names %in% installed.package.names)];
+install.packages(new.package.names, cran.libs);
+
+
+
+
+

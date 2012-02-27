@@ -1,0 +1,51 @@
+- what if the evaluation of the arguments results in plots/files? Disable argument evaluation for now? Make an option?
+- fix the plot before.plot.new handler problem
+- think about DOS prevention
+- permanent store or not?
+- upload binary files
+- implement /R/output handler using capture.output
+- start with GUI
+- start with Documentation
+- error handling / testing of incorrect api calls
+
+opencpu admin config
+--------------------
+
+authentication
+ - create file with usernames, passwords and groups
+
+security groups:
+ - resource limits
+ - sandbox profile
+
+sandbox profiles
+ - upload new sandbox profiles
+ - assign a profile to a security group
+
+package management:
+ - set libpaths
+ - update all packages
+ - update a package
+ - install packages from CRAN
+ - install packages from C2D4U
+ - upload packages to local opencpu repo (make new repo).
+ - remove packages from any of these
+
+server management:
+
+- start/stop/restart sandbox
+- start/stop/restart cache server
+- restart opencpu
+- reboot server (root user only)
+
+store:
+
+- list objects
+- purge temp objects
+- add new stores
+
+default profiles:
+
+- user
+- admin (user + admin console access)
+- root (unrestricted)

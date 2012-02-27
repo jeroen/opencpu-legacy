@@ -1,0 +1,16 @@
+#install apparmor
+sudo apt-get install apparmor-utils libapache2-mod-apparmor
+sudo apt-get install apparmor-profiles
+
+#enable the apache module
+sudo a2enmod apparmor
+
+#update config
+sudo rm /etc/apparmor.d/usr.lib.apache2.mpm-prefork.apache2
+sudo nano /etc/apparmor.d/usr.lib.apache2.mpm-prefork.apache2
+
+#Enable Apache2 sandbox:
+sudo aa-enforce /etc/apparmor.d/usr.lib.apache2.mpm-prefork.apache2
+
+#restart httpd
+sudo /etc/init.d/apache2 restart

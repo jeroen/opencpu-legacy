@@ -1,0 +1,36 @@
+#PART 0
+sudo apt-get upgrade
+
+#add this line to /etc/apt/sources.list
+deb http://cran.r-project.org/bin/linux/ubuntu natty/
+
+#and then run:
+gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+gpg -a --export E084DAB9 | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install r-base
+
+#install fonts and latex:
+sudo apt-get install texlive-latex-base
+sudo apt-get install texlive-latex-recommended
+sudo apt-get install texlive-fonts-recommended
+
+#some dependencies
+sudo apt-get install libxml2-dev
+sudo apt-get install libcurl4-openssl-dev
+
+#install packages:
+sudo R
+install.packages("XML", repos="http://cran.cnr.Berkeley.edu");
+install.packages("RJSONIO", repos="http://cran.cnr.Berkeley.edu");
+install.packages("RCurl", repos="http://cran.cnr.Berkeley.edu");
+install.packages(c("multicore", "ggplot2", "interactivity", "opencpu.encode"), repos="http://cran.cnr.Berkeley.edu");
+
+#to main library
+install.packages("opencpu.tools", repos="http://www.stat.ucla.edu/~jeroen");
+
+#to special library
+install.packages("opencpu.server", repos="http://www.stat.ucla.edu/~jeroen", lib="/usr/local/lib/R/opencpu-library");
+
+#some fixes
+sudo chmod 777 /usr/local/lib/R/opencpu-library/opencpu.server/aliases/aliases.conf

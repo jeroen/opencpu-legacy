@@ -1,0 +1,2 @@
+debian/opencpu-cache-files/opencpu.vcl /etc/opencpu
+debian/opencpu-cache-files/opencpu-cache /etc/init.d

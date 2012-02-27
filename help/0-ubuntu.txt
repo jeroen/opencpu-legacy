@@ -1,0 +1,20 @@
+# EC2 has data drive mounted at /mnt
+
+#create a folder for the special library:
+sudo mkdir -p /usr/local/lib/R/opencpu-library
+
+#create shortcuts to data drive
+sudo mkdir /mnt/export
+sudo ln -s /mnt/export /export
+sudo mkdir -p /export/store/tmp
+sudo chmod -R 777 /export/store/tmp
+
+#After R install:
+
+#move site library #1
+sudo mv /usr/lib/R/site-library /export/site-library
+sudo ln -s /export/site-library /usr/lib/R/site-library
+
+#move site library #2
+sudo mv /usr/local/lib/R/site-library /export/local-site-library
+sudo ln -s /export/local-site-library /usr/local/lib/R/site-library

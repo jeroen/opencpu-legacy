@@ -1,0 +1,51 @@
+# Author: Jeroen Ooms <jeroen@opencpu.orgm>
+# This profile is a modified version of usr.lib.apache2.mpm-preforkapache. 
+# It adds setgid and setpuid to ^HANDLING_UNTRUSTED_INPUT
+
+#include <tunables/global>
+/usr/lib/apache2/mpm-itk/apache2 {
+
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  capability kill,
+  capability net_bind_service,
+  capability sys_tty_config,
+  capability setgid,
+  capability setuid,
+
+  / rw,
+  /** mrwlkix,
+
+
+  ^DEFAULT_URI {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+    
+    capability setgid,
+    capability setuid,    
+
+    / rw,
+    /** mrwlkix,
+
+  }
+
+  ^HANDLING_UNTRUSTED_INPUT {
+    #include <abstractions/nameservice>
+
+    capability setgid,
+    capability setuid,
+
+    / rw,
+    /** mrwlkix,
+
+  }
+
+  # This directory contains web application
+  # package-specific apparmor files.
+
+  #include <apache2.d>
+
+  # Site-specific additions and overrides. See local/README for details.
+  #include <local/usr.lib.apache2.mpm-prefork.apache2>
+}

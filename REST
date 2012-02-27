@@ -1,0 +1,27 @@
+Packages:
+
+GET	/R/package:ggplot2/qplot/ascii
+POST	/R/package:ggplot2/qplot/save?x=speed&y=dist&data=cars
+PUT	/R/package	(( DENY ))
+DELETE	/R/package	(( DENY ))
+
+Store:
+
+GET	/R/store:jeroen/myobject/ascii
+POST	/R/store:jeroen/myfunction/png?foo=bar
+PUT	/R/store:jeroen/myobject?source=/store:tmp/x1234567890 OR source=RDS when a file is posted through multipart/form-data
+DELETE	/R/store:jeroen/myobject 
+
+Help for packages:
+
+GET	/R/help/package:ggplot/qplot/pdf
+POST	/R/help  (( DENY ))
+PUT	/R/help  (( DENY ))
+DELETE	/R/help  (( DENY ))
+
+Help for store:
+
+GET	/R/help/store:jeroen/qplot/pdf
+POST	/R/help/store:jeroen  (( DENY ))
+PUT	/R/help/store:jeroen/qplot?helpfile=
+DELETE	/R/help/store:jeroen/qplot

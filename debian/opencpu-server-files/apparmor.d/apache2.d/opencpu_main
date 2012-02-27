@@ -1,0 +1,17 @@
+  #include <opencpu/apache_limits>
+
+  ^opencpu {
+    #include <opencpu/opencpu_r>
+    #include <opencpu/opencpu_apache>   
+  }
+  
+  ^opencpu-admin {
+    #include <opencpu/opencpu_apache>    
+    #include <opencpu/opencpu_r>
+    #include <opencpu/opencpu_admin>
+  }  
+  
+  ^opencpu-apps {
+    #include <opencpu/opencpu_apache> 
+    #include <opencpu/opencpu_apps>      
+  }

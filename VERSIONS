@@ -1,0 +1,11 @@
+Version 0.3:
+
+- URL's changed to new format. Everything is now under /R.
+
+Version 0.2: 
+
+Last version with old urls like:
+/R/png/package/function
+/store/png/tmp/md5sum
+
+This version is stable otherwise. All fork and call bugs have been fixed.

@@ -1,0 +1,12 @@
+## Profile for the /apps directory. 
+## Note that this is not R code. But it could contain php or so.
+
+#include <opencpu/r_resources>
+#include <opencpu/r_deny>  
+#include <opencpu/r_packages>
+
+/usr/lib/opencpu/apps/ r, 
+/usr/lib/opencpu/apps/* r,     
+/var/www/ r,
+/var/www/** r,
+

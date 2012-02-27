@@ -1,0 +1,78 @@
+<html>
+<head>
+<title> Stored object /TEMPLATEKEY </title>
+</head>
+
+<body>
+
+<h1> R Object Store </h1>
+
+<p> 
+The object 
+<pre>/TEMPLATEKEY</pre> 
+has been found in the store. You can now use it in other function calls, or export it. 
+</p>
+
+<h2> Using the stored object in a function call </h2>
+
+<p> To use the stored object in a function call, simply pass in the key as an argument. For example to call the 'class' function:
+<pre> /R/call/base/class/json?x=/TEMPLATEKEY </pre>
+</p>
+
+<h2> Exporting the object </h2>
+
+<p>
+To export the object and download it in a client or browser, simply add an output type to the current url. <br />
+For example, choose one of the output types below to export it. <br />
+</p>
+
+<h3> Export general R object </h3>
+
+<p> These can be used for any type of R object </p>
+
+<ul>
+<li><a href="/R/store/TEMPLATEKEY/encode"> /encode</a> -- encodes to opencpu encoding (json) </li>
+<li><a href="/R/store/TEMPLATEKEY/ascii"> /ascii</a> -- export to dput ascii</li>
+<li><a href="/R/store/TEMPLATEKEY/rds"> /rds</a> -- export as RDS</li>
+<li><a href="/R/store/TEMPLATEKEY/rda"> /rda</a> -- export as RData</li>
+</ul>
+
+
+<h3> Render Plots </h3>
+
+<p> Use these only if the object is a plot/graph </p>
+
+<ul>
+<li><a href="/R/store/TEMPLATEKEY/png"> /png</a> -- renders a plot to png </li>
+<li><a href="/R/store/TEMPLATEKEY/png"> /pdf</a> -- renders a plot to pdf</li>
+<li><a href="/R/store/TEMPLATEKEY/png"> /svg</a> -- render to svg</li>
+</ul>
+
+
+<h3> Export basic R data structure </h3>
+
+<p> Use the simple json output only for basic R datastructures, such as vectors, lists and dataframes. </p>
+
+<ul>
+<li><a href="/R/store/TEMPLATEKEY/json"> /json</a> -- encode to simple json </li>
+</ul>
+
+<h3> Export a dataframe </h3>
+
+<p> Use these outputs only if the object is a dataframe. </p>
+
+<ul>
+<li><a href="/R/store/TEMPLATEKEY/csv">/csv</a> -- export as CSV </li>
+<li><a href="/R/store/TEMPLATEKEY/csv?!sep='%3B'&!dec=','"> /csv</a> -- export as CSV2 (European) </li>
+<li><a href="/R/store/TEMPLATEKEY/table"> /table</a> -- export as Tab Delimited </li>
+</ul>
+
+<h3> Export a raw vector / file </h3>
+<p> Use the /bin output only if the object is a raw vector. Files that were saved with /save are also saved as raw. </p>
+<ul>
+<li><a href="/R/store/TEMPLATEKEY/bin"> /bin</a> -- sends a raw binary  </li>
+</ul>
+
+
+</body>
+</html>

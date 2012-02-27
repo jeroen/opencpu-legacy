@@ -1,0 +1,6 @@
+#include <opencpu/r_base>
+#include <opencpu/opencpu_store>
+#include <opencpu/r_resources>
+#include <opencpu/r_deny>
+#include <opencpu/r_packages>
+

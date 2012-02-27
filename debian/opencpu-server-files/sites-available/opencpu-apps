@@ -1,0 +1,13 @@
+# This file assume symlinks in dir /usr/lib/opencpu/apps
+
+Alias /apps /usr/lib/opencpu/apps
+
+<Directory /usr/lib/opencpu/apps>
+	
+	Options Indexes FollowSymLinks
+	
+	<IfModule mod_apparmor.c>
+		AAHatName opencpu-apps
+	</IfModule>
+	
+</Directory>

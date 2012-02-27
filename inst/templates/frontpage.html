@@ -1,0 +1,194 @@
+<html>
+<head>
+	<base target="_blank" />
+</head>
+
+<body>
+<h1> opencpu test page </h1>
+<p>For documentation go to www.opencpu.org <br /></p>
+
+<h2> R Apps </h2>
+
+<p> If installed, R apps should be available at</p:
+
+<p>
+<a href="/apps">/apps</a>
+</p>
+
+<h2> R function RPC </h2>
+GET does not store anything on the server. Results are returned directly.
+HTTP 200 if OK, HTTP 400 if R throws an error.
+
+<h3> Get Plots </h3>
+<ul>
+<li><a href="/R/call/graphics/plot/png?x=cars&!width=800&!height=600"> png plot </a><br /></li>
+<li><a href="/R/call/graphics/plot/pdf?x=cars"> pdf plot</a><br /></li>
+<li><a href="/R/call/graphics/plot/svg?x=cars"> svg plot</a><br /></li>
+<li><a href="/R/call/graphics/plot/plot?x=cars"> rds display</a><br /></li>
+<li><a href="/R/call/ggplot2/qplot/png?x=1:10&y=[3,4,5,7,4,2,3,4,5,6]&xlab='something variable'&ylab='some outcome'&main='hello world!'&geom='step'"> ggplot2 test</a><br /></li>
+<li><a href="/R/call/ggplot2/qplot/png?x=speed&y=dist&data=cars"> lazy eval</a><br /></li>
+</ul>
+
+<h3> Get Dataframe </h3>
+<ul>
+<li><a href="/R/call/stats/as.data.frame/csv?x=iris"> csv file</a><br /></li>
+<li><a href="/R/call/stats/as.data.frame/table?x=iris"> tab delimited file</a><br /></li>
+</ul>
+
+<h3> Get R Objects </h3>
+<ul>
+<li><a href="/R/call/stats/rnorm/json?n=10&mean=10&sd=100"> json output</a><br /></li>
+<li><a href="/R/call/stats/rnorm/jsonp?n=10&mean=10&sd=100&!prefix='myfun'"> jsonp output</a><br /></li>
+<li><a href="/R/call/stats/as.data.frame/rds?x=iris"> binary R object</a><br /></li>
+<li><a href="/R/call/stats/as.data.frame/rda?x=iris"> binary R workspace</a><br /></li>
+<li><a href="/R/call/stats/as.data.frame/ascii?x=iris"> dput ascii representation</a><br /></li>
+<li><a href="/R/call/stats/as.data.frame/encode?x=iris"> opencpu encoding</a><br /></li>
+</ul>
+
+<h3> Get file / binary </h3>
+<ul>
+<li><a href="/R/call/base/system.file/file?package='ggplot2'&...='DESCRIPTION'"> file handler</a><br /></li>
+<li><a href="/R/call/base/charToRaw/bin?x='This is a raw binary stream. You could use readBin to send a file.'"> bin handler</a><br /></li>
+</ul>
+
+<h3> Other stuff </h3>
+<ul>
+<li><a href="/R/call/stats/rnorm/json?n=10&!seed=12345"> Set a seed</a><br /></li>
+<li><a href="/R/call/base/identity/json?x=rnorm(100)"> Run code </a><br /></li>
+<li><a href="/R/call/base/identity/json?x={total <- 0; for(i in 1:100) { total <- total + i^2 }; total;}"> More code </a><br /></li>
+<li><a href="/R/call/base/Sys.info/json"> No arguments (Sysinfo)</a><br /></li>
+<li><a href="/R/call/base/system.file/json?package='ggplot2'&...='DESCRIPTION'"> The ... elipse argument</a><br /></li>
+<li><a href="/R/call/graphics/plot/png?x=1&xlab='Zürich'&ylab='Z\303\274rich'">Test UTF-8</a><br /></li>
+</ul>
+
+<h3> Test Security </h3>
+<ul>
+<li><a href="/R/call/stats/as.data.frame/json?x=doesnotexist"> test error handling</a><br /></li>
+<li><a href="/R/call/opencpu.tools/testcpu/json?size=1e7"> test cpu limit</a><br /></li>
+<li><a href="/R/call/opencpu.tools/testcpu/json?size=1e9"> test memory limit</a><br /></li>
+<li><a href="/R/call/stats/rnorm/save?n=1e7"> test store limit</a><br /></li>
+<li><a href="/R/call/utils/read.table/json?file='/etc/passwd'"> test sandbox 1</a><br /></li>
+<li><a href="/R/call/base/list.files/json?path='/tmp'"> test sandbox 2</a><br /></li>
+<li><a href="/R/call/base/system/json?command='whoami'&intern=TRUE"> test sandbox 3</a></li>
+</ul>
+
+<h3> Search / Paths </h3>
+<ul>
+<li><a href="/R/call/base/.libPaths/json"> lib paths</a><br /></li>
+<li><a href="/R/call/base/search/json"> search</a><br /></li>
+<li><a href="/R/call/base/searchpaths/json"> searchpaths</a><br /></li>
+</ul>
+
+<h2> Using the store </h2>
+
+<h3> Saving and retrieving objects from store </h3>
+
+First you need to save something in the store using /R/save/
+
+<ul>
+<li><a href="/R/call/opencpu.tools/demo.lm/save?formula=dist~speed&data=cars"> Demo function </a></li>
+</ul>
+
+Then you can retrieve the objects from the store:
+<ul>
+<li><a href="/R/store/tmp/3ab739ab266b0f52418c70aef1bda700/json"> model estimates </a></li>
+<li><a href="/R/store/tmp/4a197ad510f4ada248d482e8c227d8d7/png"> plot 1 </a></li>
+<li><a href="/R/store/tmp/4483b16af074e6303f4b204e7a994ebe/png"> plot 2 </a></li>
+<li><a href="/R/store/tmp/05037c2a60cc1a9a5fb070e84590a0dc/png"> plot 3 </a></li>
+<li><a href="/R/store/tmp/3f7fca073a46623155881ee69302c74e/png"> plot 4 </a></li>
+<li><a href="/R/store/tmp/f71a6e5ab61530abeb11db2ab6861abe/png"> plot 5 </a></li>
+<li><a href="/R/store/tmp/e34731a911621dcea72e37e4adaf0723/bin"> a file </a></li>
+</ul>
+
+The same meta parameters hold for store objects:
+<ul>
+<li><a href="/R/store/tmp/3ab739ab266b0f52418c70aef1bda700/json?!digits=20"> custom digits </a></li>
+<li><a href="/R/store/tmp/3ab739ab266b0f52418c70aef1bda700/rda"> object as RData </a></li>
+<li><a href="/R/store/tmp/4a197ad510f4ada248d482e8c227d8d7/png?!width=1000&!height=800"> png custom size </a></li>
+<li><a href="/R/store/tmp/4a197ad510f4ada248d482e8c227d8d7/pdf"> pdf version of plot </a></li>
+</ul>
+
+<h3> Define custom Functions </h3>
+
+<ul> 
+<li><a href="/R/call/opencpu.tools/makefunction/save?myfun=function(x){return(x * 3)}"> Save function to store </a></li>
+<li><a href="/R/call/store:tmp/f6640e6b2d0b589ab9b68a5920211caa/json?x=[1,2,3]"> Call function from store </a> </li>  
+</ul>
+
+<h3> Store meta parameters </h3>
+<ul>
+<li><a href="/R/call/stats/rnorm/save?n=10&mean=10&sd=100&!saveobject=TRUE&!savegraphs=FALSE&!savefiles=FALSE"> save only object </a><br /></li>
+<li><a href="/R/call/graphics/plot/save?x=cars&!saveobject=FALSE&!savefiles=FALSE"> save just the plot </a><br /></li>
+<li><a href="R/call/utils/write.csv/save?x=iris&file='myirisfile.csv'"> save a file </a><br /></li>
+</ul>
+
+<h3> Work with files </h3>
+
+<ul>
+<li> <a href="/R/call/utils/Sweave/save?file=system.file('Sweave','Sweave-test-1.Rnw', package = 'utils')"> Demo from ?Sweave </a> </li>
+</ul>
+
+
+<h2> HTTP POST and Uploading Files </h2>
+
+<p> By default OpenCPU assumes that an uploaded file is an RDS binary. </p>
+<p> If you want to upload a raw file 'as is' to a function that expects a filepath, prefix the parameter name with "!zfile:" </p>
+<p> To upload a file that is not a formal argument of the function, use the "!copy:" prefix. A character string with the filepath 
+will be created with the object name of the  "!copy:" argument name. </p>
+
+<h3>Upload rds object </h3>
+<p>Get Variable Names in a dataframe</p>
+
+Try with e.g. <a href="/R/call/base/identity/rds?x=mtcars">mtcars.rds</a> <br />
+
+<form enctype="multipart/form-data" action="/R/call/base/names/json" method="POST">
+Upload rds file: <input name="x" type="file" /><br />
+<input type="submit" value="Upload File" />
+</form>
+
+
+<h3>Upload a raw file using !file:</h3>
+<p>
+Upload a file (read SPSS file)
+</p>
+
+Try with e.g. <a href="/R/call/base/system.file/file?package='opencpu.demo'&file='files/1991GS.sav'">1991 General Survey SPSS Dataset</a> <br />
+<form enctype="multipart/form-data" action="/R/call/foreign/read.spss/save" method="POST">
+<input type="hidden" name="to.data.frame" value="TRUE"> <!-- must always be set to true -->
+File to upload: <input name="!file:file" type="file" /><br /> <!-- param name has to be file -->
+
+<input type="submit" value="Upload File" />
+</form>
+
+
+<h3>Upload a file that's not an argument using !copy</h3>
+<p>
+Get the column names of a CSV file
+</p>
+Try with e.g. <a href="/R/call/base/identity/csv?x=mtcars">mtcars.csv</a> <br />
+<form enctype="multipart/form-data" action="/R/call/base/names/json" method="POST">
+Upload csv file: <input name="!copy:mycsvfile" type="file" /><br />
+Read it in: <input name="x" type="text" value="read.csv(mycsvfile)"/><br />
+<input type="submit" value="Upload and read" />
+</form>
+
+<h2> Help Files </h2>
+
+<ul>
+<li><a href="/R/help/stats/glm/json"> glm help (json format)</a><br /></li>
+<li><a href="/R/help/ggplot2/qplot/text"> qplot help (text format)</a><br /></li>
+<li><a href="/R/help/datasets/cars/html"> cars help (html format) </a><br /></li>
+<li><a href="/R/help/stats/anova/latex"> anova help (latex format) </a><br /></li>
+<li><a href="/R/help/stats/glm/pdf"> glm help (pdf format)</a><br /></li>
+</ul>
+
+<h2> CPU Profiling </h2>
+Note that the profiling intself introduces significant overhead, but this does not seem to be included in the output.
+<ul>
+<li><a href="/R/call/ggplot2/qplot/prof?x=speed&y=dist&data=cars"> profile ggplot...</a><br /></li>
+</ul>
+
+
+
+</body>
+</html>

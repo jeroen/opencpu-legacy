@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+  configure)
+    :
+	chmod +x /usr/lib/opencpu/scripts/updatecran.sh
+	chmod +x /usr/lib/opencpu/scripts/movelib.sh
+	chmod +x /usr/lib/opencpu/scripts/updatecran.cron.sh
+	chmod +x /usr/lib/opencpu/scripts/update.recent.sh
+	chmod +x /usr/lib/opencpu/scripts/update.recent.cron.sh
+	ln -s /usr/lib/opencpu/scripts/updatecran.sh /usr/bin/updatecran
+	ln -s /usr/lib/opencpu/scripts/update.recent.sh /usr/bin/updaterecent
+	
+	gpg --keyserver keyserver.ubuntu.com --recv-key B04C661B
+	gpg -a --export B04C661B | sudo apt-key add -	
+	
+	while true; do
+	    read -p "Do you want to add cron jobs to udpate CRAN packages? [y/n]" yn
+	    case $yn in
+	        [Yy]* ) ln -s /usr/lib/opencpu/scripts/updatecran.cron.sh /etc/cron.weekly/updatecran; 
+	        		ln -s /usr/lib/opencpu/scripts/update.recent.cron.sh /etc/cron.daily/updaterecent; 
+	        		break;;
+	        [Nn]* ) break;;
+	        	* ) echo "Please answer y or n.";;
+	    esac
+	done
+
+	echo Repositories added. To refresh, run: sudo apt-get update
+	echo To install all cran packages on this machine, run: sudo updatecran
+    ;;
+  abort-upgrade | abort-remove | abort-deconfigure)
+    :
+    ;;
+  *) echo "$0: didn't understand being called with \`$1'" 1>&2
+     exit 1;;
+esac
+
+#DEBHELPER#
+
+exit 0
+

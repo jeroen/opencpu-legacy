@@ -1,0 +1,18 @@
+#install varnish
+sudo apt-get install varnish
+
+#copy the contens of the config file to:
+sudo nano /etc/varnish/opencpu.vcl
+
+#copy the init script
+sudo nano /etc/init.d/opencpu-cache
+sudo chmod 755 /etc/init.d/opencpu-cache
+
+#you can start or stop using:
+/etc/init.d/opencpu-cache start
+/etc/init.d/opencpu-cache stop
+
+#add to system autostart
+sudo update-rc.d opencpu-cache defaults
+
+#NOTE: request from 127.0.0.1 bypass varnish.

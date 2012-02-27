@@ -1,0 +1,12 @@
+#include <opencpu/opencpu_logs>
+#include <abstractions/apache2-common>
+#include <abstractions/base>
+#include <abstractions/fonts>
+#include <abstractions/mysql>
+#include <abstractions/nameservice>
+#include <abstractions/openssl>
+#include <abstractions/php5>
+#include <abstractions/ssl_certs>
+#include <abstractions/ssl_keys>
+capability setgid,
+capability setuid,	

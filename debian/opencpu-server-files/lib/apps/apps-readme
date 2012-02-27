@@ -1,0 +1,4 @@
+# This is the apps directory.
+# All R packages that have a folder /inst/opencpu/apps in their source package
+# will be available from here.
+#

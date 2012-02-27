@@ -1,0 +1,6 @@
+/var/log/apache2/access.log w,
+/var/log/apache2/error.log w,
+/var/log/apache2/other_vhosts_access.log w,
+/var/log/apache2/ssl_access.log w,
+/var/log/opencpu/access.log w,
+/var/log/opencpu/error.log w,

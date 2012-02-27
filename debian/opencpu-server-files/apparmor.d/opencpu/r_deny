@@ -1,0 +1,22 @@
+## Some denies. Note that this is not necessary as apparmor uses whitelist policy.
+## However, entries in here will not be logged/complained, they are just denied.
+
+deny / rwx,
+deny /boot/** rwx,
+deny /root/** rwx,
+deny /selinux/** rwx,
+deny /sys/** rwx,
+deny /dev/pts/* rw,
+deny /dev/tty rw,
+deny /etc/group rw,
+deny /etc/host.conf rw,
+deny /etc/inputrc rw,
+deny /etc/nsswitch.conf rw,
+deny /etc/passwd rw,
+deny /home/** rwx,
+deny /mnt/ r,
+deny /mnt/export/ r,
+deny /proc/*/loginuid rw,
+deny /tmp/ rw,
+deny /usr/share/tcltk/** rw,
+deny /var/run/gdm/** rw,

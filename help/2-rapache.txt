@@ -1,0 +1,17 @@
+### RAPACHE ###
+sudo apt-get install r-base-dev apache2-mpm-prefork apache2-prefork-dev
+wget http://biostat.mc.vanderbilt.edu/svn/rapache/web/files/rapache-1.1.14.tar.gz
+tar xzvf rapache*
+cd rapache*
+./configure 
+make
+sudo make install
+
+#CONFIGURE RAPACHE and insert config
+sudo nano /etc/apache2/mods-available/mod_R.load
+
+#Enable modules
+sudo /usr/sbin/a2enmod mod_R
+sudo /etc/init.d/apache2 restart  
+  
+ 

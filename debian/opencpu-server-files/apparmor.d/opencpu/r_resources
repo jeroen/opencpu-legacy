@@ -1,0 +1,4 @@
+set rlimit data <= 512M,
+set rlimit fsize <= 512M,
+set rlimit memlock <= 512M,
+set rlimit nice <= 10,

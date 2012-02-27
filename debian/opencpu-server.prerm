@@ -1,0 +1,12 @@
+#! /bin/sh
+
+set -e
+
+service opencpu-server stop
+service opencpu-sandbox stop
+
+rm -Rf /mnt/export/opencpu-cran-library/*
+rm -Rf /mnt/export/opencpu-admin-library/*
+rm -Rf /usr/lib/opencpu/apps/*
+
+exit 0

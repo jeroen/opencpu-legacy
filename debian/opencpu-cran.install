@@ -1,0 +1,2 @@
+debian/opencpu-cran-files/scripts/* /usr/lib/opencpu/scripts
+debian/opencpu-cran-files/sources.list.d/* /etc/apt/sources.list.d

@@ -1,0 +1,23 @@
+#! /bin/sh
+
+set -e
+
+case "$1" in
+  remove | abort-install)
+    :
+      rm -f /etc/cron.weekly/updatecran
+      rm -f /etc/cron.daily/updaterecent
+      rm -f /usr/bin/updatecran
+      rm -f /usr/bin/updaterecent
+    ;;
+  purge | disappear | upgrade | failed-upgrade | abort-upgrade)
+    :
+    ;;
+  *) echo "$0: didn't understand being called with \`$1'" 1>&2
+     exit 1;;
+esac
+
+#DEBHELPER#
+
+exit 0
+

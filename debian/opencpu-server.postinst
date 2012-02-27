@@ -1,0 +1,68 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+  configure)
+    :
+	# Adding OpenCPU User.
+	if grep -s -q "^opencpu:" /etc/passwd; then
+	  echo "User opencpu already exists"
+	else
+	  echo "Adding user opencpu..."
+	  useradd opencpu --system -U -d/tmp -c"OpenCPU R Server"
+	fi	
+	
+	#copy the config file
+	cp -f /usr/lib/opencpu/opencpu-system-library/opencpu.server/config/default.conf /etc/opencpu/server.conf
+	
+	#chmod shell scripts
+	chmod +x /usr/lib/opencpu/scripts/sites.sh
+	chmod +x /usr/lib/opencpu/scripts/apps.sh
+	chmod +x /usr/lib/opencpu/scripts/showip.sh
+	chmod +x /usr/lib/opencpu/scripts/killorphans.sh
+	
+	#create log file
+	touch /var/log/opencpu/access.log
+	touch /var/log/opencpu/error.log
+	chown -Rf opencpu /var/log/opencpu
+	chgrp -Rf opencpu /var/log/opencpu	
+
+	#config file
+	chown -Rf opencpu /etc/opencpu
+	chgrp -Rf opencpu /etc/opencpu	
+
+	#same for store
+	chown -Rf opencpu /mnt/export/
+	chgrp -Rf opencpu /mnt/export/
+	
+	#create shortcuts to data drive	
+	if [ ! -e /export ]
+	then
+	    ln -s /mnt/export /export
+	fi
+			
+	chmod 755 /etc/init.d/opencpu-server
+	chmod 755 /etc/init.d/opencpu-sandbox
+
+	update-rc.d opencpu-server defaults
+	update-rc.d opencpu-sandbox defaults
+
+	service opencpu-server start
+	service opencpu-sandbox restart
+	
+	#try to display host ip address
+	echo "Installation done. Point your browser to http://[server-ip]/R"
+	/usr/lib/opencpu/scripts/showip.sh	
+    ;;
+  abort-upgrade | abort-remove | abort-deconfigure)
+    :
+    ;;
+  *) echo "$0: didn't understand being called with \`$1'" 1>&2
+     exit 1;;
+esac
+
+#DEBHELPER#
+
+exit 0
+

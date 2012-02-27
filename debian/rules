@@ -1,0 +1,3 @@
+#!/usr/bin/make -f
+debRreposname := opencpu
+include /usr/lib/opencpu/dev/r-opencpu.mk

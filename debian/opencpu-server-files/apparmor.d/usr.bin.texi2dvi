@@ -1,0 +1,35 @@
+## This profile is called by R. 
+## Tex does not inherit permissions from R.
+
+#include <tunables/global>
+
+/usr/bin/texi2dvi {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  /bin/cat rix,
+  /bin/dash rix,
+  /bin/egrep rix,
+  /bin/grep rix,
+  /bin/mkdir rix,
+  /bin/rm rix,
+  /bin/sed rix,
+  /bin/tar rix,
+  /etc/texmf/ r,
+  /etc/texmf/** r,
+  /tmp/** rw,
+  /usr/bin/basename rix,
+  /usr/bin/cmp rix,
+  /usr/bin/dirname rix,
+  /usr/bin/expr rix,
+  /usr/bin/pdftex rix,
+  /usr/bin/sort rix,
+  /usr/bin/texi2dvi r,
+  /usr/bin/uniq rix,
+  /usr/local/share/texmf/* r,
+  /usr/share/R/share/texmf/** r,
+  /usr/share/texmf-texlive/** r,
+  /usr/share/texmf/** r,
+  /var/lib/texmf/** r,
+
+}

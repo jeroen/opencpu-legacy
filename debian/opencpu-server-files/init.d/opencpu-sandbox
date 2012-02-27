@@ -1,0 +1,40 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          opencpu_sandbox
+# Required-Start:    $local_fs $remote_fs $network $syslog $named
+# Required-Stop:     $local_fs $remote_fs $network $syslog $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Interactive:     true
+# Short-Description: Start/stop OpenCPU sandbox.
+### END INIT INFO
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    service apparmor start
+    aa-enforce usr.lib.apache2.mpm-prefork.apache2
+    aa-enforce usr.lib.apache2.mpm-itk.apache2
+    aa-enforce usr.bin.texi2dvi
+	a2enmod apparmor
+	invoke-rc.d apparmor reload
+	service apache2 restart
+	echo "Sandbox enabled"
+    ;;
+  stop)
+	a2dismod apparmor
+	service apparmor teardown
+	service apache2 restart
+	echo "Sandbox disabled"
+    ;;
+  restart | force-reload)
+	$0 stop
+	$0 start    
+	;;
+  *)
+    echo "Usage: sudo service opencpu-sandbox {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
