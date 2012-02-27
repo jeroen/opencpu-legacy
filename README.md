@@ -1,4 +1,9 @@
-This package installs the opencpu-node (R server) on Ubuntu. 
+OpenCPU consists of 3 Ubuntu packages:
+
+ * opencpu-server (main OpenCPU server) 
+ * opencpu-cache (cache server + load balancer)
+ * opencpu-cran (cron job to install all cran packages)
+ 
 For now, we only support the latest Ubuntu 11.10 (Oneiric).
 
 To get this to work, install a freshy copy of Ubuntu Server 11.10 and run the following commands:
