@@ -1,67 +1,158 @@
-REST part:
+ARGUMENTS
+---------
 
-/R/public
-
-GET     /R/pub/ggplot2/qplot/ascii
-POST    /R/pub/ggplot2/qplot/save?x=speed&y=dist&data=cars
-
-GET     /R/pub/ggplot2/qplot/help/pdf
-GET     /R/pub/ggplot2/qplot/help/text
-GET     /R/pub/ggplot2/qplot/help/Rd
-
-PUT     /R/pub    (( DENY ))
-DELETE  /R/pub    (( DENY ))
-
-GET     /R/tmp/x837dba432c
-POST    /R/tmp/xab38d83b02?foo="bar"
-PUT     /R/tmp  ((DENY))
-DELETE  /R/tmp  ((DENY))
+ - JSON string: {"foo":123}
+ - Primitive: 3.1415 or "My title" or  NA
+ - Existing object: cars
+ - RDS file in /tmp: x2b894cd93a
+ - RDS file as full path: /home/jeroenooms/mystore/someobject
+ - RDS file as http/ftp resource: http://myserver.com/dir/somefile.rds
+ - RDS file encoded in multipart/form-data
+ - Valid R code snippet (if server allows): rnorm(100)
+ 
+In most cases, the system will be able to guess the format of the arguments. 
+Where not, the argument-name should be prefixed with the format. 
+E.g to upload a non-rds file use a name like !file:myarg. 
+To post encoded json, do something like !encode:data={.....}.  
 
 
-/R/home:
+OUTPUT TYPES
+------------
 
-GET     /R/home/jeroenooms/store
-GET     /R/home/jeroenooms/store
-GET     /R/home/jeroenooms/store/myobject
-GET     /R/home/jeroenooms/store/myobject/ascii
-                                    /json
-                                    /png
-                                    /help
-                                
-POST    /R/home/jeroenooms/store/myfunction/png?foo=bar
-                                  /save?foo=bar
-                                  /ascii?foo=bar
-                                  
-PUT     /R/home/jeroenooms/store                                  
-PUT     /R/home/jeroenooms/store/myobject/rds?file=[multipart]
-                                    /copy?object=x1234567890 
-                                    /script?source={}
-                                    /function?body={}&
-                                
-DELETE  /R/home/jeroenooms/store/myobject
-DELETE  /R/home/jeroenooms/store
+Several output types have been defined, to make it convenient to retrieve some 
+pieces of output in a convenient format. Not every output type is appropriate
+for any type of object. The output type is usually the last word of an URI that
+reads an object from a package or store, or a function call.
+
+	* /save: Saves to the /tmp and returns keys.
+	* /rds: RDS -- Any R object.
+	* /rda: RData -- Any R object.
+	* /encode: Full json encoding. Almost any R object.
+	* /json: Short json. Simple R objects.
+	* /png: prints PNG image. Plot objects.
+	* /pdf: prints PDF image. Plot objects.
+	* /svg: prints SVG image. Plot objects.
+	* /csv: exports to CSV. Matrices and dataframes.
+	* /table: exports to tab delimited. Matrices and dataframes.
+	* /bin: returns binary stream. For raw vectors (includes generated files).
+	* /file: returns binary stream. Only for absolute filepaths.
+	
+METHODS AND ENDPOINTS 
+---------------------
+
+HTTP GET -- read or print objects, files and directories  
+	
+	* list and retrieve objects 
+
+		GET     /R/pub (list of public packages)
+		GET     /R/pub/ggplot2 (list of exported objects in ggplot2)
+		GET     /R/pub/ggplot2/qplot (info about qplot object)
+		GET     /R/pub/ggplot2/qplot/ascii (ascii representation of qplot object
+
+	* Retrieve help files
+
+		GET     /R/pub/ggplot2/qplot/help 
+		GET     /R/pub/ggplot2/qplot/help/pdf
+		GET     /R/pub/ggplot2/qplot/help/text
+		GET     /R/pub/ggplot2/qplot/help/Rd
+
+	* Retrieve object from temp store
+
+		GET     /R/tmp/x837dba432c
+		GET     /R/tmp/x837dba432c/png
+		GET     /R/tmp/x837dba432c/json
+
+	* Read home directories:
+
+		GET     /R/home (list users)
+		GET     /R/home/jeroenooms (list jeroen's namespaces)
+		GET     /R/home/jeroenooms/mypackage (list exported objects in package)
+		GET     /R/home/jeroenooms/mypackage/somefun/png (print object to png)
+		GET     /R/home/jeroenooms/mypackage/somefun/x873bc0276c/png (print output object from somefun to png)
+
+	* Read home store
+
+		GET     /R/home/jeroenooms/store (list objects in store)
+		GET     /R/home/jeroenooms/store/mydata (get info about myobject)
+
+	* Read documents 
+
+		GET     /R/home/jeroenooms/documents (list directories in documents)
+		GET     /R/home/jeroenooms/documents/article (list article contents)
+		GET     /R/home/jeroenooms/documents/article/doc.Rnw (read a file)
 
 
-Help for store:
+HTTP POST -- Execute functions, scripts or reproducible documents
 
-GET     /R/home/jeroenooms/store/myfun/help/pdf
-POST    /R/home/jeroenooms/store/myfun/help  (( DENY ))
-PUT     /R/home/jeroenooms/store/myfun/help?helpfile=someRd
-DELETE  /R/home/jeroenooms/store/myfun/help
+	* Call a function from a package:
+
+		POST    /R/pub/ggplot2/qplot/png?x=[1,2,3,4]
+		POST    /R/pub/ggplot2/qplot/save?x=speed&y=dist&data=cars
+		POST    /R/pub/ggplot2/qplot/save?x=somevar&data=/home/jeroenooms/store/mydata
+
+	* Call a function from temp:
+
+		POST    /R/tmp/xab38d83b02?foo="bar"
+
+	* Call a function from a store
+
+		POST    /R/home/jeroenooms/store/myfunction/png?foo=bar
+		                                           /save?foo=bar
+		                                           /ascii?foo=bar
+
+	* Create a report
+
+		POST    /R/jeroenooms/documents/article/doc.Rnw/
+		POST    /R/jeroenooms/documents/article/doc.Rnw/knitr
+		POST    /R/jeroenooms/documents/article/doc.Rnw/Sweave
+		POST    /R/jeroenooms/documents/article/something.tpl/rapport?data=cars&foo=bar
+
+	* Sessions:
+                                          
+		POST    /R/session (create session)             
+		POST    /R/session/x873/myobject (call object)
+
+     
+HTTP PUT / DELETE -- Insert or remove files and objects                            
+ 
+	* Insert objects        
+	         
+		PUT     /R/home/jeroenooms/mystore                                  
+		PUT     /R/home/jeroenooms/mystore/myobject/rds?file=[multipart]
+		                                           /copy?object=x1234567890 
+		                                           /script?source={}
+		                                           /function?body={}&enclosed=["x73bc837d"]&foo=bar&baz                                   
+	* Remove objects
+	
+		DELETE  /R/home/jeroenooms/store/myobject
+		DELETE  /R/home/jeroenooms/store
+    
+    
+	* Insert help files:    
+                                           
+		PUT     /R/home/jeroenooms/store/myfun/help?helpfile=someRd
+		PUT     /R/home/jeroenooms/store/myfun/help?helpfile=someRd
+
+	* Insert objects into session:
+
+		PUT     /R/session/x873/newobject/rds=file or /copy=x87362937 or /script={} // code is only parsed, not evaluate
 
 
-Workspace (needs session)
+RESPONSE CODES
+--------------
 
-POST    /R/session
-POST    /R/session/x873/myobject
-GET     /R/session/x873/myobject/ascii
-PUT     /R/session/x873/newobject/rds=file or /copy=x87362937 or /script={} // code is only parsed, not evaluated
-DELETE  /R/session/x873/myobject
+OpenCPU returns HTTP 200 if everything was OK, and HTTP 400 if an error occurred. 
+If the server returns HTTP 200 OK, it is safe to assume that the output is in the requested format.
+If the server returns HTTP 400, the output will be plain text with the error message in the body. 
+
+RESPONSE HEADERS
+----------------
+
+OpenCPU returns some HTTP headers to make your life easier:
+
+Content-Type: where possible the type of output.
+Cache-Control: if the resource can be cached.
+Age: if the resource was cached, how old is it.
+Content-disposition: suggests a filename (only for downloading files).
 
 
-LATEX:
-
-GET     /R/jeroenooms/documents/article/doc.Rnw
-POST    /R/jeroenooms/documents/article/doc.Rnw/knitr
-POST    /R/jeroenooms/documents/article/doc.Rnw/Sweave
-POST    /R/jeroenooms/documents/article/something.tpl/rapport?data=cars&foo=bar
