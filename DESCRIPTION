@@ -1,15 +1,14 @@
 Package: opencpu.server
 Type: Package
 Title: OpenCPU
-Version: 0.5
-Date: 2012-01-06
+Version: 0.6
+Date: 2012-03-10
 Author: Jeroen Ooms
 Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>
 Description: Some R code for the OpenCPU framework.
 License: AGPL
-LazyData: no
 Imports:
-	tools,
+    tools,
     RJSONIO (>= 0.97-0),
     multicore,
     opencpu.tools,
