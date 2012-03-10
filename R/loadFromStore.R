@@ -4,7 +4,7 @@
 ###############################################################################
 
 
-loadFromStore <- function(Storelocation, ObjectID){
+loadFromStore <- function(ObjectID, Storelocation="tmp"){
 	#read config
 	STOREDIR <- config("storedir");		
 	

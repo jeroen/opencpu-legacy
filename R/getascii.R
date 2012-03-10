@@ -40,7 +40,7 @@ dogetascii <- function(`#dofn`, ...){
 
 	detach("rapache");
 	detach("package:opencpu.server");
-	output <- eval(mycall, fnargs, globalenv());
+	output <- eval(call, fnargs, globalenv());
 	
 	#write output
 	dput(output, file=mytempfile);

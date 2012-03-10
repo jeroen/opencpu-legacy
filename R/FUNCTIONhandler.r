@@ -17,7 +17,7 @@ FUNCTIONhandler <- function(Rpackage, Rfunction, Rformat){
 		functionLocation <- strsplit(Rpackage, ":")[[1]][2]; 
 		RPC.FN <- switch(prefix,
 			package = loadFromPackage(functionLocation, Rfunction),
-			store = loadFromStore(functionLocation, Rfunction),
+			store = loadFromStore(Rfunction, functionLocation),
 			stop("Unknown prefix: ", prefix)
 		);
 	} else {
@@ -37,13 +37,19 @@ FUNCTIONhandler <- function(Rpackage, Rfunction, Rformat){
 	} else {
 		#delete filenames from the ARGS variable
 		fnargs[names(NEWFILESVAR)] <- NULL;
+
+		emptyargs <- sapply(fnargs, is.null);
+		#Check for empty arguments
+		if(any(emptyargs)){
+			stop("Empty arguments: ", paste(names(fnargs)[which(sapply(fnargs, is.null))], collapse=", "))
+		}
 		
 		#parse HTTP arguments
 		fnargs <- lapply(fnargs, tryParse);
 
 		#parse files
 		fnargs <- parseFiles(fnargs);	
-
+		
 		#evaluate expressions from tryparse
 		# TO DO: this is actually too early. 
 		# Better to evaluate all the way at the actual call.

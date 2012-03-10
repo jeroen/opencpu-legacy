@@ -3,13 +3,18 @@
 #       Other arguments should be either be evaluated or turned into a expression or name object that will automatically
 #		be evaluated during the actual call.
 
-tryParse <- function(string){
+tryParse <- function(string, disable.eval = config("disable.eval")){
+
+	if(is.null(string)){
+		return(NULL)
+	}
+	
 	string <- as.character(string);
 	
 	if(nchar(string) == 0){
 		return(string);
 	}
-
+	
 	#if string starts and ends with [] then assume JSON
 	if(substr(string, 1, 1) == "["){
 		if(!isValidJSON(string, TRUE)){
@@ -67,12 +72,18 @@ tryParse <- function(string){
 		myfile <- tempfile();
 		download.file(string, myfile);
 		return(readRDS(myfile));
-	}	
+	}
+	
+	#check if it looks like a UUID
+	myregex <- "^x[a-f0-9]{10}$"
+	if(length(grep(myregex, string) > 0)){
+		return(loadFromStore(string));
+	}
 	
 	#if config(eval.args) then eval code
-	if(config("disable.eval") == FALSE){
+	if(disable.eval == FALSE){
 		#eval arguments
-		return(parsecode(paste("{", string, "}")));
+		return(parsewithbrackets(string));
 	} else {
 		#return existing object
 		if(exists(string)){

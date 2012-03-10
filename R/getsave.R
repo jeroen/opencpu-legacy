@@ -116,6 +116,6 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	
 	#write output	
 	mytempfile <- tempfile();
-	write(asJSON(returnlist), mytempfile);
+	write(asJSON(returnlist, pretty=TRUE), mytempfile);
 	return(mytempfile);	
 }

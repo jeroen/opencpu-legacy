@@ -35,7 +35,6 @@ request.fork <- function(){
 			store = STOREhandler(Rlocation, Rfnobj, Routput),
 			frontpage = printFrontpage(),
 			help = HELPhandler(Rlocation, Rfnobj, Routput),
-			execute = EXECUTEhandler(Rlocation, Rfnobj), #arg names are unfortunate here
 			lasterror = lasterror(),
 			stop("Unknown location: /", Rwhat)
 		), 

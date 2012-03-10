@@ -25,6 +25,6 @@ storefile <- function(mytempfile, where="/tmp/"){
 	success <- isTRUE(file.rename(mytempfile, newfilename) || file.copy(mytempfile, newfilename, overwrite=TRUE));
 	if(!success) stop("Failed to copy file to store: ", newfilename);	
 	
-	#file.copy(returndata$filename, newfilename, overwrite=T);
-	return(storelocation);		
+	#return(storelocation);
+	return(filehash);
 }

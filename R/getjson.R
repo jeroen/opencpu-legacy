@@ -4,7 +4,7 @@ getjson <- function(fnargs){
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }
 
-dogetjson <- function(`#dofn`, `!digits` =  getOption("digits"), ...){
+dogetjson <- function(`#dofn`, `!digits` =  getOption("digits"), `!pretty`= TRUE, ...){
 
 	#prepare
 	mytempfile <- tempfile();
@@ -37,6 +37,6 @@ dogetjson <- function(`#dofn`, `!digits` =  getOption("digits"), ...){
 	output <- eval(call, fnargs, globalenv());
 	
 	#write output
-	write(opencpu.encode::asJSON(unclass(output), digits=`!digits`), mytempfile);
+	write(opencpu.encode::asJSON(unclass(output), digits=`!digits`, pretty=`!pretty`), mytempfile);
 	return(mytempfile);	
 }

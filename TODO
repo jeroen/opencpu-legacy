@@ -1,12 +1,16 @@
+ideas
+-----
+
+- interactive smoothing app
+- spss converter app
+
+
 - what if the evaluation of the arguments results in plots/files? Disable argument evaluation for now? Make an option?
-- fix the plot before.plot.new handler problem
 - think about DOS prevention
-- permanent store or not?
-- upload binary files
 - implement /R/output handler using capture.output
 - start with GUI
 - start with Documentation
-- error handling / testing of incorrect api calls
+- validating api calls
 
 opencpu admin config
 --------------------

@@ -64,7 +64,7 @@ STOREhandler <- function(Storelocation, ObjectID, Rformat){
 	fnargs[["#dofn"]] <- identity;
 	
 	#load the object from the store
-	fnargs[["x"]] <- loadFromStore(Storelocation, ObjectID);
+	fnargs[["x"]] <- loadFromStore(ObjectID, Storelocation);
 	
 	#perform the actual request
 	returndata <- switch(Rformat,

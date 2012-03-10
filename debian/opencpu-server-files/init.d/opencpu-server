@@ -13,23 +13,24 @@
 case "$1" in
   start)
     /usr/lib/opencpu/scripts/killorphans.sh &
-	/usr/lib/opencpu/scripts/sites.sh
+    /usr/lib/opencpu/scripts/sites.sh > /dev/null 2>&1
 	/usr/lib/opencpu/scripts/apps.sh
-	a2ensite opencpu
-	a2ensite opencpu-apps
-	service apache2 restart
+	a2ensite opencpu > /dev/null
+	a2ensite opencpu-apps > /dev/null
+	service apache2 start > /dev/null #just in case its not running
+	service apache2 reload
 	echo "opencpu enabled"
     ;;
   stop)
     kill $(pgrep killorphans.sh)
-	a2dissite opencpu
-	a2dissite opencpu-apps
+	a2dissite opencpu > /dev/null
+	a2dissite opencpu-apps > /dev/null
 	service apache2 restart
 	echo "opencpu disabled"
     ;;
   restart | force-reload)
 	$0 stop
-	$0 start    
+	$0 start
 	;;
   *)
     echo "Usage: sudo service opencpu-server {start|stop|restart}"
