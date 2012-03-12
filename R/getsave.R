@@ -5,7 +5,7 @@
 
 
 getsave <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	mytempfile <- do.call(dogetsave, fnargs);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }
@@ -56,7 +56,6 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	mycall <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 	
-	detach("rapache");
 	detach("package:opencpu.server");
 
 	if(isTRUE(`!reproducible`)){
@@ -73,12 +72,12 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	}
 	
 	#we need some functions so reload the library
-	if(length(config("syslib")) > 0){
-		#it might or might not be in the system library.
-		.libPaths(config("syslib"));
-		library("opencpu.server");
-		.libPaths("");
-	}
+	#if(length(config("syslib")) > 0){
+	#	#it might or might not be in the system library.
+	#	.libPaths(config("syslib"));
+	#	library("opencpu.server");
+	#	.libPaths("");
+	#}
 	
 	#save final plot and close device
 	if(get("hasplots", plotenv) || !identical(emptyplot, recordPlot())){

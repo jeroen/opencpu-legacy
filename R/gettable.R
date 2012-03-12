@@ -1,5 +1,5 @@
 gettable <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	DISPOSITION <- 'datafile.tab'
 
 	mytempfile <- do.call(dogettable, fnargs);
@@ -33,7 +33,6 @@ dogettable <- function(`#dofn`, `!quote` = TRUE, `!sep` = "\t", `!eol` = "\n", `
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
-	detach("rapache");
 	detach("package:opencpu.server");
 
 	output <- eval(call, fnargs, globalenv());

@@ -1,5 +1,5 @@
 getcsv <- function(fnargs){
-	CONTENTTYPE <- "text/csv";
+	CONTENTTYPE <- "text/csv; charset=UTF8";
 	DISPOSITION <- 'datafile.csv'
 
 	mytempfile <- do.call(dogetcsv, fnargs);
@@ -33,7 +33,6 @@ dogetcsv <- function(`#dofn`, `!quote` = TRUE, `!sep` = ",", `!eol` = "\n", `!na
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
-	detach("rapache");
 	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 	

@@ -1,0 +1,1 @@
+outputformats <- c("ascii", "bin", "csv", "encode", "file", "json", "jsonp", "pdf", "plot", "png", "rds", "save", "svg", "table");

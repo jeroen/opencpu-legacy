@@ -1,5 +1,5 @@
 getjson <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	mytempfile <- do.call(dogetjson, fnargs);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }
@@ -32,7 +32,6 @@ dogetjson <- function(`#dofn`, `!digits` =  getOption("digits"), `!pretty`= TRUE
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
 	#clean up and call
-	detach("rapache");
 	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 	

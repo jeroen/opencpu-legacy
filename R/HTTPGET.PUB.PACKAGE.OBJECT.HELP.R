@@ -1,7 +1,25 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
+HTTPGET.PUB.PACKAGE.OBJECT.HELP <- function(Rpackage, Robject, Rhelpout){
+	
+	if(is.na(Rhelpout)){
+		return(
+			object2jsonfile(
+				c("html", "text", "latex", "json", "pdf", "rd")
+			)
+		);
+	}
+	
+	return(
+		switch(Rhelpout,
+			"html" = getHelpHTML(Robject, package=Rpackage),
+			"rd" = getHelpRd(Robject, package=Rpackage),
+			"text" = getHelpText(Robject, package=Rpackage),
+			"latex" = getHelpLatex(Robject, package=Rpackage),
+			"json" = getHelpJSON(Robject, package=Rpackage),
+			"pdf" = getHelpPDF(Robject, package=Rpackage),
+			stop("Unknown format: /", Rhelpout)
+		)
+	);
+}
 
 cleantext <- function(string, cleaneol=TRUE){
 	if(isTRUE(cleaneol)){
@@ -24,16 +42,16 @@ getHelpRd <- function(...){
 	thefile <- gethelp(...);
 	mytempfile <- tempfile();
 	saveRDS(utils:::.getHelpFile(thefile), mytempfile);
-	return(list(filename = mytempfile, type = CONTENTTYPE));
+	return(list(filename = mytempfile, type = CONTENTTYPE, disposition="helpobject.rds"));
 }
 
 getHelpHTML <- function(...){
 	CONTENTTYPE <- "text/html";
 	thefile <- gethelp(...)
 	myhtml <- paste(capture.output(tools:::Rd2HTML(
-		utils:::.getHelpFile(thefile),
-		stylesheet="/R/call/base/system.file/file?package='opencpu.server'&file='templates/R.css'"
-	)), collapse="\n");
+							utils:::.getHelpFile(thefile),
+							stylesheet="/R/call/base/system.file/file?package='opencpu.server'&file='templates/R.css'"
+					)), collapse="\n");
 	mytempfile <- tempfile();
 	write(myhtml, mytempfile);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
@@ -87,34 +105,8 @@ getHelpJSON <- function(...){
 	myrd <- lapply(myrd, as.scalar);
 	myrd$examples <- as.scalar(cleantext(temp_examples, cleaneol=FALSE));
 	myrd$arguments <- lapply(temp_arg, lapply, cleantext);
-	myrd$arguments <- lapply(myrd$arguments, lapply, as.scalar);	
-	mytext <- asJSON(myrd);
-	mytempfile <- tempfile();
-	write(mytext, mytempfile);	
-	return(list(filename = mytempfile, type = CONTENTTYPE));	
-}
-
-HELPhandler <- function(Rpackage, Rfunction, Rformat){
+	myrd$arguments <- lapply(myrd$arguments, lapply, as.scalar);
 	
-	if( any(is.na(c(Rpackage, Rfunction, Rformat))) || any(c(Rpackage, Rfunction, Rformat) == "") ){
-		stop("Invalid URI: ", SERVER$path_info);
-	}
-
-	returndata <- switch(Rformat,
-		"html" = getHelpHTML(Rfunction, package=Rpackage),
-		"rd" = getHelpRd(Rfunction, package=Rpackage),
-		"text" = getHelpText(Rfunction, package=Rpackage),
-		"latex" = getHelpLatex(Rfunction, package=Rpackage),
-		"json" = getHelpJSON(Rfunction, package=Rpackage),
-		"pdf" = getHelpPDF(Rfunction, package=Rpackage),
-		stop("Unknown format: /", Rformat)
-	);
-	
-	returndata$format <- Rformat;
-	returndata$cache <- config("cache.help");
-	returndata$status <- 200;
-	
-	#return the list with content and type and status
-	return(returndata);	
-	
+	#return
+	return(object2jsonfile(myrd));
 }

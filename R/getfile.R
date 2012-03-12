@@ -41,7 +41,6 @@ dogetfile <- function(`#dofn`, ...){
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
-	detach("rapache");
 	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 	

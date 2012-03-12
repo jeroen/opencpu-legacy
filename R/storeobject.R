@@ -1,9 +1,3 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-
 storeobject <- function(obj){
 	#save displaylist to file
 	plottempfile <- tempfile();

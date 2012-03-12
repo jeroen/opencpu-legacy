@@ -1,9 +1,3 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-
 loadconfig <- function(conffile){
 	defaultfile <- system.file("config/default.conf", package="opencpu.server")
 	defaultconfig <- as.list(fromJSON(defaultfile, simplifyWithNames=FALSE));

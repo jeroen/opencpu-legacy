@@ -1,54 +1,43 @@
 request.fork <- function(){
 
-	#Jeffrey says: Don't reference RApache variables in the forked child process.
-	assign("NEWFILESVAR", FILES, "OpenCPU");
-	assign("fnargs", switch(SERVER$method, POST = POST,	PUT = POST, GET), "OpenCPU");
+	#HTTP Method:
+	HTTPMETHOD <- SERVER$method
 	
-	#little trick to have hashme still available after detach
-	assign("hashme", opencpu.server:::hashme, envir=as.environment("package:base"))
+	#Files and arguments
+	NEWFILESVAR <- FILES
+	FNARGS <- switch(SERVER$method, POST = POST, PUT = POST, GET);
 	
-	#Parse HTTP request
-	uri <- SERVER$path_info;
-	
-	#hack for rapache bug when server runs on custom port:
-	if(grepl(":",SERVER$headers_in$Host)){
-		uri <- paste(strsplit(uri,"/")[[1]][-2], collapse="/");
+	#In case of no arguments
+	if(is.null(FNARGS)){
+		FNARGS <- list();
 	}
 	
-	#Serve a documentation page at frontpage
-	if(uri == "" || uri == "/"){
-		uri <- "/frontpage";
-	}
+	#Get uri endpoint (without /R)
+	URI <- strsplit(substring(SERVER$path_info, 2),"/")[[1]];
 	
-	#split uri
-	uri.split <- strsplit(substring(uri, 2),"/")[[1]];	
-	
-	#parse R function URI. If it's too short will result in NA's (no error).
-	Rwhat <- uri.split[1]; #call or store or help
-	Rlocation <- uri.split[2]; #package or store location
-	Rfnobj <- uri.split[3];	#function or md5 object key
-	Routput <- uri.split[4]; #output format
-	
-	myfork <- parallel(
-		switch(Rwhat,
-			call = FUNCTIONhandler(Rlocation, Rfnobj, Routput),
-			store = STOREhandler(Rlocation, Rfnobj, Routput),
-			frontpage = printFrontpage(),
-			help = HELPhandler(Rlocation, Rfnobj, Routput),
-			lasterror = lasterror(),
-			stop("Unknown location: /", Rwhat)
-		), 
+	#dispatch based on method
+	myfork <- mcparallel({
+				
+		#Rapache shouldn't be required anymore here.
+		detach("rapache");
+		
+		#Invoke method:
+		switch(HTTPMETHOD,
+			GET = HTTPGET(URI, FNARGS),
+			POST = HTTPPOST(URI, FNARGS, NEWFILESVAR),
+			stop("Unknown http method: ", HTTPMETHOD)			
+		)}, 
 		silent=TRUE
 	);
 	
-	#wait max 20 seconds for a result.
-	myresult <- collect(myfork, wait=FALSE, timeout=config("job.timeout"))[[1]];
+	#wait max n seconds for a result.
+	myresult <- mccollect(myfork, wait=FALSE, timeout=config("job.timeout"))[[1]];
 	
 	#kill fork after collect has returned
-	kill(myfork, SIGKILL);	
+	pskill(myfork$pid, SIGKILL);	
 	
 	#clean up:
-	collect(myfork, wait=TRUE);
+	mccollect(myfork, wait=TRUE);
 
 	#timeout?
 	if(is.null(myresult)){
@@ -60,12 +49,9 @@ request.fork <- function(){
 		stop(myresult, call.=FALSE);
 	}
 	
-	#select output method
-	switch(SERVER$method,
-		GET = send.GET(myresult),
-		POST = send.GET(myresult),
-		stop("No send method for method: ", SERVER$method)
-	);	
+	#send the buffered response
+	send.response(myresult);
 
-	return(list(status=200));	
+	#report back to roothandler
+	return(OK);	
 }

@@ -2,12 +2,12 @@ Source: opencpu
 Section: gnu-r
 Priority: optional
 Maintainer: Jeroen Ooms <jeroenooms@gmail.com>
-Build-Depends: r-base-dev, xvfb, xauth, xfonts-base, debhelper (>> 4.1.0), r-base-core, opencpu-dev, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-multicore, opencpu-interactivity, opencpu-datamap, cdbs, apache2-mpm-itk, libapache2-mod-r-base, apparmor-utils, libapache2-mod-apparmor, varnish
+Build-Depends: r-base-dev, xvfb, xauth, xfonts-base, debhelper (>> 4.1.0), r-base-core, opencpu-dev, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-interactivity, opencpu-datamap, cdbs, apache2-mpm-itk, libapache2-mod-r-base, apparmor-utils, libapache2-mod-apparmor, varnish
 Standards-Version: 3.9.1
 
 Package: opencpu-opencpu.server
 Architecture: all
-Depends: r-base-core (>= 2.12.1), ${shlibs:Depends}, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-multicore, opencpu-interactivity, opencpu-datamap
+Depends: r-base-core (>= 2.12.1), ${shlibs:Depends}, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-interactivity, opencpu-datamap
 Description: The opencpu server R package.
 
 Package: opencpu-server

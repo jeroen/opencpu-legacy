@@ -4,51 +4,11 @@
 ###############################################################################
 
 
-parseFiles <- function(fnargs){
-	if(exists("NEWFILESVAR") && (length(NEWFILESVAR) > 0)){
-		argnames <- names(NEWFILESVAR);
-		filenames <- unname(sapply(NEWFILESVAR, "[[", "name"));
-		filepaths <- unname(sapply(NEWFILESVAR, "[[", "tmp_name"));
-		
-		for(i in which(argnames == "!tabledata")){
-			tabledata <- read.table(filepaths[i]);
-			attach(tabledata, name=filenames[i]);
-			argnames <- argnames[-i];
-			filenames <- filenames[-i];
-			filepaths <- filepaths[-i];			
-		}			
-		
-		for(i in which(argnames == "!csvdata")){
-			csvdata <- read.csv(filepaths[i]);
-			attach(csvdata, name=filenames[i]);
-			argnames <- argnames[-i];
-			filenames <- filenames[-i];
-			filepaths <- filepaths[-i];					
-		}
-		
-		for(i in which(argnames == "!csv2data")){
-			csv2data <- read.csv2(filepaths[i]);
-			attach(csv2data, name=filenames[i]);
-			argnames <- argnames[-i];
-			filenames <- filenames[-i];
-			filepaths <- filepaths[-i];					
-		}		
-		
-		for(i in which(argnames == "!delimdata")){
-			delimdata <- read.delim(filepaths[i]);
-			attach(delimdata, name=filenames[i]);
-			argnames <- argnames[-i];
-			filenames <- filenames[-i];
-			filepaths <- filepaths[-i];					
-		}	
-		
-		for(i in which(argnames == "!delim2data")){
-			delim2data <- read.delim2(filepaths[i]);
-			attach(delim2data, name=filenames[i]);
-			argnames <- argnames[-i];
-			filenames <- filenames[-i];
-			filepaths <- filepaths[-i];					
-		}
+parseFiles <- function(fnargs, files){
+	if(length(files) > 0){
+		argnames <- names(files);
+		filenames <- unname(sapply(files, "[[", "name"));
+		filepaths <- unname(sapply(files, "[[", "tmp_name"));
 		
 		#if the parameter name is prefixed with !file, the file kept as is.
 		for(i in which(substring(argnames,0,6)=="!file:")){

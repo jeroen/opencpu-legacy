@@ -1,11 +1,5 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-
 getascii <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	mytempfile <- do.call(dogetascii, fnargs);
 	hash <- hashme(mytempfile);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
@@ -15,12 +9,6 @@ dogetascii <- function(`#dofn`, ...){
 	
 	#prepare
 	mytempfile <- tempfile();
-	
-	# The code below works fine. However, hadley's method results in a smaller 'call' object for the 
-	# resulting object.
-	#
-	# e1 <- new.env(parent = .GlobalEnv)
-	# output <- eval(get("#dofn")(...), envir=e1);
 	
 	#build the function call and evaluate expressions at the very last moment.
 	fnargs <- as.list(match.call(expand.dots=F)$...);
@@ -38,7 +26,6 @@ dogetascii <- function(`#dofn`, ...){
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
-	detach("rapache");
 	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 	

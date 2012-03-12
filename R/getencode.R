@@ -1,5 +1,5 @@
 getencode <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	mytempfile <- do.call(dogetencode, fnargs);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }
@@ -31,7 +31,6 @@ dogetencode <- function(`#dofn`, `!digits` =  getOption("digits"), ...){
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
-	detach("rapache");
 	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 

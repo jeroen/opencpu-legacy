@@ -1,9 +1,3 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-
 loadFromStore <- function(ObjectID, Storelocation="tmp"){
 	#read config
 	STOREDIR <- config("storedir");		

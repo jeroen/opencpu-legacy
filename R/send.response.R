@@ -1,9 +1,4 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-send.GET <- function(returndata){
+send.response <- function(returndata){
 	#process output. First the content-type header
 	if(!is.null(returndata$type)){
 		setContentType(returndata$type);
@@ -19,6 +14,11 @@ send.GET <- function(returndata){
 		setHeader('Cache-Control', paste("max-age=", returndata$cache, ", public", sep=""));
 	}
 	
+	#enable Cross Origin Resource Sharing
+	if(isTRUE(config("enable.cors"))){
+		setHeader('Access-Control-Allow-Origin',  '*');
+	}
+	
 	#binary data
 	if(!is.null(returndata$filename)){
 		
@@ -31,4 +31,6 @@ send.GET <- function(returndata){
 		unlink(returndata$filename);
 		
 	}
+	
+	return(invisible());
 }

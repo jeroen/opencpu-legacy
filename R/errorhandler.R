@@ -9,6 +9,7 @@
 # ErrorDocument 400 /R/lasterror
 
 errorhandler <- function(e){
+	
 	#check if file exists
 	if(!file.exists("/tmp/lasterror")){
 		file.create("/tmp/lasterror");
@@ -51,5 +52,5 @@ errorhandler <- function(e){
 	}
 	
 	close(errorfile)
-	return(list(status=HTTP_BAD_REQUEST));
+	return(HTTP_BAD_REQUEST);
 }
