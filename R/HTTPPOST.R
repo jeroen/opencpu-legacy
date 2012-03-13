@@ -2,22 +2,21 @@ HTTPPOST <- function(uri, fnargs, files = NULL){
 	
 	#Parse arguments
 	if(length(fnargs) > 0){
-		
+
 		#Check for empty arguments
 		emptyargs <- sapply(fnargs, is.null);
 		if(any(emptyargs)){
-			stop(dput(fnargs))
 			stop("Empty arguments: ", paste(names(fnargs)[which(sapply(fnargs, is.null))], collapse=", "))
 		}
 
 		#check for illegal code injection
 		if(any(substr(names(fnargs),1,1) == "#")){
-			stop("arguments are not allowed to start with a #");
+			stop("argument names are not allowed to start with a #");
 		}		
 		
 		#delete filenames from the fnargs variable
 		fnargs[names(files)] <- NULL;
-	
+		
 		#parse HTTP arguments
 		fnargs <- lapply(fnargs, tryParse);
 
@@ -54,7 +53,6 @@ HTTPPOST <- function(uri, fnargs, files = NULL){
 	
 	#add some headers
 	returndata$cache <- config("cache.call");
-	returndata$status <- 200;
 	
 	#return the list with content and type and status
 	return(returndata);	

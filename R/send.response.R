@@ -9,15 +9,28 @@ send.response <- function(returndata){
 		setHeader('Content-disposition', paste('attachment;filename=', returndata$disposition, sep=""));
 	}	
 	
-	#caching header
-	if(!is.null(returndata$cache)){
+	#Caching headers
+	if(!is.null(returndata$cache) && returndata$cache == FALSE){
+		setHeader('Cache-Control', "no-store, no-cache, must-revalidate, max-age=0");
+	} else if(is.numeric(returndata$cache)){
 		setHeader('Cache-Control', paste("max-age=", returndata$cache, ", public", sep=""));
 	}
 	
-	#enable Cross Origin Resource Sharing
+	#Enable Cross Origin Resource Sharing
 	if(isTRUE(config("enable.cors"))){
 		setHeader('Access-Control-Allow-Origin',  '*');
 	}
+	
+	#Cookies! Yum!
+	if(is.list(returndata$cookies)){
+		for(i in 1:length(returndata$cookies)){
+			setCookie(
+				name=names(returndata$cookies[i]), 
+				value=as.character(returndata$cookies[[i]]),
+				path="/"
+			);
+		}
+	}	
 	
 	#binary data
 	if(!is.null(returndata$filename)){

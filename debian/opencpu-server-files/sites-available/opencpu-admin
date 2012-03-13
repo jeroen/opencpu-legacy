@@ -3,7 +3,7 @@
 	<Location /Radmin>
 	
 		SetHandler r-handler
-		RHandler opencpu.server::roothandler
+		RHandler opencpu.server::pubhandler
 		
 		<IfModule mod_apparmor.c>
 			AAHatName opencpu-admin

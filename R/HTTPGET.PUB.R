@@ -19,7 +19,7 @@ HTTPGET.PUB <- function(uri, fnargs){
 			allobjects <- ls(envirname);
 		} else {
 			mynamespace <- loadNamespace(Rpackage);		
-			allobjects <- ls(getNamespaceInfo(mynamespace, "exports"));
+			allobjects <- getNamespaceExports(mynamespace);
 		}
 		return(object2jsonfile(allobjects, fnargs));
 	} 

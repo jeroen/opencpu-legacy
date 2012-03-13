@@ -1,4 +1,4 @@
-request.fork <- function(){
+request.fork <- function(API){
 
 	#HTTP Method:
 	HTTPMETHOD <- SERVER$method
@@ -14,19 +14,20 @@ request.fork <- function(){
 	
 	#Get uri endpoint (without /R)
 	URI <- strsplit(substring(SERVER$path_info, 2),"/")[[1]];
-	
+
 	#dispatch based on method
-	myfork <- mcparallel({
-				
-		#Rapache shouldn't be required anymore here.
-		detach("rapache");
+	myfork <- mcparallel(
+		{
+			#Rapache shouldn't be required anymore here.
+			detach("rapache");
 		
-		#Invoke method:
-		switch(HTTPMETHOD,
-			GET = HTTPGET(URI, FNARGS),
-			POST = HTTPPOST(URI, FNARGS, NEWFILESVAR),
-			stop("Unknown http method: ", HTTPMETHOD)			
-		)}, 
+			#Invoke method:
+			switch(API,
+				pubapi = pubapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR),
+				homeapi = homeapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR),
+				stop("Invalid API: ", API)
+			);
+		}, 
 		silent=TRUE
 	);
 	

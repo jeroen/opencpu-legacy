@@ -32,9 +32,8 @@ renderobject <- function(object, Routput, fnargs){
 	#perform the actual request
 	returndata <- callfunction(fnargs, Routput);
 	
-	#add metadata
+	#add default cache value
 	returndata$cache <- config("cache.store");
-	returndata$status <- 200;
 	
 	#return the list with content and type and status
 	return(returndata);

@@ -60,8 +60,8 @@ sub vcl_recv {
     return (pipe);
   }
 
-  # GET and HEAD requests are cached
-  if (req.request != "GET" && req.request != "HEAD") {
+  # GET, POST and HEAD requests are cached
+  if (req.request != "GET" && req.request != "HEAD" && req.request != "POST") {
     return (pass);
   }
 

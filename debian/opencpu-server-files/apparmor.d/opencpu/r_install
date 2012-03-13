@@ -1,0 +1,4 @@
+/usr/include/** rixm,
+/usr/lib/gcc/** rixm,
+/usr/bin/* rix,
+/bin/* rix,

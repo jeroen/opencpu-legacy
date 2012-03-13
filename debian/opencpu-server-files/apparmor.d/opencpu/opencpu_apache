@@ -8,5 +8,5 @@
 #include <abstractions/php5>
 #include <abstractions/ssl_certs>
 #include <abstractions/ssl_keys>
-capability setgid,
-capability setuid,	
+##capability setgid,
+##capability setuid,	

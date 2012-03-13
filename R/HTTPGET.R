@@ -22,6 +22,7 @@ HTTPGET <- function(uri, fnargs){
 			store = HTTPGET(taildir, fnargs), #LEGACY DEPRECATED 
 			frontpage = HTTPGET.FRONTPAGE(),
 			lasterror = lasterror(),
+			newtoken = auth.github(fnargs),
 			stop("Unknown HTTP GET rootdir: ", rootdir)
 		)
 	);

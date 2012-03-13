@@ -39,7 +39,7 @@ HTTPGET.HOME <- function(uri, fnargs){
 	
 	#GET /R/home/jeroenooms/somepackage
 	if(is.na(Robject)){
-		allobjects <- ls(getNamespaceInfo(mynamespace, "exports"));
+		allobjects <- getNamespaceExports(mynamespace);
 		return(object2jsonfile(allobjects, fnargs));
 	} 	
 	

@@ -10,13 +10,22 @@ parsewithbrackets <- function(text){
   text <- gsub("\r\n", "\n", text);
   text <- gsub("\r", "\n", text);
   
-  #test if it already wrapped
+  #The case where code is already wrapped in brackets
   if(substring(text, 1,1) == "{" && substring(text, nchar(text)) == "}"){
-	return(parse(text=text));	  
+	mycode <- try(parse(text=text), silent=TRUE);
+	if(class(mycode) == "try-error"){
+		stop("Unparsable argument: ", text);
+	}
+	return(mycode);
   } 
   
-  #try parse with brackets
-  parsed <- parse(text=paste("{",text, "}"))
+  #Else, first try to parse with brackets.
+  parsed <- try(parse(text=paste("{",text, "}")), silent=TRUE);
+  if(class(parsed) == "try-error"){
+	  stop("Unparsable argument: ", text);
+  }  
+  
+  #From this we infer if the brackets were needed.
   if(length(deparse(parsed[[1]])) > 3) return(parsed);
   	return(parse(text=text));
 }

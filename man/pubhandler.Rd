@@ -1,8 +1,8 @@
-\name{roothandler}
-\alias{roothandler}
+\name{pubhandler}
+\alias{pubhandler}
 \title{Used by the OpenCPU framework. Should not be called manually.}
 \usage{
-  roothandler()
+  pubhandler()
 }
 \value{
   200 or 400

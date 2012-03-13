@@ -1,4 +1,0 @@
-#!/bin/bash
-cd /var/log/opencpu
-R -e "opencpu.tools::install.recent.packages(libpath='/mnt/export/opencpu-cran-library');"
-service opencpu-server restart

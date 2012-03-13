@@ -6,6 +6,7 @@
 /bin/rm rix,
 /bin/sed rix,
 /bin/uname rix,
+/bin/cp rix,
 /etc/R/ r,
 /etc/R/* r,
 /etc/resolv.conf r,
