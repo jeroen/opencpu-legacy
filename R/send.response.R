@@ -1,4 +1,9 @@
 send.response <- function(returndata){
+	#Some sys info:
+	setHeader("R-version", substring(sessionInfo()[[1]]$version.string,11,30));
+	setHeader("Locale", Sys.getlocale("LC_CTYPE"));
+	setHeader("OpenCPU", sessionInfo()$otherPkgs$opencpu.server$Version);
+	
 	#process output. First the content-type header
 	if(!is.null(returndata$type)){
 		setContentType(returndata$type);
@@ -30,7 +35,14 @@ send.response <- function(returndata){
 				path  = mycookies[[i]]$path
 			);
 		}
-	}	
+	}
+	
+	#Add custom headers
+	if(!is.null(headerlist <- returndata$headers)){
+		for(i in length(headerlist)){
+			setHeader(names(headerlist[i]), headerlist[[i]]);
+		}
+	}
 	
 	#binary data
 	if(!is.null(returndata$filename)){

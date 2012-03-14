@@ -1,7 +1,12 @@
 login <- function(fnargs){
 	
 	#this should go in some private key file.
-	SECRET <- "9d82a2e68aff1ffa8d50fda62a9bcd69caa9de51";
+	if(!file.exists(config("github.secretfile"))){
+		stop("Github secret file not found.")
+	}
+	
+	secretdata <- fromJSON(config("github.secretfile"), simplifyWithNames=FALSE);
+	SECRET <- secretdata$secret;
 	
 	#We need a 'code' parameter from github.
 	code <- fnargs$code;
@@ -17,12 +22,12 @@ login <- function(fnargs){
 	
 	#Exchange the temporary code for an access token
 	output <- postForm(
-			uri="https://github.com/login/oauth/access_token", 
-			.params=list(
-					code = code,
-					client_id='5fee823ec85095c103d5', 
-					client_secret=SECRET 
-			)
+		uri="https://github.com/login/oauth/access_token", 
+		.params=list(
+			code = code,
+			client_id = config("github.clientid"), 
+			client_secret = SECRET 
+		)
 	);
 	
 	#parse output
@@ -43,8 +48,17 @@ login <- function(fnargs){
 	access_token <- cookielist$access_token$value;
 	userdata <- getUserInfo(access_token)
 	
+	#create dir.
+	#make sure it is public readable though.
+	Rusername <- userdata$login;
+	homedir <- paste(config("storedir"), "user", sep="/");
+	userdir <- paste(homedir, Rusername, sep="/");	
+	if(!file.exists(userdir)){
+		dir.create(userdir);
+	}
+	
 	#return object
-	returndata <- object2jsonfile(userdata);
+	returndata <- object2jsonfile(list(message="Welcome!", username=Rusername));
 	
 	#Set headers
 	returndata$cache <- FALSE;

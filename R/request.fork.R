@@ -57,6 +57,8 @@ request.fork <- function(API){
 	#send the buffered response
 	send.response(myresult);
 
-	#report back to roothandler
-	return(OK);	
+	#Report back to roothandler
+	#After body content has been sent (above) it's too late to change status code.
+	#You can only return OK.
+	return(OK);
 }

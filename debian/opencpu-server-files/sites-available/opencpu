@@ -32,7 +32,7 @@
 		RHandler opencpu.server::homehandler
 		
 		<IfModule mod_apparmor.c>
-			AAHatName opencpu
+			AAHatName opencpu_admin
 		</IfModule>
 		
 		<IfModule mpm_itk_module>
@@ -48,7 +48,7 @@
 		RHandler opencpu.server::authhandler
 		
 		<IfModule mod_apparmor.c>
-			AAHatName opencpu
+			AAHatName opencpu_admin
 		</IfModule>
 		
 		<IfModule mpm_itk_module>
