@@ -22,12 +22,12 @@ send.response <- function(returndata){
 	}
 	
 	#Cookies! Yum!
-	if(is.list(returndata$cookies)){
-		for(i in 1:length(returndata$cookies)){
+	if(is.list(mycookies <- returndata$cookies)){
+		for(i in 1:length(mycookies)){
 			setCookie(
-				name=names(returndata$cookies[i]), 
-				value=as.character(returndata$cookies[[i]]),
-				path="/"
+				name  = mycookies[[i]]$name, 
+				value = mycookies[[i]]$value,
+				path  = mycookies[[i]]$path
 			);
 		}
 	}	

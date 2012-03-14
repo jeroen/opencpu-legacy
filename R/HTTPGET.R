@@ -17,12 +17,11 @@ HTTPGET <- function(uri, fnargs){
 		switch(rootdir,
 			pub = HTTPGET.PUB(taildir, fnargs),
 			tmp = HTTPGET.TMP(taildir, fnargs),
-			home = HTTPGET.HOME(taildir, fnargs),
+			user = HTTPGET.USER(taildir, fnargs),
 			call = HTTPPOST(uri, fnargs), #LEGACY DEPRECATED 
 			store = HTTPGET(taildir, fnargs), #LEGACY DEPRECATED 
 			frontpage = HTTPGET.FRONTPAGE(),
 			lasterror = lasterror(),
-			newtoken = auth.github(fnargs),
 			stop("Unknown HTTP GET rootdir: ", rootdir)
 		)
 	);

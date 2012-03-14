@@ -2,6 +2,7 @@
 
 <IfModule mod_R.c>
 
+	#Disable this for development
 	REvalOnStartup ".libPaths('/usr/lib/opencpu/opencpu-system-library');"
 
 	Redirect 302 /index.html /R
@@ -25,6 +26,38 @@
 	
 	</Location>
 	
+	<Location /home>
+	
+		SetHandler r-handler
+		RHandler opencpu.server::homehandler
+		
+		<IfModule mod_apparmor.c>
+			AAHatName opencpu
+		</IfModule>
+		
+		<IfModule mpm_itk_module>
+			AssignUserID opencpu opencpu
+			NiceValue 10
+		</IfModule>
+	
+	</Location>
+	
+	<Location /auth>
+	
+		SetHandler r-handler
+		RHandler opencpu.server::authhandler
+		
+		<IfModule mod_apparmor.c>
+			AAHatName opencpu
+		</IfModule>
+		
+		<IfModule mpm_itk_module>
+			AssignUserID opencpu opencpu
+			NiceValue 10
+		</IfModule>
+	
+	</Location>		
+	
 	# Enable to use 'opencpu' user for all sites.
 	# This will make it easier for mod_itk to recycle processes. 
 	# <IfModule mpm_itk_module>
@@ -36,7 +69,6 @@
 	# <Location /echo>
 	#        SetHandler r-handler
 	#        RHandler opencpu.server::echo
-	#        AAHatName opencpu
 	# </Location>
 
 </IfModule>

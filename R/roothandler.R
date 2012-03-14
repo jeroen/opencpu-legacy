@@ -16,10 +16,19 @@ pubhandler <- function(){
 
 #' @export
 homehandler <- function(){
-	#This is the public api
-	#The handler is attached to e.g. /R
+	#This is the private api
+	#The handler is attached to e.g. /home
 	return(preprocess("homeapi"));	
 }
 
+#' @export
+authhandler <- function(){
+	#This is the authentication api
+	#The handler is attached to e.g. /auth
+	return(preprocess("authapi"));	
+}
+
+
 #backward compatibility:
+#' @export
 roothandler <- pubhandler;

@@ -12,9 +12,12 @@ request.fork <- function(API){
 		FNARGS <- list();
 	}
 	
+	#Check for the token cookie
+	ACCESS_TOKEN <- COOKIES$access_token
+	
 	#Get uri endpoint (without /R)
 	URI <- strsplit(substring(SERVER$path_info, 2),"/")[[1]];
-
+	
 	#dispatch based on method
 	myfork <- mcparallel(
 		{
@@ -24,7 +27,8 @@ request.fork <- function(API){
 			#Invoke method:
 			switch(API,
 				pubapi = pubapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR),
-				homeapi = homeapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR),
+				homeapi = homeapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR, ACCESS_TOKEN),
+				authapi = authapi(URI, FNARGS),
 				stop("Invalid API: ", API)
 			);
 		}, 

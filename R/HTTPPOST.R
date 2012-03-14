@@ -46,7 +46,7 @@ HTTPPOST <- function(uri, fnargs, files = NULL){
 	returndata <- switch(rootdir,
 		pub = HTTPPOST.PUB(taildir, fnargs),
 		tmp = HTTPPOST.TMP(taildir, fnargs),
-		home = HTTPPOST.HOME(taildir, fnargs),
+		user = HTTPPOST.USER(taildir, fnargs),
 		call = HTTPPOST.PUB(taildir, fnargs), #LEGACY, DEPRICATED!
 		stop("Unknown HTTP POST rootdir: ", rootdir)
 	);

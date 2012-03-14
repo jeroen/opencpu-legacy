@@ -1,54 +1,41 @@
-HTTPGET.HOME <- function(uri, fnargs){
-	Rusername <- uri[1];
-	Rpackage  <- uri[2];
-	Robject   <- uri[3];
-	Routput   <- uri[4];
+HTTPGET.HOME <- function(uri, fnargs, userinfo){
+
+	Rpackage <- uri[1];
+	Robject <- uri[2];
+	Rtoolong <- uri[3];
 	
-	#GET /R/home
-	homedir <- paste(config("storedir"), "home", sep="/");
-	if(is.na(Rusername)){
-		return(object2jsonfile(list.files(homedir), fnargs))
+	if(!is.na(Rtoolong) || !is.na(Robject)){
+		stop("Your url is too invalid. Use /home/somepackage to GET, PUT and DELETE packages. Use /R/user/yourname/somepackage for computing.");
 	}
 	
-	#GET /R/home/jeroenooms
+	#GET /home
+	Rusername <- userinfo$login;
+	homedir <- paste(config("storedir"), "user", sep="/");
 	userdir <- paste(homedir, Rusername, sep="/");
+	
 	if(is.na(Rpackage)){
 		if(!file.exists(userdir)){
-			stop("User dir /home/", Rusername, " not found.")
+			stop("User dir /user/", Rusername, " not found.")
 		}
 		return(object2jsonfile(list.files(userdir), fnargs))
 	}
 	
-	#Test if directory exists
+	# GET /home/ggplot2
 	packagedir <- paste(userdir, Rpackage, sep="/");
+	descriptionfile <- paste(packagedir, "DESCRIPTION", sep="/");
+	
 	if(!file.exists(packagedir)){
-		stop("Package /home/", Rusername, "/", Rpackage, " not found.");
+		stop("Package :", Rpackage, " not found.");
 	}
 	
-	#Unload namespace if another version of the same package is pre-loaded
-	envirname <- paste("package", Rpackage, sep=":");
-	if(envirname %in% search()){
-		unloadNamespace(Rpackage);
+	if(!file.exists(descriptionfile)){
+		stop("Directory ", Rpackage, " was found, but had no DESCRIPTION file.");
 	}	
-
-	#Here we need the package (or store)
-	mynamespace <- loadNamespace(Rpackage, lib.loc=userdir);
-
-	#We also attach the namespace to resolve within-user dependences
-	.libPaths(userdir);
 	
-	#GET /R/home/jeroenooms/somepackage
 	if(is.na(Robject)){
-		allobjects <- getNamespaceExports(mynamespace);
-		return(object2jsonfile(allobjects, fnargs));
-	} 	
-	
-	#GET /R/home/jeroenooms/somepackage/object
-	if(is.na(Routput)){
-		object <- getExportedValue(Rpackage, Robject);
-		return(object2jsonfile(outputformats, fnargs));	
+		return(list(
+			filename = descriptionfile, 
+			type = "text/plain"
+		));
 	}
-	
-	object <- getExportedValue(Rpackage, Robject);
-	return(renderobject(object, Routput, fnargs));	
 }

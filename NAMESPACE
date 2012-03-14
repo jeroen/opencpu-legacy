@@ -1,6 +1,8 @@
+export(authhandler)
 export(echo)
 export(homehandler)
 export(pubhandler)
+export(roothandler)
 import(datamap)
 importFrom(interactivity,setInteractive)
 importFrom(opencpu.encode,asJSON)
