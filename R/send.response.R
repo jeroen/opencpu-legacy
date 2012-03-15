@@ -53,7 +53,7 @@ send.response <- function(returndata){
 		
 		#send raw data
 		sendBin(readBin(returndata$filename, 'raw', n=file.info(returndata$filename)$size));
-		unlink(returndata$filename);
+		#Don't unlink filename here! Some filename are not tempfiles!
 		
 	}
 	
