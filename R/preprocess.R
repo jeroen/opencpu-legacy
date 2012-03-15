@@ -1,4 +1,5 @@
 preprocess <- function(API){
+	
 	#fix for tempdir() bug in R:
 	myseed <- floor(runif(1,1e8, 1e9));
 	set.seed(myseed);
@@ -28,6 +29,10 @@ preprocess <- function(API){
 	
 	#log the call
 	logcall(begintime, endtime, responsestatus)
+	
+	#cleanup
+	#Note: what happens if the user managed to create a symlink?
+	unlink(workdir, recursive=TRUE);
 	
 	#return status code
 	return(responsestatus);

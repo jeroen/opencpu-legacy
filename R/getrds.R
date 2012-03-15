@@ -34,7 +34,6 @@ dogetrds <- function(`#dofn`, ...){
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 	
 	#call the new function
-	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 	
 	#write output

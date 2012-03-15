@@ -33,8 +33,6 @@ dogettable <- function(`#dofn`, `!quote` = TRUE, `!sep` = "\t", `!eol` = "\n", `
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
-	detach("package:opencpu.server");
-
 	output <- eval(call, fnargs, globalenv());
 	
 	#check for dataframe

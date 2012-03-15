@@ -4,5 +4,11 @@ storeobject <- function(obj){
 	saveRDS(obj, plottempfile);
 
 	#store the file
-	return(storefile(plottempfile));	
+	output <- storefile(plottempfile);
+	
+	#clean up
+	unlink(plottempfile);
+	
+	#return
+	return(output);	
 }

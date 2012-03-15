@@ -24,7 +24,7 @@ HTTPGET.PUB <- function(uri, fnargs){
 		return(object2jsonfile(allobjects, fnargs));
 	} 
 	
-	#GET /R/pub/somepackage/someobject defaults to ascii
+	#GET /R/pub/somepackage/someobject
 	if(is.na(Routput)){
 		myobject <- getExportedValue(Rpackage, Robject)
 		return(object2jsonfile(outputformats, fnargs));

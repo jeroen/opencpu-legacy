@@ -56,7 +56,8 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	mycall <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 	
-	detach("package:opencpu.server");
+	#Detach package
+	#eval(detach("package:opencpu.server"), globalenv());
 
 	if(isTRUE(`!reproducible`)){
 		reprolist <- eval(call('reproducible', expr=mycall, envir=fnargs, output=TRUE));
@@ -90,7 +91,8 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	dev.off();
 	setHook("before.plot.new", NULL, "replace");
 	setHook("before.grid.newpage", NULL, "replace");
-
+	unlink(plotdumpdir, recursive=TRUE);
+	
 	#write object and plots to files
 	returnlist <- list();
 	if(`!saveobject`){

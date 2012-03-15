@@ -58,7 +58,7 @@ login <- function(fnargs){
 	}
 	
 	#return object
-	returndata <- object2jsonfile(list(message="Welcome!", username=Rusername));
+	returndata <- object2jsonfile(list(message="Welcome!", username=Rusername, access_token=access_token));
 	
 	#Set headers
 	returndata$cache <- FALSE;

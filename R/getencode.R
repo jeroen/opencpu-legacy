@@ -31,7 +31,6 @@ dogetencode <- function(`#dofn`, `!digits` =  getOption("digits"), ...){
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
-	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 
 	#write output

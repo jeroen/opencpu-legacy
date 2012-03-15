@@ -6,15 +6,14 @@
 	REvalOnStartup ".libPaths('/usr/lib/opencpu/opencpu-system-library');"
 
 	Redirect 302 /index.html /R
-
 	MaxRequestsPerChild 200
-	ErrorDocument 400 /R/lasterror
 
 	<Location /R>
 	
 		SetHandler r-handler
 		RHandler opencpu.server::pubhandler
-		
+		ErrorDocument 400 /R/lasterror
+				
 		<IfModule mod_apparmor.c>
 			AAHatName opencpu
 		</IfModule>
@@ -30,6 +29,7 @@
 	
 		SetHandler r-handler
 		RHandler opencpu.server::homehandler
+		ErrorDocument 400 /R/lasterror
 		
 		<IfModule mod_apparmor.c>
 			AAHatName opencpu_admin
@@ -46,6 +46,8 @@
 	
 		SetHandler r-handler
 		RHandler opencpu.server::authhandler
+		ErrorDocument 400 /R/lasterror
+		ErrorDocument 302 /R/lasterror
 		
 		<IfModule mod_apparmor.c>
 			AAHatName opencpu_admin

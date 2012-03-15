@@ -34,7 +34,6 @@ doplotpdf <- function(`#dofn`, `!width` = 11.69, `!height` = 8.27 , `!paper` = "
 	call <- as.call(c(list(as.name("#dofn")), argn));
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 	
-	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 
 	if(`!printoutput`){

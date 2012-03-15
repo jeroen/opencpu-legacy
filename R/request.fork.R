@@ -23,7 +23,8 @@ request.fork <- function(API){
 		{
 			#Rapache shouldn't be required anymore here.
 			detach("rapache");
-		
+			eval(detach("package:opencpu.server"), globalenv());
+			
 			#Invoke method:
 			switch(API,
 				pubapi = pubapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR),
@@ -51,7 +52,8 @@ request.fork <- function(API){
 	
 	#forks don't throw errors themselves
 	if(class(myresult) == "try-error"){
-		stop(myresult, call.=FALSE);
+		#stop(myresult, call.=FALSE);
+		stop(attr(myresult, "condition"));
 	}
 	
 	#send the buffered response

@@ -32,7 +32,6 @@ dogetjson <- function(`#dofn`, `!digits` =  getOption("digits"), `!pretty`= TRUE
 	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
 
 	#clean up and call
-	detach("package:opencpu.server");
 	output <- eval(call, fnargs, globalenv());
 	
 	#write output
