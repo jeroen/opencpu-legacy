@@ -3,4 +3,5 @@
 #include <opencpu/r_resources>
 #include <opencpu/r_deny>
 #include <opencpu/r_packages>
+#include <opencpu/r_install>
 

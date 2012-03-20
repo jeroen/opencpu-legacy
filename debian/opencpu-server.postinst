@@ -13,8 +13,11 @@ case "$1" in
 	  useradd opencpu --system -U -d/tmp -c"OpenCPU R Server"
 	fi	
 	
-	#copy the config file
-	cp -f /usr/lib/opencpu/opencpu-system-library/opencpu.server/config/default.conf /etc/opencpu/server.conf
+	#copy the config file	
+	if [ ! -e /etc/opencpu/server.conf ]
+	then
+	    cp -f /usr/lib/opencpu/opencpu-system-library/opencpu.server/config/default.conf /etc/opencpu/server.conf
+	fi	
 	
 	#chmod shell scripts
 	chmod +x /usr/lib/opencpu/scripts/sites.sh

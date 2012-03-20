@@ -22,7 +22,7 @@
 	}
 	
 	#little hack to have this available after we detach
-	assign("hashme", opencpu.server:::hashme, envir=as.environment("package:base"))
+	#assign("hashme", opencpu.server:::hashme, envir=as.environment("package:base"))
 	
 	#for the logs:
 	message("OpenCPU server ready...")

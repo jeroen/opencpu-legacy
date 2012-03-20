@@ -25,6 +25,9 @@ request.fork <- function(API){
 			detach("rapache");
 			eval(detach("package:opencpu.server"), globalenv());
 			
+			#In case a user wants to install a package:
+			setLibPaths(c(getwd(), .libPaths()));
+			
 			#Invoke method:
 			switch(API,
 				pubapi = pubapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR),

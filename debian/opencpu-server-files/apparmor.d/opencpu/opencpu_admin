@@ -1,5 +1,3 @@
-#include <opencpu/r_install>
-
 /mnt/export/opencpu-admin-library/ rw,
 /mnt/export/opencpu-admin-library/** mrw,
 /mnt/export/store/user/ rw,

@@ -3,6 +3,10 @@ getbin <- function(fnargs){
 	DISPOSITION <- 'rawdata.bin';
 
 	mytempfile <- do.call(dogetbin, fnargs);
+
+	if(!is.null(attr(mytempfile, "contenttype"))){
+		CONTENTTYPE <- attr(mytempfile, "contenttype");	
+	}	
 	
 	if(!is.null(attr(mytempfile, "filename"))){
 		DISPOSITION <- attr(mytempfile, "filename");	
@@ -47,6 +51,12 @@ dogetbin <- function(`#dofn`, ...){
 	
 	#write raw vector to file.
 	writeBin(as.vector(output), mytempfile);
+
+	#the raw vector can have attributes 'contenttype' and 'filename'.
+	if(!is.null(attr(output, "contenttype"))){
+		attr(mytempfile, "contenttype") <- attr(output, "contenttype"); 
+	}
+	
 	if(!is.null(attr(output, "filename"))){
 		attr(mytempfile, "filename") <- attr(output, "filename"); 
 	}

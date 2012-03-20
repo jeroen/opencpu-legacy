@@ -44,9 +44,11 @@ sub vcl_recv {
   # The actual OpenCPU R backend it set here
   set req.backend = cpu_director;
 
-  # For now we assume OpenCPU does support cookies
-  if ( req.url ~ "^/R" ) {
+  # We only cache on /R/
+  if ( req.url ~ "^/R/" ) {
     unset req.http.Cookie;
+  } else {
+    return (pipe);
   }
 
   # Weird methods are directly piped through
@@ -60,13 +62,23 @@ sub vcl_recv {
     return (pipe);
   }
 
-  # GET, POST and HEAD requests are cached
-  if (req.request != "GET" && req.request != "HEAD" && req.request != "POST") {
+  # GET, POST and HEAD requests are cached. Others are passed.
+  if (req.request != "GET" && 
+    req.request != "HEAD" && 
+    req.request != "POST") {
     return (pass);
   }
+  
+  # Force fresh content (F5 button)
+  if (req.http.Cache-Control ~ "no-cache") {
+    #insert fetch here
+  }
+  
+  if (req.http.Cache-Control ~ "max-age=0") {
+    #insert fetch here
+  }  
 
-  # Other methods are not cached.
-  remove req.http.cookie;
+  # Deliver a cached response:
   return (lookup);
 }
 
@@ -79,10 +91,14 @@ sub vcl_error {
 
 ### Actual fetching of the backend
 sub vcl_fetch {
-  #Fetch from the opencpu backend:
-  if ( beresp.status == 400 ) {
-    set beresp.ttl = 1m;
-    set beresp.http.cache-control = "public";
+  # This is a bit hacky. 
+  # Better would be if the backend sets cache control headers on HTTP 400 responses.
+  # But that is a bit tricky with rApache.
+  if ( req.url ~ "^/R/" ) {
+    if ( beresp.status == 400 ) {
+      set beresp.ttl = 1m;
+      set beresp.http.cache-control = "public";
+    }
   }
   return (deliver);
 }

@@ -32,7 +32,7 @@ preprocess <- function(API){
 	
 	#cleanup
 	#Note: what happens if the user managed to create a symlink?
-	unlink(workdir, recursive=TRUE);
+	#unlink(workdir, recursive=TRUE);
 	
 	#return status code
 	return(responsestatus);

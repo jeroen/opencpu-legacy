@@ -59,6 +59,10 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	#Detach package
 	#eval(detach("package:opencpu.server"), globalenv());
 
+	#get the workign dir:
+	workingdir <- getwd();	
+	
+	#Run the actual code
 	if(isTRUE(`!reproducible`)){
 		reprolist <- eval(call('reproducible', expr=mycall, envir=fnargs, output=TRUE));
 		reproduce.object <- reprolist$reproducible;
@@ -66,6 +70,9 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	} else {
 		output <- eval(mycall, fnargs, globalenv());	
 	}
+	
+	#in case the user changed working directories:
+	setwd(workingdir);
 
 	if(`!printoutput`){
 		#Feb 10, 2012: This one is causing major issues!
@@ -95,11 +102,13 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	
 	#write object and plots to files
 	returnlist <- list();
+	
+	#build output
 	if(`!saveobject`){
 		if(!is.null(output)){
 			returnlist$object <- as.scalar(storeobject(output));
 		} else {
-			returnlist$object <- vector();
+			returnlist$object <- as.scalar(NA);
 		}
 	} 
 	
@@ -108,7 +117,7 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	} 
 	
 	if(`!savefiles`){
-		returnlist$files <- lapply(as.list(sapply(list.files(), storebinaryfile)), as.scalar)
+		returnlist$files <- lapply(as.list(sapply(list.files(workingdir), storebinaryfile)), as.scalar)
 	} 
 	
 	if(`!reproducible`){
