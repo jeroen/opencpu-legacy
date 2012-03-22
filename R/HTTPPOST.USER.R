@@ -30,32 +30,35 @@ HTTPPOST.USER <- function(uri, fnargs){
 		stop("Whitelist is not set to false in config. Therefore executing user functions is disabled.")
 	}	
 		
-	#POST /R/user/jeroenooms/mypackage/json 
-	
-	#Unload namespace if another version of the same package is pre-loaded
-	envirname <- paste("package", Rpackage, sep=":");
-	if(envirname %in% search()){
-		unloadNamespace(Rpackage);
-	}	
-	
-	#Load the namespace
+	#paths
 	homedir <- paste(config("storedir"), "user", sep="/");
 	userdir <- paste(homedir, Rusername, sep="/");
-
-	#Test if directory exists
 	packagedir <- paste(userdir, Rpackage, sep="/");
-	if(!file.exists(packagedir)){
-		stop("Package /user/", Rusername, "/", Rpackage, " not found.");
-	}		
 	
-	#load the package
-	mynamespace <- loadNamespace(Rpackage, lib.loc=userdir);
+	#Test if store exists
+	validateUserStore(Rusername, Rpackage);
 	
-	#We also attach the namespace to resolve within-userdir dependences
-	.libPaths(userdir);	
-	
-	#Get the object
-	RPC.FN <- getExportedValue(Rpackage, Robject);
+	#POST /R/user/jeroenooms/mypackage/json 
+	if(isTRUE(file.info(packagedir)$isdir)){
+
+		#Unload namespace if another version of the same package is pre-loaded
+		envirname <- paste("package", Rpackage, sep=":");
+		if(envirname %in% search()){
+			unloadNamespace(Rpackage);
+		}			
+		
+		#load the package
+		mynamespace <- loadNamespace(Rpackage, lib.loc=userdir);
+		
+		#We also attach the namespace to resolve within-userdir dependences
+		setLibPaths(c(userdir, .libPaths()));
+		
+		#Get the object
+		RPC.FN <- getExportedValue(Rpackage, Robject);
+	} else {
+		#Get the object
+		RPC.FN <- loadFromUserStore(Rusername, Rpackage, Robject, attach=TRUE);
+	}
 	
 	#Test for function. 
 	if(!is.function(RPC.FN)){

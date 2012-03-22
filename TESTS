@@ -1,0 +1,21 @@
+# http://public.opencpu.org/apps/opencpu.demo/debug
+
+GET /R/pub
+GET /R/pub/base
+GET /R/pub/base/vector
+GET /R/pub/base/vector/ascii
+GET /R/pub/base/vector/encode
+GET /R/pub/datasets/cars/json
+
+GET /R/user
+GET /R/user/jeroenooms
+GET /R/user/jeroenooms/reshape2
+GET /R/user/jeroenooms/reshape2/melt
+GET /R/user/jeroenooms/reshape2/melt/ascii
+
+## LOGIN:
+
+#note: the user must have enabled opencpu on github
+
+GET http://public.opencpu.org/auth/login
+GET http://public.opencpu.org/auth/login

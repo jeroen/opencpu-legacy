@@ -15,6 +15,14 @@ tryParse <- function(string, disable.eval = config("disable.eval")){
 		return(string);
 	}
 	
+	if(string == "true"){
+		string <- "TRUE";
+	}
+	
+	if(string == "false"){
+		string <- "FALSE";
+	}
+	
 	#if string starts and ends with [] then assume JSON
 	if(substr(string, 1, 1) == "["){
 		if(!isValidJSON(string, TRUE)){
@@ -77,7 +85,7 @@ tryParse <- function(string, disable.eval = config("disable.eval")){
 	#check if it looks like a UUID
 	myregex <- "^x[a-f0-9]{10}$"
 	if(length(grep(myregex, string) > 0)){
-		return(loadFromStore(string));
+		return(loadFromFileStore    (string));
 	}
 	
 	#if config(eval.args) then eval code

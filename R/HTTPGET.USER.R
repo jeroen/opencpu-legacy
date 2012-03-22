@@ -12,43 +12,63 @@ HTTPGET.USER <- function(uri, fnargs){
 	
 	#GET /R/user/jeroenooms
 	userdir <- paste(homedir, Rusername, sep="/");
+	packagedir <- paste(userdir, Rpackage, sep="/")
 	if(is.na(Rpackage)){
-		if(!file.exists(userdir)){
-			stop("User dir /user/", Rusername, " not found.")
-		}
+		validateUser(Rusername);
 		return(object2jsonfile(list.files(userdir), fnargs))
 	}
 	
 	#Test if directory exists
-	packagedir <- paste(userdir, Rpackage, sep="/");
-	if(!file.exists(packagedir)){
-		stop("Package /user/", Rusername, "/", Rpackage, " not found.");
-	}
+	validateUserStore(Rusername, Rpackage)
 	
-	#Unload namespace if another version of the same package is pre-loaded
-	envirname <- paste("package", Rpackage, sep=":");
-	if(envirname %in% search()){
-		unloadNamespace(Rpackage);
-	}	
-
-	#Here we need the package (or store)
-	mynamespace <- loadNamespace(Rpackage, lib.loc=userdir);
-
-	#We also attach the namespace to resolve within-user dependences
-	.libPaths(userdir);
+	#Package or store?
+	if(isTRUE(file.info(packagedir)$isdir)){
+		
+		#Unload namespace if another version of the same package is pre-loaded
+		envirname <- paste("package", Rpackage, sep=":");
+		if(envirname %in% search()){
+			unloadNamespace(Rpackage);
+		}	
 	
-	#GET /R/user/jeroenooms/somepackage
-	if(is.na(Robject)){
-		allobjects <- getNamespaceExports(mynamespace);
-		return(object2jsonfile(allobjects, fnargs));
-	} 	
+		#Here we need the package (or store)
+		mynamespace <- loadNamespace(Rpackage, lib.loc=userdir);
 	
-	#GET /R/user/jeroenooms/somepackage/object
-	if(is.na(Routput)){
+		#We also attach the namespace to resolve within-user dependences
+		.libPaths(userdir);
+		
+		#GET /R/user/jeroenooms/somepackage
+		if(is.na(Robject)){
+			allobjects <- getNamespaceExports(mynamespace);
+			return(object2jsonfile(allobjects, fnargs));
+		} 	
+		
+		#GET /R/user/jeroenooms/somepackage/object
+		if(is.na(Routput)){
+			object <- getExportedValue(Rpackage, Robject);
+			return(object2jsonfile(outputformats, fnargs));	
+		}
+		
 		object <- getExportedValue(Rpackage, Robject);
-		return(object2jsonfile(outputformats, fnargs));	
+		return(renderobject(object, Routput, fnargs));	
+	} else {
+
+		#GET /R/user/jeroenooms/somestore
+		if(is.na(Robject)){
+			myenv <- new.env();
+			load(packagedir, envir=myenv)
+			allobjects <- ls(myenv);
+			return(object2jsonfile(allobjects, fnargs));
+		} 		
+		
+		#load the object
+		object <- loadFromUserStore(Rusername, Rpackage, Robject)		
+		
+		#GET /R/user/jeroenooms/somestore/someobject
+		if(is.na(Routput)){
+			return(object2jsonfile(outputformats, fnargs));	
+		}		
+		
+		#GET /R/user/jeroenooms/somestore/someobject/json
+		return(renderobject(object, Routput, fnargs));
 	}
-	
-	object <- getExportedValue(Rpackage, Robject);
-	return(renderobject(object, Routput, fnargs));	
 }

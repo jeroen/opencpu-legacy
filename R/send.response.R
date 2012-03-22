@@ -24,6 +24,7 @@ send.response <- function(returndata){
 	#Enable Cross Origin Resource Sharing
 	if(isTRUE(config("enable.cors"))){
 		setHeader('Access-Control-Allow-Origin',  '*');
+		setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
 	}
 	
 	#Cookies! Yum!

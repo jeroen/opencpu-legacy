@@ -28,7 +28,7 @@ getObject <- function(string){
 	#check if it looks like a UUID
 	myregex <- "^x[a-f0-9]{10}$"
 	if(length(grep(myregex, string) > 0)){
-		return(loadFromStore(string));
+		return(loadFromFileStore    (string));
 	}	
 	
 	#check of the object exists

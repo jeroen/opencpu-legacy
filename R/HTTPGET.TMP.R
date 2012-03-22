@@ -22,6 +22,6 @@ HTTPGET.TMP <- function(uri, fnargs){
 	} 	
 	
 	# /R/tmp/x94bd82c90d/json
-	object <- loadFromStore(objectkey);
+	object <- loadFromFileStore    (objectkey);
 	return(renderobject(object, Routput, fnargs));
 }

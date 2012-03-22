@@ -3,11 +3,11 @@ HTTPPOST.TMP <- function(uri, fnargs){
 	Routput <- uri[2]
 	
 	if(is.na(Robject)) {
-		stop('Invalid HTTP POST. Please use /R/pub/somepackage/somefunction/someformat?foo="bar"');
+		stop('Invalid HTTP POST. No object or output format specified. Please use /R/tmp/x1234567890/someformat');
 	}
 	
 	if(is.na(Routput)) {
-		stop('Invalid HTTP POST. Please use /R/pub/somepackage/somefunction/someformat?foo="bar"');
+		stop('Invalid HTTP POST. No output format specified. Please use /R/tmp/x1234567890/someformat');
 	}	
 	
 	#Check whitelist
@@ -15,7 +15,7 @@ HTTPPOST.TMP <- function(uri, fnargs){
 		stop("Whitelist is not set to false in config. Therefore executing tmp functions is disabled.")
 	}	
 	
-	RPC.FN <- loadFromStore(Robject);
+	RPC.FN <- loadFromFileStore    (Robject);
 	
 	#Test for function. Extend later.
 	if(!is.function(RPC.FN)){

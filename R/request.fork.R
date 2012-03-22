@@ -3,6 +3,12 @@ request.fork <- function(API){
 	#HTTP Method:
 	HTTPMETHOD <- SERVER$method
 	
+	#For the CORS stuff.
+	if(HTTPMETHOD == "OPTIONS"){
+		send.response(list());
+		return(OK);
+	}
+	
 	#Files and arguments
 	NEWFILESVAR <- FILES
 	FNARGS <- switch(SERVER$method, POST = POST, PUT = POST, GET);

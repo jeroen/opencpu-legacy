@@ -1,4 +1,4 @@
-loadFromStore <- function(ObjectID, Storelocation="tmp"){
+loadFromFileStore <- function(ObjectID, Storelocation="tmp"){
 	#read config
 	STOREDIR <- config("storedir");		
 	
@@ -17,14 +17,7 @@ loadFromStore <- function(ObjectID, Storelocation="tmp"){
 	myObject <- readRDS(objectfile);
 	
 	#restore memory pointers for lattice plots
-	if("recordedplot" %in% class(myObject)){
-	  library(grid);
-	    for(i in 1:length(myObject[[1]])) {
-	      if( "NativeSymbolInfo" %in% class(myObject[[1]][[i]][[2]][[1]]) ){
-	        myObject[[1]][[i]][[2]][[1]] <- getNativeSymbolInfo(myObject[[1]][[i]][[2]][[1]]$name);
-	    }
-	  }
-	}
+	myObject <- fixobject(myObject)
 	
 	#return
 	return(myObject);
