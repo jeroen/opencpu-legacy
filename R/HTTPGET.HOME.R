@@ -45,14 +45,16 @@ HTTPGET.HOME <- function(uri, fnargs, userinfo){
 	
 	# GET /home/somestore/myobject
 	# must be a store (not a package)
-	validateUserStore(Rusername, Rpackage, "package")
+	validateUserStore(Rusername, Rpackage, "store")
 
 	#get the object
 	myobject <- loadFromUserStore(Rusername, Rpackage, Robject);
+	myfile <- tempfile();
+	saveRDS(myobject, myfile);
 	
 	#return the object
 	return(list(
-		filename = myobject, 
+		filename = myfile, 
 		type = "application/octet-stream",
 		disposition = paste(Robject, "rds", sep=".")
 	));	

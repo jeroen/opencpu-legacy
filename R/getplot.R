@@ -10,6 +10,7 @@ dogetplot <- function(`#dofn`, `!printoutput`= TRUE, ...){
 	
 	#record a displaylist
 	postscript(tempfile());
+	par("bg" = "white")
 	dev.control(displaylist="enable");
 	
 	# The code below works fine. However, hadley's method results in a smaller 'call' object for the 

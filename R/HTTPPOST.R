@@ -25,16 +25,19 @@ HTTPPOST <- function(uri, fnargs, files = NULL){
 			fnargs <- parseFiles(fnargs, files);	
 		}
 		
-		#evaluate metaparameters
-		metaparams <- sapply(fnargs, is.expression) & grepl("^!", names(fnargs));
-		if(sum(metaparams) > 0){
-			fnargs[metaparams] <- lapply(fnargs[metaparams], eval);
-		}
-		
-		#check for a seed (should probably move this to the individual rendering functions)
-		if(!is.null(fnargs[["!seed"]])){
-			set.seed(fnargs[["!seed"]]);
-			fnargs[["!seed"]] <- NULL;
+		#check again. Argument !copy: completely disappears.
+		if(length(fnargs) > 0){	
+			#evaluate metaparameters
+			metaparams <- sapply(fnargs, is.expression) & grepl("^!", names(fnargs));
+			if(sum(metaparams) > 0){
+				fnargs[metaparams] <- lapply(fnargs[metaparams], eval);
+			}
+			
+			#check for a seed (should probably move this to the individual rendering functions)
+			if(!is.null(fnargs[["!seed"]])){
+				set.seed(fnargs[["!seed"]]);
+				fnargs[["!seed"]] <- NULL;
+			}
 		}
 	}	
 	

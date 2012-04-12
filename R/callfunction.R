@@ -15,6 +15,7 @@ callfunction <- function(fnargs, Routput){
 		table = gettable(fnargs),
 		bin = getbin(fnargs),
 		plot = getplot(fnargs),
+		print = getprint(fnargs),
 		save = getsave(fnargs),
 		stop("Unknown output format: ", Routput)
 	);		

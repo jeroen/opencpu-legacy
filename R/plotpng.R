@@ -9,6 +9,7 @@ doplotpng <- function(`#dofn`, `!width` = 640, `!height` = 480, `!units` = "px",
 	#prepare
 	mytempfile <- tempfile();
 	png(mytempfile, width=`!width`, height=`!height`, units=`!units`, pointsize=`!pointsize`);
+	par("bg" = "white")
 	
 	# The code below works fine. However, hadley's method results in a smaller 'call' object for the 
 	# resulting object.

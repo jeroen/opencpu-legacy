@@ -13,7 +13,7 @@ HTTPDELETE.HOME <- function(uri, fnargs, userinfo){
 
 	#some uri validation:
 	if(is.na(Rpackage) || !is.na(Rtoolong)){
-		stop("Invalid URI. Use PUT /home/mypackage or PUT /home/mypackage/someobject.")
+		stop("Invalid URI. Use DELETE /home/mypackage or DELETE /home/mypackage/someobject.")
 	}
 
 	#check for arguments:

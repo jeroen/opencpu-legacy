@@ -64,8 +64,8 @@ sub vcl_recv {
 
   # GET, POST and HEAD requests are cached. Others are passed.
   if (req.request != "GET" && 
-    req.request != "HEAD" && 
-    req.request != "POST") {
+    # req.request != "POST" && 
+    req.request != "HEAD") {
     return (pass);
   }
   

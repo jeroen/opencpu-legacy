@@ -16,6 +16,7 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	plotdumpdir <- file.path("/tmp", paste("plotdump", floor(runif(1,1e8, 1e9)), sep=""));
 	dir.create(plotdumpdir);
 	pdf(file.path(plotdumpdir,"plotcount%03d.ps"), onefile=FALSE);
+	par("bg" = "white");
 	dev.control(displaylist="enable");
 	emptyplot <- recordPlot();
 	plotenv = new.env();

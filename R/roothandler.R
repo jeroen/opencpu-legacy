@@ -5,7 +5,6 @@
 #' @importFrom opencpu.encode fromJSON asJSON opencpu.encode opencpu.decode as.scalar
 #' @importFrom RJSONIO isValidJSON
 #' @import RCurl
-#' @import datamap
 #' @import tools
 #' @export
 pubhandler <- function(){

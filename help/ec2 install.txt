@@ -1,0 +1,29 @@
+sudo adduser jeroen
+sudo visudo 
+cp -Rf /home/ubuntu/.ssh /home/jeroen
+sudo chown -Rf jeroen /home/jeroen/.ssh
+sudo chgrp -Rf jeroen /home/jeroen/.ssh
+
+sudo nano /etc/fstab #change /mnt to /tmp
+sudo chmod 777 /tmp
+
+#attach the EBS...
+nano /etc/fstab
+
+#add this line (replace xdvf with where the ebs was attached)
+/dev/xdvf	/mnt	auto	defaults,nobootwait,noatime	0	0
+
+#reboot 
+sudo reboot now
+
+#/mnt should be approx 50G
+df -a
+
+#install opencpu 
+sudo add-apt-repository: ppa:opencpu/opencpu-0.6
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install opencpu-server
+
+#install cran
+sudo apt-get install opencpu-cran

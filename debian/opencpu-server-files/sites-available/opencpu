@@ -25,47 +25,15 @@
 	
 	</Location>
 	
-	<Location /home>
-	
-		SetHandler r-handler
-		RHandler opencpu.server::homehandler
-		ErrorDocument 400 /R/lasterror
-		
-		<IfModule mod_apparmor.c>
-			AAHatName opencpu_admin
-		</IfModule>
-		
-		<IfModule mpm_itk_module>
-			AssignUserID opencpu opencpu
-			NiceValue 10
-		</IfModule>
-	
-	</Location>
-	
-	<Location /auth>
-	
-		SetHandler r-handler
-		RHandler opencpu.server::authhandler
-		ErrorDocument 400 /R/lasterror
-		ErrorDocument 302 /R/lasterror
-		
-		<IfModule mod_apparmor.c>
-			AAHatName opencpu_admin
-		</IfModule>
-		
-		<IfModule mpm_itk_module>
-			AssignUserID opencpu opencpu
-			NiceValue 10
-		</IfModule>
-	
-	</Location>		
-	
 	# Enable to use 'opencpu' user for all sites.
 	# This will make it easier for mod_itk to recycle processes. 
-	# <IfModule mpm_itk_module>
-	# 	AssignUserID opencpu opencpu
-	# 	NiceValue 10
-	# </IfModule>	
+	
+	# COMMENT THIS OUT IF YOU ARE RUNNING OTHER STUFF ON THE SERVER
+	
+	<IfModule mpm_itk_module>
+	 	AssignUserID opencpu opencpu
+	 	NiceValue 10
+	</IfModule>	
 
 	# DEBUG:
 	# <Location /echo>
