@@ -1,4 +1,5 @@
 rm -Rf /usr/lib/opencpu/userapps/*
+mkdir -p /usr/lib/opencpu/userapps
 
 ALLAPPS=$(find /mnt/export/store/user/*/*/opencpu/apps -maxdepth 0 2>/dev/null) 
 

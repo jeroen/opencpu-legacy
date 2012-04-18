@@ -1,0 +1,6 @@
+Alias /pages /usr/lib/opencpu/pages
+Redirect 302 /index.html /pages
+
+<Directory /usr/lib/opencpu/pages>
+        Options Indexes FollowSymLinks
+</Directory>

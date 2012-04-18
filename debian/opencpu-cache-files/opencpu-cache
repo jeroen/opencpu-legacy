@@ -61,7 +61,7 @@ case "$1" in
 	$0 stop
 	$0 start    
 	;;
-  clean)
+  wipe)
     iptables -F
     iptables -X
     iptables -t nat -F

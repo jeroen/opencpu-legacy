@@ -4,8 +4,6 @@
 
 	#Disable this for development
 	REvalOnStartup ".libPaths('/usr/lib/opencpu/opencpu-system-library');"
-
-	Redirect 302 /index.html /R
 	MaxRequestsPerChild 200
 
 	<Location /R>

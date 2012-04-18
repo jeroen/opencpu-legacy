@@ -29,7 +29,7 @@ request.fork <- function(API){
 		{
 			#Rapache shouldn't be required anymore here.
 			detach("rapache");
-			eval(detach("package:opencpu.server", unload=TRUE), globalenv());
+			eval(detach("package:opencpu.server"), globalenv());
 			
 			#In case a user wants to install a package:
 			setLibPaths(c(getwd(), .libPaths()));

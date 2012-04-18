@@ -22,6 +22,7 @@ case "$1" in
 	#chmod shell scripts
 	chmod +x /usr/lib/opencpu/scripts/sites.sh
 	chmod +x /usr/lib/opencpu/scripts/apps.sh
+	chmod +x /usr/lib/opencpu/scripts/userapps.sh
 	chmod +x /usr/lib/opencpu/scripts/showip.sh
 	chmod +x /usr/lib/opencpu/scripts/killorphans.sh
 	
