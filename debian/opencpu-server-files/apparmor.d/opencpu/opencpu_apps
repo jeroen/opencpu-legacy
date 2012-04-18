@@ -6,7 +6,9 @@
 #include <opencpu/r_packages>
 
 /usr/lib/opencpu/apps/ r, 
-/usr/lib/opencpu/apps/* r,     
+/usr/lib/opencpu/apps/* r,  
+/usr/lib/opencpu/userapps/ r, 
+/usr/lib/opencpu/userapps/* r,
+/mnt/export/store/user/*/*/opencpu/apps/** r,    
 /var/www/ r,
 /var/www/** r,
-

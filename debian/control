@@ -12,12 +12,12 @@ Description: The opencpu server R package.
 
 Package: opencpu-server
 Architecture: all
-Depends: r-base (>= 2.15), opencpu-opencpu.server (= ${source:Version}), apache2-mpm-itk, libapache2-mod-r-base, apparmor-utils, libapache2-mod-apparmor
+Depends: r-base (>= 2.15), opencpu-opencpu.server (= ${source:Version}), apache2-mpm-itk, libapache2-mod-r-base, apparmor-utils, libapache2-mod-apparmor, ssl-cert
 Description: The OpenCPU REST api for R.
 
 Package: opencpu-cache
 Architecture: all
-Depends: varnish
+Depends: ssl-cert, nginx
 Description: Cache server and load balancer for opencpu.
 
 Package: opencpu-cran
