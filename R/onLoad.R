@@ -4,7 +4,7 @@
 	config <- loadconfig(conffile);	
 	attach(list(config = config), name="OpenCPU");
 
-	options(repos='http://cran.us.r-project.org');
+	options(repos=config('repos'));
 	options(keep.source = FALSE);
 	options(useFancyQuotes = FALSE);
 	setInteractive(FALSE);
@@ -20,9 +20,6 @@
 		#try to preload the packages. Make sure to complain about non existing packages.
 		try(getNamespace(thispackage), silent=FALSE);
 	}
-	
-	#little hack to have this available after we detach
-	#assign("hashme", opencpu.server:::hashme, envir=as.environment("package:base"))
 	
 	#for the logs:
 	message("OpenCPU server ready...")

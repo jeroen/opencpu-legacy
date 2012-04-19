@@ -12,6 +12,7 @@
 # Carry out specific functions when asked to by the system
 case "$1" in
   start)
+    rm -f /tmp/repos_http*.rds
     /usr/lib/opencpu/scripts/killorphans.sh &
     /usr/lib/opencpu/scripts/sites.sh > /dev/null 2>&1
 	/usr/lib/opencpu/scripts/apps.sh

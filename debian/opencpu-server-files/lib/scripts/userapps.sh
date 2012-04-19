@@ -7,9 +7,11 @@ for APP in $ALLAPPS
 do
   APP=$(readlink -f $APP)
   PACKAGE=$(basename $(dirname $(dirname $APP)))
-  USER=$(basename $(dirname $(dirname $(dirname $APP))))
-  echo "Aliasing /userapps/$USER/$PACKAGE to location $APP"
-  mkdir -p /usr/lib/opencpu/userapps/$USER
-  ln -s $APP /usr/lib/opencpu/userapps/$USER/$PACKAGE
+  USERNAME=$(basename $(dirname $(dirname $(dirname $APP))))
+  echo "Aliasing /userapps/$USERNAME/$PACKAGE to location $APP"
+  mkdir -p /usr/lib/opencpu/userapps/$USERNAME
+  ln -s $APP /usr/lib/opencpu/userapps/$USERNAME/$PACKAGE
+  python -c 'import os, json; print json.dumps(os.listdir("/usr/lib/opencpu/userapps/'$USERNAME'"))' > /usr/lib/opencpu/userapps/$USERNAME/index.json
 done
 
+python -c 'import os, json; print json.dumps(os.listdir("/usr/lib/opencpu/userapps/"))' > /usr/lib/opencpu/userapps/index.json

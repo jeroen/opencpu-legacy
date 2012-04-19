@@ -40,30 +40,38 @@ HTTPPOST.USER <- function(uri, fnargs){
 	
 	#POST /R/user/jeroenooms/mypackage/json 
 	if(isTRUE(file.info(packagedir)$isdir)){
-
+		
 		#Unload namespace if another version of the same package is pre-loaded
 		envirname <- paste("package", Rpackage, sep=":");
 		if(envirname %in% search()){
-			unloadNamespace(Rpackage);
+			detach(envirname, unload=TRUE);
+			#unloadNamespace(Rpackage);
 		}			
-		
+
 		#load the package
-		mynamespace <- loadNamespace(Rpackage, lib.loc=userdir);
+		#mynamespace <- loadNamespace(Rpackage, lib.loc=userdir);
+		library(Rpackage, lib.loc=userdir, character.only=TRUE);
 		
 		#We also attach the namespace to resolve within-userdir dependences
 		setLibPaths(c(userdir, .libPaths()));
 		
-		#Get the object
-		RPC.FN <- getExportedValue(Rpackage, Robject);
+		#Test object
+		testobject <- getExportedValue(Rpackage, Robject);
+		if(!is.function(testobject)){
+			stop("The object that was specified is not a function, script or reproducible document.")	
+		}
+		
+		#we don't return the object but a string.
+		RPC.FN <- paste(Rpackage, Robject, sep="::")
 	} else {
-		#Get the object
+		#Get and test object
 		RPC.FN <- loadFromUserStore(Rusername, Rpackage, Robject, attach=TRUE);
+		if(!is.function(RPC.FN)){
+			stop("The object that was specified is not a function, script or reproducible document.")	
+		}		
 	}
 	
-	#Test for function. 
-	if(!is.function(RPC.FN)){
-		stop("The object that was specified is not a function, script or reproducible document.")	
-	}	
+	
 	
 	#Add it to fnargs
 	fnargs[["#dofn"]] <- RPC.FN;

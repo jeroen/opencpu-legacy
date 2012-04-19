@@ -27,7 +27,8 @@ HTTPGET.USER <- function(uri, fnargs){
 		#Unload namespace if another version of the same package is pre-loaded
 		envirname <- paste("package", Rpackage, sep=":");
 		if(envirname %in% search()){
-			unloadNamespace(Rpackage);
+			detach(envirname, unload=TRUE);
+			#unloadNamespace(Rpackage);
 		}	
 	
 		#Here we need the package (or store)

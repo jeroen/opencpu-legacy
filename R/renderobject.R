@@ -24,7 +24,7 @@ renderobject <- function(object, Routput, fnargs){
 	}
 	
 	#add the function as an argument		
-	fnargs[["#dofn"]] <- identity;
+	fnargs[["#dofn"]] <- "identity";
 	
 	#load the object from the store
 	fnargs[["x"]] <- object;	

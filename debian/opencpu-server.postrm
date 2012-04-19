@@ -16,7 +16,15 @@ case "$1" in
         userdel opencpu
       else
         echo "User opencpu already removed."
-      fi	      
+      fi	
+      
+      # Removing OpenCPU Admin User.
+      if grep -s -q "^opencpu-admin:" /etc/passwd; then
+        echo "Removing user opencpu-admin..."
+        userdel opencpu-admin
+      else
+        echo "User opencpu-admin already removed."
+      fi	            
 
 	  #remove directories. 
 	  rm -Rf /etc/opencpu   

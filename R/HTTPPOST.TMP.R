@@ -15,7 +15,7 @@ HTTPPOST.TMP <- function(uri, fnargs){
 		stop("Whitelist is not set to false in config. Therefore executing tmp functions is disabled.")
 	}	
 	
-	RPC.FN <- loadFromFileStore    (Robject);
+	RPC.FN <- loadFromFileStore(Robject);
 	
 	#Test for function. Extend later.
 	if(!is.function(RPC.FN)){

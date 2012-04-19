@@ -30,11 +30,7 @@ send.response <- function(returndata){
 	#Cookies! Yum!
 	if(is.list(mycookies <- returndata$cookies)){
 		for(i in 1:length(mycookies)){
-			setCookie(
-				name  = mycookies[[i]]$name, 
-				value = mycookies[[i]]$value,
-				path  = mycookies[[i]]$path
-			);
+			do.call(setCookie, mycookies[[i]]);
 		}
 	}
 	

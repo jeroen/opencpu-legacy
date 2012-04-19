@@ -42,7 +42,7 @@ login <- function(fnargs){
 	
 	#Add names to the list elements
 	cookielist <- lapply(cookielist, structure, names=c("name", "value"));
-	cookielist <- lapply(cookielist, c, list(path="/home"));
+	cookielist <- lapply(cookielist, c, list(path="/home", expires=Sys.time() + 14*24*60*60));
 	
 	#Test if the token actually works
 	access_token <- cookielist$access_token$value;
@@ -63,9 +63,13 @@ login <- function(fnargs){
 	#Set headers
 	returndata$cache <- FALSE;
 	
-	#Fix for rapache bug that allows only 1 cookie
-	#returndata$cookies <- cookielist;
-	returndata$cookies <- cookielist["access_token"];
+	#add username to the cookie
+	cookielist <- c(cookielist, list(list(name="username", value=Rusername, path="/home", expires=Sys.time() + 14*24*60*60)));
+	
+	#Fix for rapache bug that allows only 1 cookie. (FIXED)
+	#returndata$cookies <- cookielist["access_token"];
+	returndata$cookies <- cookielist;
+
 	
 	#return
 	return(returndata);

@@ -54,8 +54,12 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	}
 	
 	#call the new function
-	mycall <- as.call(c(list(as.name("#dofn")), argn));
-	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
+	if(is.character(`#dofn`)){
+		mycall <- as.call(c(list(parse(text=`#dofn`)[[1]]), argn));
+	} else {
+		mycall <- as.call(c(list(as.name("FUN")), argn));
+		fnargs <- c(fnargs, list("FUN" = `#dofn`));		
+	}
 	
 	#Detach package
 	#eval(detach("package:opencpu.server"), globalenv());

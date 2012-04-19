@@ -1,4 +1,8 @@
 authapi <- function(uri, fnargs){
+	
+	if(!isTRUE(config("enable.home"))){
+		stop("enable.home is not enabled on this server.")
+	}	
 
 	#test for valid endpoint
 	authfun <- uri[1];

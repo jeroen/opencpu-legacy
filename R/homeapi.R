@@ -1,5 +1,9 @@
 homeapi <- function(HTTPMETHOD, URI, FNARGS, NEWFILESVAR, ACCESS_TOKEN){
 	
+	if(!isTRUE(config("enable.home"))){
+		stop("enable.home is not enabled on this server.")
+	}
+	
 	#We need an access token
 	if(is.null(ACCESS_TOKEN) || ACCESS_TOKEN == ""){
 		stop("Not logged in. Authenticate through /auth/login")

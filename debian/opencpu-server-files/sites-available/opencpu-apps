@@ -1,6 +1,7 @@
 Alias /apps /usr/lib/opencpu/apps
 <Directory /usr/lib/opencpu/apps>
         Options Indexes FollowSymLinks
+        DirectoryIndex index.json index.html
         <IfModule mod_apparmor.c>
                 AAHatName opencpu-apps
         </IfModule>
@@ -9,6 +10,7 @@ Alias /apps /usr/lib/opencpu/apps
 Alias /userapps /usr/lib/opencpu/userapps
 <Directory /usr/lib/opencpu/userapps>
         Options Indexes FollowSymLinks
+        DirectoryIndex index.json index.html
         <IfModule mod_apparmor.c>
                 AAHatName opencpu-apps
         </IfModule>

@@ -13,6 +13,14 @@ case "$1" in
 	  useradd opencpu --system -U -d/tmp -c"OpenCPU R Server"
 	fi	
 	
+	# Adding OpenCPU Admin.
+	if grep -s -q "^opencpu-admin:" /etc/passwd; then
+	  echo "User opencpu-admin already exists"
+	else
+	  echo "Adding user opencpu-admin..."
+	  useradd opencpu-admin --system -U -d/tmp -c"OpenCPU Admin"
+	fi		
+	
 	#copy the config file	
 	if [ ! -e /etc/opencpu/server.conf ]
 	then

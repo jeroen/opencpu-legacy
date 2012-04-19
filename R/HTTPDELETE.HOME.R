@@ -26,7 +26,10 @@ HTTPDELETE.HOME <- function(uri, fnargs, userinfo){
 		validateUserStore(Rusername, Rpackage);
 		
 		#remove the package or store
-		file.rename(packagedir, tempfile());
+		res <- file.rename(packagedir, tempfile());
+		if(res != TRUE){
+			stop("Package removal failed. Check permissions.")
+		}
 		return(object2jsonfile("/home"));
 	}
 

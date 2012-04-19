@@ -31,7 +31,8 @@ HTTPPOST.PUB <- function(uri, fnargs){
 	}	
 	
 	#Add it to fnargs
-	fnargs[["#dofn"]] <- RPC.FN;
+	#fnargs[["#dofn"]] <- RPC.FN;
+	fnargs[["#dofn"]] <- paste(Rpackage, Robject, sep="::")
 	
 	#call the output handler
 	return(callfunction(fnargs, Routput));	
