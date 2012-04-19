@@ -1,3 +1,4 @@
+mkdir -p /usr/lib/opencpu/apps/
 rm /usr/lib/opencpu/apps/*
 echo "#updated on" `date` >> /usr/lib/opencpu/apps/apps-readme
 
