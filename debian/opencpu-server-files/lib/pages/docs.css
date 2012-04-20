@@ -59,3 +59,10 @@ body{
 	margin-bottom: 100px;	
 }	
 
+.span9 .span3 p{
+	line-height:150%		
+}
+
+p{
+	line-height:150%		
+}

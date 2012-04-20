@@ -11,7 +11,7 @@
 		</IfModule>
 		
 		<IfModule mpm_itk_module>
-			AssignUserID opencpu
+			AssignUserID opencpu opencpu
 			NiceValue 10
 		</IfModule>
 	
@@ -29,7 +29,7 @@
 		</IfModule>
 		
 		<IfModule mpm_itk_module>
-			AssignUserID opencpu
+			AssignUserID opencpu opencpu
 			NiceValue 10
 		</IfModule>
 	
