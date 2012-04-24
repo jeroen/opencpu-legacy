@@ -5,3 +5,4 @@ debian/opencpu-cache-files/nginx/opencpu /etc/nginx/sites-available/
 debian/opencpu-cache-files/nginx/opencpu-proxy.conf /etc/nginx/conf.d/
 debian/opencpu-cache-files/nginx/opencpu-backends.conf /etc/nginx/conf.d/
 debian/opencpu-cache-files/nginx/opencpu-locations.conf /etc/nginx/opencpu/
+debian/opencpu-cache-files/nginx/opencpu-pages.conf /etc/nginx/opencpu/

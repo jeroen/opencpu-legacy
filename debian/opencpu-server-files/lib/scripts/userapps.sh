@@ -14,4 +14,5 @@ do
   python -c 'import os, json; print json.dumps(os.listdir("/usr/lib/opencpu/userapps/'$USERNAME'"))' > /usr/lib/opencpu/userapps/$USERNAME/index.json
 done
 
+ln -s /usr/lib/opencpu/apps /usr/lib/opencpu/userapps/opencpu
 python -c 'import os, json; print json.dumps(os.listdir("/usr/lib/opencpu/userapps/"))' > /usr/lib/opencpu/userapps/index.json

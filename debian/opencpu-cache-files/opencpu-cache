@@ -45,6 +45,9 @@ case "$1" in
     /usr/lib/opencpu/scripts/nginx_dissite opencpu
     service nginx restart
     
+    echo "Flushing cache..."
+    rm -Rf /tmp/opencpu-cache
+    
     echo "Cleaning up iptables..."
 	iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 	iptables -D INPUT -p tcp --dport 443 -j ACCEPT

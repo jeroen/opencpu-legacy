@@ -16,7 +16,7 @@ body {
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="common.css" rel="stylesheet">
 <link href="bootstrap-hacks.css" rel="stylesheet">
-<link href="apps.css" rel="stylesheet">
+<link href="license.css" rel="stylesheet">
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -64,24 +64,82 @@ body {
 			<hr>
 		</header>
 
-		<div class="container">
+		<div class="row">
 
-			<div class="row"></div>
+			<div class="span6">
+				<h1>Open Source Edition</h1>
+				<br />
+				<blockquote id="license">
+					<p>
+						The philosophy of the OpenCPU project is to be a foundation for
+						social, open and transparent scientific computating. The software
+						is designed in such a way that everything stored on OpenCPU is
+						publicly readable. Furthermore we like to create an environment
+						where students, researchers, analyists and anyone else feels free
+						to use, reuse, modify and learn from each others code and data,
+						without having to worry about copyright. The OpenCPU licensing
+						reflects this principle: you agree that code and data that you
+						store and publish on OpenCPU become <i>open source</i>.
+					</p>
+
+					<br />
+
+					<p>
+						To implement this idea, OpenCPU is released under the <a
+							href="http://www.gnu.org/licenses/agpl-3.0.html">GNU AGPLv3 </a>
+						license conditions. Furthermore, code and data published through
+						OpenCPU and thereby extending its functionality, are considired
+						derivative works and hence should be available under AGPL
+						compatible license as well. Of course you will still be the
+						copyright holder of your works, and you are free to release your
+						code under any additional licenses as well, either open source or
+						closed source. Just keep in mind that when publishing or sharing
+						code or data on OpenCPU, you give others permission to use, reuse,
+						modify, etc your works.
+					</p>
+
+					<br />
+
+					<p>Note that it is allowed to use OpenCPU within an application
+						that does not expose the OpenCPU API directly to the client or
+						user. For example, OpenCPU could used as a computational backend
+						in a similar way as e.g. a database backend like MySQL, where it
+						is only accessed by the application layer. In a design like this,
+						the same conditions apply: when OpenCPU is called by an
+						application, you need to release any R code that is being used
+						behind the scenes under an AGPL compatible license, and make it
+						somehow available to your users. An good way would to release it
+						in the form of an R package and publish it on CRAN or Github.</p>
+
+					<br />
+
+					<p>
+						Also note that clients or applications that call the OpenCPU API
+						are <b>not</b> considered derivative works. Hence, it ispossible
+						to build a proprietary stack which interfaces to OpenCPU, as long
+						as any R code is released under an AGPL compatible license. This
+						way, the computations are and stay open and transparent to others,
+						which is what open computing is all about!
+					</p>
+
+					<small>Stat/dev consulting, <cite title="">
+							developers of OpenCPU.</cite></small>
+				</blockquote>
+			</div>
+
 		</div>
-	</div>
-
-	<br>
-
-	<!-- /container -->
 
 
-	<!-- Le javascript
+
+		<!-- /container -->
+
+
+		<!-- Le javascript
     ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="jquery-1.7.2.min.js"></script>
-	<script src="bootstrap/js/bootstrap.js"></script>
-	<script src="common.js"></script>
-
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="jquery-1.7.2.min.js"></script>
+		<script src="bootstrap/js/bootstrap.js"></script>
+		<script src="common.js"></script>
 </body>
 
 </html>

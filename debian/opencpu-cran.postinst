@@ -17,10 +17,9 @@ case "$1" in
 	gpg -a --export B04C661B | sudo apt-key add -	
 	
 	while true; do
-	    read -p "Do you want to add cron jobs to udpate CRAN packages? [y/n]" yn
+	    read -p "Do you want to add a cron job to update new CRAN packages? [y/n]" yn
 	    case $yn in
-	        [Yy]* ) ln -s /usr/lib/opencpu/scripts/updatecran.cron.sh /etc/cron.weekly/updatecran; 
-	        		ln -s /usr/lib/opencpu/scripts/update.recent.cron.sh /etc/cron.daily/updaterecent; 
+	        [Yy]* ) ln -s /usr/lib/opencpu/scripts/update.recent.cron.sh /etc/cron.daily/updaterecent; 
 	        		break;;
 	        [Nn]* ) break;;
 	        	* ) echo "Please answer y or n.";;
