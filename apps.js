@@ -1,4 +1,4 @@
-function userapps(){
+var userapps = function(){
 	$.ajax({
 		url: "/userapps/index.json",
 		cache: false,
@@ -11,32 +11,31 @@ function userapps(){
 			}
 		}
 	});	
-}
+};
 
-function userinfo(username){
+var userinfo = function(username){
 	$.ajax({
 		url: "https://api.github.com/users/" + username,
-		jsonpCallback: 'createuserlink',
+		success: createuserlink,
 		cache: true,
-		jsonp: 'callback',
 		dataType: "jsonp"
 	});		
-}
+};
 
-function createuserlink(response){
+var createuserlink = function(response){
 	var data = response.data;
 	var username = data.login;
 	var avatarlink = "http://www.gravatar.com/avatar/" + data.gravatar_id + "?s=100";
-	
+
 	$.ajax({
 		url: "/userapps/" + username + "/index.json",
 		cache: false,
 		dataType: "json",
 		success: avatarclosure(username, avatarlink)
 	});		
-}
+};
 
-function avatarclosure(username, avatarlink){
+var avatarclosure = function(username, avatarlink){
 	var mycb = function(data, textStatus, jqXHR){
 		var appshtml = '';
 		for(var i = 0; i < data.length; i++){
@@ -53,7 +52,7 @@ function avatarclosure(username, avatarlink){
 		);				
 	};
 	return mycb;
-}
+};
 
 userapps();
 
