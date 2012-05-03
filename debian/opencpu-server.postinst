@@ -34,6 +34,9 @@ case "$1" in
 	chmod +x /usr/lib/opencpu/scripts/showip.sh
 	chmod +x /usr/lib/opencpu/scripts/killorphans.sh
 	
+	#force reload the cron job in /etc/init.d. Should be necessary but never harms:
+	reload cron
+	
 	#create log file
 	touch /var/log/opencpu/access.log
 	touch /var/log/opencpu/error.log

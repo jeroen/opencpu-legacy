@@ -9,7 +9,7 @@ HTTPGET.PUB <- function(uri, fnargs){
 	#GET /R/pub
 	if(is.na(Rpackage)){
 		allpackages <- row.names(installed.packages());
-		return(object2jsonfile(allpackages, fnargs));
+		return(object2jsonfile(allpackages, fnargs, cache=TRUE));
 	} 
 	
 	#GET /R/pub/somepackage
@@ -21,13 +21,13 @@ HTTPGET.PUB <- function(uri, fnargs){
 			mynamespace <- loadNamespace(Rpackage);		
 			allobjects <- getNamespaceExports(mynamespace);
 		}
-		return(object2jsonfile(allobjects, fnargs));
+		return(object2jsonfile(allobjects, fnargs, cache=TRUE));
 	} 
 	
 	#GET /R/pub/somepackage/someobject
 	if(is.na(Routput)){
 		myobject <- getExportedValue(Rpackage, Robject)
-		return(object2jsonfile(outputformats, fnargs));
+		return(object2jsonfile(outputformats, fnargs, cache=TRUE));
 	} 	
 	
 	#GET /R/pub/somepackage/somefun/help

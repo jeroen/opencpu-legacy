@@ -3,8 +3,9 @@ p {
 }
 
 .accordion-inner{
-	margin-right: 300px;
-	line-height: 150%;		
+	margin-right: 20px;
+	margin-left:  20px;
+	line-height:  150%;		
 }
 
 dt{

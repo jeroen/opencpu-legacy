@@ -34,6 +34,9 @@ case "$1" in
 	  rm -Rf /var/log/opencpu 
 	  rm -f /export
 	  
+	  #force reload the cron job in /etc/init.d. Should be necessary but never harms:
+	  reload cron	  
+	  
 	  #restart Apache.
       service apache2 restart
     ;;

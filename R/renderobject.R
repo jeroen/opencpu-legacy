@@ -1,4 +1,4 @@
-renderobject <- function(object, Routput, fnargs){
+renderobject <- function(object, Routput, fnargs, cache=TRUE){
 
 	#block 'save' for GET
 	if(Routput == "save"){
@@ -33,7 +33,11 @@ renderobject <- function(object, Routput, fnargs){
 	returndata <- callfunction(fnargs, Routput);
 	
 	#add default cache value
-	returndata$cache <- config("cache.store");
+	if(isTRUE(cache)){
+		returndata$cache <- config("cache.store");
+	} else {
+		returndata$cache <- FALSE
+	}
 	
 	#return the list with content and type and status
 	return(returndata);

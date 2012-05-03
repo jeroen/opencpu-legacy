@@ -3,7 +3,7 @@
 \documentclass{scrartcl}
 \usepackage[colorlinks, urlcolor=blue]{hyperref}
 \usepackage{fullpage}
-\usepackage{graphics}
+\usepackage{graphics} 
 \usepackage{graphicx}
 \usepackage{verbatim}
 
@@ -314,7 +314,7 @@ This file also contains detailed comments with configuration instructions.
 
 \section{The Caching / Load balancing Server}
 
-\texttt{OpenCPU} has an optional caching/load balancing server based on Varnish.
+\texttt{OpenCPU} has an optional caching/load balancing server based on NGINX.
 To install it, enter:
 
 \begin{verbatim}
@@ -327,13 +327,7 @@ server can be enabled/disabled using:
     sudo service opencpu-cache {start | stop | restart}
 \end{verbatim}
 The server configuration can be edited to include additional back-ends and hence
-work as a load balancer as well. The balancer is configured using Varnish
-Configuration Language (VCL). To edit the load balancer configuration, edit the
-file: \texttt{/etc/opencpu/opencpu.vcl}. \\
-
-\noindent Note that at this point, caching does not support HTTP POST requests,
-or for HTTPS requests of any kind.
-
-
+work as a load balancer as well. The balancer is configured using NGINX
+configurations found in \texttt{/etc/nginx}.
 
 \end{document}

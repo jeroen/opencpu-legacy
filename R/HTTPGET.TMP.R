@@ -8,20 +8,20 @@ HTTPGET.TMP <- function(uri, fnargs){
 	# /R/tmp	
 	if(is.na(objectkey)){
 		allfiles <- list.files(tmpdir);
-		return(object2jsonfile(list.files(tmpdir), fnargs));
+		return(object2jsonfile(list.files(tmpdir), fnargs, cache=TRUE));
 	}
 	
 	# /R/tmp/x94bd82c90d
 	if(is.na(Routput)){
 		objectfile <- paste(tmpdir, "/", objectkey, sep="");
 		if(file.exists(objectfile)){
-			return(object2jsonfile(outputformats, fnargs));			
+			return(object2jsonfile(outputformats, fnargs, cache=TRUE));			
 		} else {
 			stop("Object not found: /tmp/", objectkey)
 		}
 	} 	
 	
 	# /R/tmp/x94bd82c90d/json
-	object <- loadFromFileStore    (objectkey);
+	object <- loadFromFileStore(objectkey);
 	return(renderobject(object, Routput, fnargs));
 }
