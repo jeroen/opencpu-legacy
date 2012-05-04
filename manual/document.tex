@@ -68,7 +68,7 @@ versions of third party dependencies:
   \item \texttt{Linux kernel 3.2.0}
   \item \texttt{Apache 2.2.22} (includes \texttt{mod-ssl})
   \item \texttt{Apparmor 2.7.102}
-  \item \texttt{Varnish 3.0.2}
+  \item \texttt{Nginx 1.1.19}
 \end{itemize}
 
 \subsection{Packages}
@@ -104,7 +104,7 @@ the \texttt{Ubuntu} download page: \\
 \noindent If you would like to run \texttt{OpenCPU} on an Amazon EC2 server, the best way
 is to use one of the official AMI's as provided by the \texttt{Ubuntu} team: \\
 
-\url{http://cloud-images.ubuntu.com/releases/12.04/release/} \\
+\url{http://cloud-images.ubuntu.com/releases/precise/release/} \\
 
 \noindent Another possibility is to install a \texttt{Ubuntu} on a virtual server inside
 another OS. For example, on Windows and \texttt{Linux} the free VMware Player or VMware
@@ -310,7 +310,16 @@ in
 \begin{verbatim}
     /etc/apache2/sites-available/default-ssl
 \end{verbatim}
-This file also contains detailed comments with configuration instructions.
+This file also contains detailed comments with configuration instructions. \\
+
+\noindent When the caching server is enabled, the SSL certificates should be
+installed on NginX instead of Apache. Modify the file: 
+
+\begin{verbatim}
+    /etc/nginx/sites-available/opencpu
+\end{verbatim}
+and look for the directives \texttt{ssl\_certificate} and
+\texttt{ssl\_certificate\_key}.
 
 \section{The Caching / Load balancing Server}
 
@@ -320,8 +329,8 @@ To install it, enter:
 \begin{verbatim}
     sudo apt-get install opencpu-cache
 \end{verbatim}
-When enabled, the server will automatically take over port 80. The caching
-server can be enabled/disabled using:
+When enabled, the server will automatically take over port 80 and 443. The
+caching server can be enabled/disabled using:
 
 \begin{verbatim}
     sudo service opencpu-cache {start | stop | restart}

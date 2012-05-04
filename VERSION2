@@ -1,0 +1,30 @@
+/ocpu/pub/mypackage/apps/index.html
+/ocpu/pub/mypackage/R/nabel/save
+/ocpu/pub/mypackage/R/tmp
+
+/ocpu/jeroenooms/opencpu.demo/apps/index.html
+/ocpu/jeroenooms/opencpu.demo/R/nabel/save
+/ocpu/jeroenooms/opencpu.demo/R/tmp
+
+/ocpu/jeroenooms/mystore/R/myfun
+/ocpu/jeroenooms/mystore/apps/index.html
+
+/home/opencpu.demo
+/home/mystore
+/auth/login
+
+
+Apache2 config:
+
+<LocationMatch "^/opencpu/[a-zA-Z0-9_]+/[a-zA-Z0-9_]+/R$">
+  rapache handler
+</LocationMatch>
+
+
+AliasMatch ^/opencpu/[a-zA-Z0-9_]+/[a-zA-Z0-9_]+/apps$ /usr/lib/opencpu/apps/$1/$2/
+
+Stores:
+
+/mnt/export/store/user/jeroenooms/mystore/objects.Rdata
+/mnt/export/store/user/jeroenooms/mystore/apps
+/mnt/export/store/user/jeroenooms/mystore/man

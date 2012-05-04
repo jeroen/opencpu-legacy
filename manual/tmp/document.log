@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.2)  2 MAY 2012 19:53
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.2)  3 MAY 2012 14:12
 entering extended mode
  Source specials enabled.
  %&-line parsing enabled.
@@ -365,12 +365,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 303--306
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
+
+ []
+
 [6] (./document.aux) ) 
 Here is how much of TeX's memory you used:
- 5231 strings out of 495061
- 78547 string characters out of 1182622
+ 5232 strings out of 495061
+ 78565 string characters out of 1182622
  165655 words of memory out of 3000000
- 8328 multiletter control sequences out of 15000+50000
+ 8329 multiletter control sequences out of 15000+50000
  9764 words of font info for 35 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  43i,7n,36p,274b,418s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -382,7 +387,7 @@ ive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/t
 ype1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public
 /amsfonts/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
 m/cmtt12.pfb>
-Output written on document.pdf (6 pages, 120286 bytes).
+Output written on document.pdf (6 pages, 121023 bytes).
 PDF statistics:
  121 PDF objects out of 1000 (max. 8388607)
  20 named destinations out of 1000 (max. 500000)

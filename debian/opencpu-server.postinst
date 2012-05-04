@@ -28,11 +28,7 @@ case "$1" in
 	fi	
 	
 	#chmod shell scripts
-	chmod +x /usr/lib/opencpu/scripts/sites.sh
-	chmod +x /usr/lib/opencpu/scripts/apps.sh
-	chmod +x /usr/lib/opencpu/scripts/userapps.sh
-	chmod +x /usr/lib/opencpu/scripts/showip.sh
-	chmod +x /usr/lib/opencpu/scripts/killorphans.sh
+	chmod +x /usr/lib/opencpu/scripts/*.sh
 	
 	#force reload the cron job in /etc/init.d. Should be necessary but never harms:
 	reload cron

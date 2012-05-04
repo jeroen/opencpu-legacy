@@ -25,7 +25,7 @@ var userinfo = function(username){
 var createuserlink = function(response){
 	var data = response.data;
 	var username = data.login;
-	var avatarlink = "http://www.gravatar.com/avatar/" + data.gravatar_id + "?s=100";
+	var avatarlink = "https://secure.gravatar.com/avatar/" + data.gravatar_id + "?s=100";
 
 	$.ajax({
 		url: "/userapps/" + username + "/index.json",

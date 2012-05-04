@@ -5,11 +5,7 @@ set -e
 case "$1" in
   configure)
     :
-	chmod +x /usr/lib/opencpu/scripts/updatecran.sh
-	chmod +x /usr/lib/opencpu/scripts/movelib.sh
-	chmod +x /usr/lib/opencpu/scripts/updatecran.cron.sh
-	chmod +x /usr/lib/opencpu/scripts/update.recent.sh
-	chmod +x /usr/lib/opencpu/scripts/update.recent.cron.sh
+	chmod +x /usr/lib/opencpu/scripts/*.sh
 	ln -s /usr/lib/opencpu/scripts/updatecran.sh /usr/bin/updatecran
 	ln -s /usr/lib/opencpu/scripts/update.recent.sh /usr/bin/updaterecent
 	

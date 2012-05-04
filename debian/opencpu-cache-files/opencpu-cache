@@ -22,7 +22,7 @@ case "$1" in
     iptables -A OUTPUT -t nat -o lo -p tcp --dport 80 -j REDIRECT --to-ports 8006
     iptables -A OUTPUT -t nat -o lo -p tcp --dport 443 -j REDIRECT --to-ports 8007 
 
-	if [ -f /etc/init.d/apache2 ];
+	if [ -f /etc/apache2/sites-available/opencpu-highports ];
 	then
 		a2ensite opencpu-highports
 		service apache2 restart
@@ -36,7 +36,7 @@ case "$1" in
   stop)
     echo "Disabling caching server..."
     
-	if [ -f /etc/init.d/apache2 ];
+	if [ -f /etc/apache2/sites-available/opencpu-highports ];
 	then    
 	    a2dissite opencpu-highports
 	    service apache2 restart

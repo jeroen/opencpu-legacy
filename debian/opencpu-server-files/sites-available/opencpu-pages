@@ -1,4 +1,5 @@
 Alias /pages /usr/lib/opencpu/pages
+Alias /favicon.ico /usr/lib/opencpu/pages/favicon.ico
 Redirect 302 /index.html /pages
 
 <Directory /usr/lib/opencpu/pages>
