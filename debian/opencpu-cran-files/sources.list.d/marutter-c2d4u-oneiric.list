@@ -1,3 +1,3 @@
-deb http://ppa.launchpad.net/marutter/c2d4u/ubuntu oneiric main
-deb-src http://ppa.launchpad.net/marutter/c2d4u/ubuntu oneiric main
+deb http://ppa.launchpad.net/marutter/c2d4u/ubuntu precise main
+deb-src http://ppa.launchpad.net/marutter/c2d4u/ubuntu precise main
 

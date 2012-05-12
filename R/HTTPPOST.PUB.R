@@ -30,6 +30,9 @@ HTTPPOST.PUB <- function(uri, fnargs){
 		stop("The object that was specified is not a function, script or reproducible document.")	
 	}	
 	
+	#Note: in R 2.15 we need to attach the namespace to make any dependencies work. This seems like a bug in R.
+	library(Rpackage, character.only=TRUE);
+	
 	#Add it to fnargs
 	#fnargs[["#dofn"]] <- RPC.FN;
 	fnargs[["#dofn"]] <- paste(Rpackage, Robject, sep="::")

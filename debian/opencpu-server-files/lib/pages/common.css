@@ -1,3 +1,8 @@
+.nav-collapse .nav.pull-right{
+  display: none;
+  margin-right: 400px;
+}
+
 #outputframe{
   height: 600px;
   border: 1px lightgray solid;  
