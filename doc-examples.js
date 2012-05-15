@@ -139,12 +139,14 @@ function example_callsweave(){
 }
 
 function example_manyplots(){
+	document.plothashkey = null;
 	setRequest("POST", "/R/pub/base/identity/save");
 	addhttpparam("x", "plot(lm(speed~dist, cars))");
 	$("#submitajax").click();
 }
 
 function example_carslm(){
+	document.lmhashkey = null;
 	setRequest("POST", "/R/pub/stats/lm/save");
 	addhttpparam("formula", "speed~dist");
 	addhttpparam("data", "cars");
@@ -152,35 +154,41 @@ function example_carslm(){
 }
 
 function example_getlm(){
-	setRequest("GET", "/R/tmp/xfafaa3105c/print");
+	if(!document.lmhashkey) document.lmhashkey = gethashkey("object");
+	setRequest("GET", "/R/tmp/" + document.lmhashkey + "/print");
 	$("#submitajax").click();
 }
 
 function example_lmsummary(){
+	if(!document.lmhashkey) document.lmhashkey = gethashkey("object");
 	setRequest("POST", "/R/pub/base/summary/print");
-	addhttpparam("object", "xfafaa3105c");
+	addhttpparam("object", document.lmhashkey);
 	$("#submitajax").click();	
 }
 
 function example_lmplot(){
+	if(!document.lmhashkey) document.lmhashkey = gethashkey("object");
 	setRequest("POST", "/R/pub/graphics/plot/save");
-	addhttpparam("x", "xfafaa3105c");
+	addhttpparam("x", document.lmhashkey);
 	$("#submitajax").click();	
 }
 
 function example_storefun(){
+	document.funhashkey = null;
 	setRequest("POST", "/R/pub/base/identity/save");
 	addhttpparam("x", "function(n) {mydata <- rnorm(n); print(lattice::histogram(mydata)); return(n);} ");
 	$("#submitajax").click();		
 }
 
 function example_readfun(){
-	setRequest("GET", "/R/tmp/x82745ce753/ascii");
+	if(!document.funhashkey) document.funhashkey = gethashkey("object");
+	setRequest("GET", "/R/tmp/" + document.funhashkey + "/ascii");
 	$("#submitajax").click();		
 }
 
 function example_callfun(){
-	setRequest("POST", "/R/tmp/x82745ce753/png");
+	if(!document.funhashkey) document.funhashkey = gethashkey("object");
+	setRequest("POST", "/R/tmp/" + document.funhashkey + "/png");
 	addhttpparam("n", "1000");
 	$("#outputframe").hide();
 	$("#ajaxoutput").hide();		
@@ -198,18 +206,18 @@ function example_listuserstores(){
 }
 
 function example_liststoreobjects(){
-	setRequest("GET", "/R/user/jeroenooms/demostore");
+	setRequest("GET", "/R/user/jeroenooms/mystore");
 	$("#submitajax").click();		
 }
 
 function example_readuserobject(){
-	setRequest("GET", "/R/user/jeroenooms/demostore/myobject/ascii");
+	setRequest("GET", "/R/user/jeroenooms/mystore/myfunction/ascii");
 	$("#submitajax").click();		
 }
 
 function example_calluserfunction(){
-	setRequest("POST", "/R/user/jeroenooms/demostore/myobject/save");
-	addhttpparam("n", "1234");
+	setRequest("POST", "/R/user/jeroenooms/mystore/myfunction/json");
+	addhttpparam("x", "1234");
 	$("#submitajax").click();		
 }
 
@@ -262,18 +270,18 @@ function example_uploadfilecopy(){
 }
 
 function example_getplotpng(){
-	hashkey = gethashkey("plot");
-	if(!hashkey) return;
-	setRequest("GET", "/R/tmp/" + hashkey + "/png");
+	if(!document.plothashkey) document.plothashkey = gethashkey("plot");
+	if(!document.plothashkey) return;
+	setRequest("GET", "/R/tmp/" + document.plothashkey + "/png");
 	$("#outputframe").hide();
 	$("#ajaxoutput").hide();		
 	setTimeout('$("#submitblank").click();', 500);		
 }
 
 function example_getplotpnglarge(){
-	hashkey = gethashkey("plot");
-	if(!hashkey) return;
-	setRequest("GET", "/R/tmp/" + hashkey + "/png");
+	if(!document.plothashkey) document.plothashkey = gethashkey("plot");;
+	if(!document.plothashkey) return;
+	setRequest("GET", "/R/tmp/" + document.plothashkey + "/png");
 	addhttpparam("!width", "1000");
 	addhttpparam("!height", "600");
 	$("#outputframe").hide();
@@ -282,18 +290,18 @@ function example_getplotpnglarge(){
 }
 
 function example_getplotpdf(){
-	hashkey = gethashkey("plot");
-	if(!hashkey) return;
-	setRequest("GET", "/R/tmp/" + hashkey + "/pdf");
+	if(!document.plothashkey) document.plothashkey = gethashkey("plot");
+	if(!document.plothashkey) return;
+	setRequest("GET", "/R/tmp/" + document.plothashkey + "/pdf");
 	$("#outputframe").hide();
 	$("#ajaxoutput").hide();		
 	setTimeout('$("#submitblank").click();', 500);		
 }
 
 function example_getplotsvg(){
-	hashkey = gethashkey("plot");
-	if(!hashkey) return;
-	setRequest("GET", "/R/tmp/" + hashkey + "/svg");
+	if(!document.plothashkey) document.plothashkey = gethashkey("plot");
+	if(!document.plothashkey) return;
+	setRequest("GET", "/R/tmp/" + document.plothashkey + "/svg");
 	$("#outputframe").hide();
 	$("#ajaxoutput").hide();		
 	setTimeout('$("#submitblank").click();', 500);		
@@ -350,6 +358,7 @@ function example_outputfile(){
 }
 
 function example_savefile(){
+	document.filehashkey = null;
 	setRequest("POST", "/R/pub/utils/write.csv/save");
 	addhttpparam("x", "cars");
 	addhttpparam("file", '"mycsvfile.csv"');
@@ -357,9 +366,9 @@ function example_savefile(){
 }
 
 function example_getstoredfile(){
-	hashkey = gethashkey("file");
-	if(!hashkey) return;
-	setRequest("GET", "/R/tmp/" + hashkey + "/bin");
+	if(!document.filehashkey) document.filehashkey = gethashkey("file");	
+	if(!document.filehashkey) return;
+	setRequest("GET", "/R/tmp/" + document.filehashkey + "/bin");
 	$("#outputframe").hide();
 	$("#ajaxoutput").hide();		
 	setTimeout('$("#submitblank").click();', 500);		
