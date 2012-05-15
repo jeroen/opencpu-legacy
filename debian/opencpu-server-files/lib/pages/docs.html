@@ -83,7 +83,7 @@ body {
 				<a class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="#">OpenCPU</a>
+				</a> <a class="brand" href="#"></a>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li><a href=".">Home</a></li>
@@ -165,24 +165,21 @@ body {
 				<div class="row">
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_042_group.png">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
 						<h2>Introduction</h2>
 						<p>The concept of Open Computing can be a little confusing at
 							first. A quick introduction about how and why of OpenCPU.</p>
 					</div>
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_042_group.png">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
 						<h2>R API</h2>
 						<p>The core of OpenCPU is a REST API to R. Through the API you
 							can read, write and execute R code on OpenCPU servers.</p>
 					</div>
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_042_group.png">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
 						<h2>Methods &amp; Endpoints</h2>
 						<p>OpenCPU uses HTTP methods GET, PUT, POST and DELETE. What
 							do they mean, and where can they be used?</p>
@@ -192,8 +189,7 @@ body {
 				<div class="row">
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_042_group.png">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
 						<h2>Output Formats</h2>
 						<p>An R function might return an object, print one or more
 							plots, or write files to the working directory. Use one of the
@@ -203,8 +199,7 @@ body {
 
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_042_group.png">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
 						<h2>Arguments</h2>
 						<p>The arguments of an R function call are often R objects
 							themselves. There are number of ways in which arguments to
@@ -212,8 +207,7 @@ body {
 					</div>
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_163_iphone.png">
+						<img class="bs-icon" src="images/glyphicons_163_iphone.png">
 						<h2>User Store</h2>
 						<p>OpenCPU allows you to login with your github account, and
 							publish your own packages and R objects to the server. Learn
@@ -224,8 +218,7 @@ body {
 				<div class="row">
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_163_iphone.png">
+						<img class="bs-icon" src="images/glyphicons_163_iphone.png">
 						<h2>CORS</h2>
 						<p>The public OpenCPU API supports CORS to enable cross-domain
 							integration. Embed R functionality in any website without
@@ -233,8 +226,7 @@ body {
 					</div>
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_079_podium.png">
+						<img class="bs-icon" src="images/glyphicons_079_podium.png">
 						<h2>Caching</h2>
 						<p>OpenCPU ships with an optional caching and load balancing
 							server in case you need to scale up. Learn about cache-control
@@ -242,8 +234,7 @@ body {
 					</div>
 
 					<div class="span3">
-						<img class="bs-icon"
-							src="images/glyphicons_079_podium.png">
+						<img class="bs-icon" src="images/glyphicons_079_podium.png">
 						<h2>Apps</h2>
 						<p>OpenCPU apps are web applications that you can include in
 							an R package. Learn why this is useful and to create your own app</p>
@@ -1242,12 +1233,12 @@ body {
 					<button data-example="login">login</button>
 					<pre class="narrowblock"> GET /auth/login</pre>
 					<br />
-					
+
 					<div class="alert alert-warning narrowblock">
-						<a class="close" data-dismiss="alert">×</a> <strong>Note</strong> 
-						You might need to refresh this page (F5) after logging in to be 
-						able to call the /home API. 
-					</div>					
+						<a class="close" data-dismiss="alert">×</a> <strong>Note</strong>
+						You might need to refresh this page (F5) after logging in to be
+						able to call the /home API.
+					</div>
 
 					<p class="narrowblock">
 						After a successful login, OpenCPU will set an
@@ -1514,8 +1505,24 @@ body {
 						installing the R package.
 					</p>
 				</section>
-				
+
 				<section id="admin">
+					<div class="page-header">
+						<h1>
+							Admin Guide <small> install and manage your own
+								server.</small>
+						</h1>
+					</div>
+
+					<p>
+						If you want to install your own OpenCPU server, go to the <a
+							href="download.html">download page</a> and get a copy of the
+						OpenCPU administrators manual. This document covers the basics of
+						installing and managing an OpenCPU server.
+					</p>
+					<p>The OpenCPU framework is evolving quite rapidly, and we do
+						our best keeping documentation and manual up to date. No
+						guarantees though :-)</p>
 				</section>
 
 
