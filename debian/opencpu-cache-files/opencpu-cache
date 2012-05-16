@@ -9,61 +9,74 @@
 # Short-Description: Start/stop OpenCPU Caching Service.
 ### END INIT INFO
 
-
-# Some things that run always
-touch /var/lock/opencpu-cache
-
 # Carry out specific functions when asked to by the system
 case "$1" in
   start)
-    if [ -f /var/run/varnish.pid ];
-      then
-        echo "Varnish already running? /var/run/varnish.pid found. Try: sudo service opencpu-cache stop"
-      else
-        echo "Starting Varnish..."
-        varnishd -P /var/run/varnish.pid -f /etc/opencpu/opencpu.vcl -s file,/mnt/varnish_storage.bin,2G -T 127.0.0.1:2000 -a 0.0.0.0:8000 
-        echo "Varnish OK... Setting up iptables..."
-        iptables -A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT
-        iptables -A INPUT -i eth0 -p tcp --dport 8000 -j ACCEPT
-        iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
-		
-		if [ -f /etc/init.d/apache2 ];
-		then
-			service apache2 restart
-		fi      
-		   
-        echo "OK"
-    fi  
-    ;;
+
+    iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+    iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+    iptables -A INPUT -p tcp --dport 8006 -j ACCEPT
+    iptables -A INPUT -p tcp --dport 8007 -j ACCEPT
+    iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 8006 
+    iptables -A PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-port 8007  
+    iptables -A OUTPUT -t nat -o lo -p tcp --dport 80 -j REDIRECT --to-ports 8006
+    iptables -A OUTPUT -t nat -o lo -p tcp --dport 443 -j REDIRECT --to-ports 8007 
+
+	if [ -f /etc/apache2/sites-available/opencpu-highports ];
+	then
+		a2ensite opencpu-highports
+		service apache2 restart
+	fi    
+	
+    /usr/lib/opencpu/scripts/nginx_ensite opencpu
+	service nginx restart
+	
+	echo "OK"
+	;;
   stop)
-    if [ -f /var/run/varnish.pid ];
-      then
-        echo "Cleaning up iptables..."
-        iptables -F
-        iptables -X
-        iptables -t nat -F
-        iptables -t nat -X
-        iptables -t mangle -F
-        iptables -t mangle -X
-        iptables -P INPUT ACCEPT
-        iptables -P FORWARD ACCEPT
-        iptables -P OUTPUT ACCEPT
-        echo "Killing Varnish..."
-        pkill varnishd
-        rm /var/run/varnish.pid
-        echo "OK"
-      else
-        echo "/var/run/varnish.pid not found. Varnish not running?"
-    fi  
+    echo "Disabling caching server..."
+    
+	if [ -f /etc/apache2/sites-available/opencpu-highports ];
+	then    
+	    a2dissite opencpu-highports
+	    service apache2 restart
+	fi
+
+    /usr/lib/opencpu/scripts/nginx_dissite opencpu
+    service nginx restart
+    
+    echo "Flushing cache..."
+    rm -Rf /tmp/opencpu-cache
+    
+    echo "Cleaning up iptables..."
+	iptables -D INPUT -p tcp --dport 80 -j ACCEPT
+	iptables -D INPUT -p tcp --dport 443 -j ACCEPT
+	iptables -D INPUT -p tcp --dport 8006 -j ACCEPT
+	iptables -D INPUT -p tcp --dport 8007 -j ACCEPT
+	iptables -D PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 8006 
+	iptables -D PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-port 8007  
+	iptables -D OUTPUT -t nat -o lo -p tcp --dport 80 -j REDIRECT --to-ports 8006
+	iptables -D OUTPUT -t nat -o lo -p tcp --dport 443 -j REDIRECT --to-ports 8007    
+    
+    echo "OK"  
     ;;
   restart)
 	$0 stop
 	$0 start    
-	;;    
+	;;
+  wipe)
+    iptables -F
+    iptables -X
+    iptables -t nat -F
+    iptables -t nat -X
+    iptables -t mangle -F
+    iptables -t mangle -X
+    iptables -P INPUT ACCEPT
+    iptables -P FORWARD ACCEPT
+    iptables -P OUTPUT ACCEPT
+    ;;      
   *)
     echo "Usage: service opencpu-cache {start|stop|restart}"
     exit 1
     ;;
 esac
-
-exit 0

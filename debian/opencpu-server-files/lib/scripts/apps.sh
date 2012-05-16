@@ -1,3 +1,4 @@
+mkdir -p /usr/lib/opencpu/apps/
 rm /usr/lib/opencpu/apps/*
 echo "#updated on" `date` >> /usr/lib/opencpu/apps/apps-readme
 
@@ -15,3 +16,4 @@ do
   ln -s $APP /usr/lib/opencpu/apps/$PACKAGE
 done
 
+python -c 'import os, json; print json.dumps(os.listdir("/usr/lib/opencpu/apps/"))' > /usr/lib/opencpu/apps/index.json

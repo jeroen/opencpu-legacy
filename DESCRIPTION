@@ -1,16 +1,17 @@
 Package: opencpu.server
 Type: Package
 Title: OpenCPU
-Version: 0.6
+Version: 0.70
 Date: 2012-03-10
 Author: Jeroen Ooms
 Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>
 Description: Some R code for the OpenCPU framework.
 License: AGPL
+LazyData: no
 Imports:
     tools,
-    RJSONIO (>= 0.97-0),
-    multicore,
+    RCurl,
+    RJSONIO (>= 0.99-0),
     opencpu.tools,
     opencpu.encode,
     interactivity
@@ -18,3 +19,81 @@ Suggests:
     ggplot2,
     proftools,
     opencpu.demo
+Collate:
+    'addToUserStore.R'
+    'authapi.R'
+    'callfunction.R'
+    'closure.R'
+    'echo.R'
+    'errorhandler.R'
+    'fixobject.R'
+    'getascii.R'
+    'getbin.R'
+    'getcsv.R'
+    'getencode.R'
+    'getfile.R'
+    'getjsonp.R'
+    'getjson.R'
+    'getplot.R'
+    'getprint.R'
+    'getrda.R'
+    'getrds.R'
+    'getsave.R'
+    'gettable.R'
+    'getUserInfo.R'
+    'hashme.R'
+    'homeapi.R'
+    'HTTPDELETE.HOME.R'
+    'httperror.R'
+    'HTTPGET.FRONTPAGE.R'
+    'HTTPGET.HOME.R'
+    'HTTPGET.PUB.PACKAGE.OBJECT.HELP.R'
+    'HTTPGET.PUB.PACKAGE.OBJECT.R'
+    'HTTPGET.PUB.R'
+    'HTTPGET.R'
+    'HTTPGET.TMP.R'
+    'HTTPGET.USER.R'
+    'HTTPPOST.PUB.R'
+    'HTTPPOST.R'
+    'HTTPPOST.TMP.R'
+    'HTTPPOST.USER.R'
+    'HTTPPUT.HOME.R'
+    'lasterror.R'
+    'loadconfig.R'
+    'loadFromFileStore.R'
+    'loadFromPackage.R'
+    'loadFromUserStore.R'
+    'loadStore.R'
+    'logcall.R'
+    'login.R'
+    'logout.R'
+    'object2jsonfile.R'
+    'onLoad.R'
+    'outputformats.R'
+    'parseFiles.R'
+    'parsewithbrackets.R'
+    'plotpdf.R'
+    'plotpng.R'
+    'plotsvg.R'
+    'preprocess.R'
+    'pubapi.R'
+    'Rd2list.R'
+    'removeFromUserStore.R'
+    'renderobject.R'
+    'reproduce.R'
+    'reproducible.R'
+    'request.fork.R'
+    'roothandler.R'
+    'send.response.R'
+    'sendtoauthpage.R'
+    'setLibPaths.R'
+    'storebinaryfile.R'
+    'storefile.R'
+    'storelist.R'
+    'storeobject.R'
+    'storeplot.R'
+    'testforjson.R'
+    'tryParse.R'
+    'validateUser.R'
+    'validateUserStore.R'
+

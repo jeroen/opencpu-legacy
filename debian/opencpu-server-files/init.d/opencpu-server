@@ -12,10 +12,14 @@
 # Carry out specific functions when asked to by the system
 case "$1" in
   start)
+    rm -f /tmp/repos_http*.rds
     /usr/lib/opencpu/scripts/killorphans.sh &
     /usr/lib/opencpu/scripts/sites.sh > /dev/null 2>&1
 	/usr/lib/opencpu/scripts/apps.sh
+	/usr/lib/opencpu/scripts/userapps.sh
 	a2ensite opencpu > /dev/null
+	a2ensite opencpu-pages > /dev/null
+	a2ensite opencpu-user > /dev/null
 	a2ensite opencpu-apps > /dev/null
 	service apache2 start > /dev/null #just in case its not running
 	service apache2 reload
@@ -24,6 +28,8 @@ case "$1" in
   stop)
     kill $(pgrep killorphans.sh)
 	a2dissite opencpu > /dev/null
+	a2dissite opencpu-pages > /dev/null
+	a2dissite opencpu-user > /dev/null
 	a2dissite opencpu-apps > /dev/null
 	service apache2 restart
 	echo "opencpu disabled"

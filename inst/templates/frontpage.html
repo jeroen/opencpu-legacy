@@ -31,18 +31,18 @@ HTTP 200 if OK, HTTP 400 if R throws an error.
 
 <h3> Get Dataframe </h3>
 <ul>
-<li><a href="/R/call/stats/as.data.frame/csv?x=iris"> csv file</a><br /></li>
-<li><a href="/R/call/stats/as.data.frame/table?x=iris"> tab delimited file</a><br /></li>
+<li><a href="/R/call/base/as.data.frame/csv?x=iris"> csv file</a><br /></li>
+<li><a href="/R/call/base/as.data.frame/table?x=iris"> tab delimited file</a><br /></li>
 </ul>
 
 <h3> Get R Objects </h3>
 <ul>
 <li><a href="/R/call/stats/rnorm/json?n=10&mean=10&sd=100"> json output</a><br /></li>
 <li><a href="/R/call/stats/rnorm/jsonp?n=10&mean=10&sd=100&!prefix='myfun'"> jsonp output</a><br /></li>
-<li><a href="/R/call/stats/as.data.frame/rds?x=iris"> binary R object</a><br /></li>
-<li><a href="/R/call/stats/as.data.frame/rda?x=iris"> binary R workspace</a><br /></li>
-<li><a href="/R/call/stats/as.data.frame/ascii?x=iris"> dput ascii representation</a><br /></li>
-<li><a href="/R/call/stats/as.data.frame/encode?x=iris"> opencpu encoding</a><br /></li>
+<li><a href="/R/call/base/as.data.frame/rds?x=iris"> binary R object</a><br /></li>
+<li><a href="/R/call/base/as.data.frame/rda?x=iris"> binary R workspace</a><br /></li>
+<li><a href="/R/call/base/as.data.frame/ascii?x=iris"> dput ascii representation</a><br /></li>
+<li><a href="/R/call/base/as.data.frame/encode?x=iris"> opencpu encoding</a><br /></li>
 </ul>
 
 <h3> Get file / binary </h3>
@@ -55,7 +55,7 @@ HTTP 200 if OK, HTTP 400 if R throws an error.
 <ul>
 <li><a href="/R/call/stats/rnorm/json?n=10&!seed=12345"> Set a seed</a><br /></li>
 <li><a href="/R/call/base/identity/json?x=rnorm(100)"> Run code </a><br /></li>
-<li><a href="/R/call/base/identity/json?x={total <- 0; for(i in 1:100) { total <- total + i^2 }; total;}"> More code </a><br /></li>
+<li><a href="/R/call/base/identity/json?x=%7Btotal%20%3C-%200%3B%20for(i%20in%201%3A100)%20%7B%20total%20%3C-%20total%20%2B%20i%5E2%20%7D%3B%20total%3B%7D"> Multiline code </a><br /></li>
 <li><a href="/R/call/base/Sys.info/json"> No arguments (Sysinfo)</a><br /></li>
 <li><a href="/R/call/base/system.file/json?package='ggplot2'&...='DESCRIPTION'"> The ... elipse argument</a><br /></li>
 <li><a href="/R/call/graphics/plot/png?x=1&xlab='Zürich'&ylab='Z\303\274rich'">Test UTF-8</a><br /></li>
@@ -63,7 +63,7 @@ HTTP 200 if OK, HTTP 400 if R throws an error.
 
 <h3> Test Security </h3>
 <ul>
-<li><a href="/R/call/stats/as.data.frame/json?x=doesnotexist"> test error handling</a><br /></li>
+<li><a href="/R/call/base/as.data.frame/json?x=doesnotexist"> test error handling</a><br /></li>
 <li><a href="/R/call/opencpu.tools/testcpu/json?size=1e7"> test cpu limit</a><br /></li>
 <li><a href="/R/call/opencpu.tools/testcpu/json?size=1e9"> test memory limit</a><br /></li>
 <li><a href="/R/call/stats/rnorm/save?n=1e7"> test store limit</a><br /></li>
@@ -144,6 +144,11 @@ Try with e.g. <a href="/R/call/base/identity/rds?x=mtcars">mtcars.rds</a> <br />
 <form enctype="multipart/form-data" action="/R/call/base/names/json" method="POST">
 Upload rds file: <input name="x" type="file" /><br />
 <input type="submit" value="Upload File" />
+</form>
+
+<form enctype="multipart/form-data" action="/home/foo/bar" method="POST">
+Upload rds file: <input name="object" type="file" /><br />
+<input type="submit" value="PUT File" />
 </form>
 
 

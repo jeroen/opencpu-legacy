@@ -1,0 +1,15 @@
+create a new instance
+
+edit /etc/fstab to set the big volume to /tmp instead of /mnt
+sudo chmod 777 /tmp
+
+attach the store volume through ec2 webconsole.
+
+If it is a new volume format it first: 
+  sudo mkfs -t ext4 /dev/sdf
+
+Edit /etc/fstab and add the volume:
+  /dev/sdf        /mnt    auto    defaults,nobootwait,noatime     0       0
+
+Install the server:
+apt-get install opencpu-meta

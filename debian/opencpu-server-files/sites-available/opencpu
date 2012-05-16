@@ -2,18 +2,16 @@
 
 <IfModule mod_R.c>
 
+	#Disable this for development
 	REvalOnStartup ".libPaths('/usr/lib/opencpu/opencpu-system-library');"
-
-	Redirect 302 /index.html /R
-
 	MaxRequestsPerChild 200
-	ErrorDocument 400 /R/lasterror
 
 	<Location /R>
 	
 		SetHandler r-handler
-		RHandler opencpu.server::roothandler
-		
+		RHandler opencpu.server::pubhandler
+		ErrorDocument 400 /R/lasterror
+				
 		<IfModule mod_apparmor.c>
 			AAHatName opencpu
 		</IfModule>
@@ -24,12 +22,21 @@
 		</IfModule>
 	
 	</Location>
+	
+	# Enable to use 'opencpu' user for all sites.
+	# This will make it easier for mod_itk to recycle processes. 
+	
+	# COMMENT THIS OUT IF YOU ARE RUNNING OTHER STUFF ON THE SERVER
+	
+	<IfModule mpm_itk_module>
+	 	AssignUserID opencpu opencpu
+	 	NiceValue 10
+	</IfModule>	
 
 	# DEBUG:
 	# <Location /echo>
 	#        SetHandler r-handler
 	#        RHandler opencpu.server::echo
-	#        AAHatName opencpu
 	# </Location>
 
 </IfModule>

@@ -5,7 +5,7 @@
 
 
 getsave <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	mytempfile <- do.call(dogetsave, fnargs);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }
@@ -16,6 +16,7 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	plotdumpdir <- file.path("/tmp", paste("plotdump", floor(runif(1,1e8, 1e9)), sep=""));
 	dir.create(plotdumpdir);
 	pdf(file.path(plotdumpdir,"plotcount%03d.ps"), onefile=FALSE);
+	par("bg" = "white");
 	dev.control(displaylist="enable");
 	emptyplot <- recordPlot();
 	plotenv = new.env();
@@ -53,12 +54,20 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	}
 	
 	#call the new function
-	mycall <- as.call(c(list(as.name("#dofn")), argn));
-	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
+	if(is.character(`#dofn`)){
+		mycall <- as.call(c(list(parse(text=`#dofn`)[[1]]), argn));
+	} else {
+		mycall <- as.call(c(list(as.name("FUN")), argn));
+		fnargs <- c(fnargs, list("FUN" = `#dofn`));		
+	}
 	
-	detach("rapache");
-	detach("package:opencpu.server");
+	#Detach package
+	#eval(detach("package:opencpu.server"), globalenv());
 
+	#get the workign dir:
+	workingdir <- getwd();	
+	
+	#Run the actual code
 	if(isTRUE(`!reproducible`)){
 		reprolist <- eval(call('reproducible', expr=mycall, envir=fnargs, output=TRUE));
 		reproduce.object <- reprolist$reproducible;
@@ -66,6 +75,9 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	} else {
 		output <- eval(mycall, fnargs, globalenv());	
 	}
+	
+	#in case the user changed working directories:
+	setwd(workingdir);
 
 	if(`!printoutput`){
 		#Feb 10, 2012: This one is causing major issues!
@@ -73,12 +85,12 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	}
 	
 	#we need some functions so reload the library
-	if(length(config("syslib")) > 0){
-		#it might or might not be in the system library.
-		.libPaths(config("syslib"));
-		library("opencpu.server");
-		.libPaths("");
-	}
+	#if(length(config("syslib")) > 0){
+	#	#it might or might not be in the system library.
+	#	.libPaths(config("syslib"));
+	#	library("opencpu.server");
+	#	.libPaths("");
+	#}
 	
 	#save final plot and close device
 	if(get("hasplots", plotenv) || !identical(emptyplot, recordPlot())){
@@ -91,14 +103,17 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	dev.off();
 	setHook("before.plot.new", NULL, "replace");
 	setHook("before.grid.newpage", NULL, "replace");
-
+	unlink(plotdumpdir, recursive=TRUE);
+	
 	#write object and plots to files
 	returnlist <- list();
+	
+	#build output
 	if(`!saveobject`){
 		if(!is.null(output)){
 			returnlist$object <- as.scalar(storeobject(output));
 		} else {
-			returnlist$object <- vector();
+			returnlist$object <- as.scalar(NA);
 		}
 	} 
 	
@@ -107,7 +122,7 @@ dogetsave <- function(`#dofn`, `!saveobject`=TRUE, `!savegraphs`=TRUE, `!savefil
 	} 
 	
 	if(`!savefiles`){
-		returnlist$files <- lapply(as.list(sapply(list.files(), storebinaryfile)), as.scalar)
+		returnlist$files <- lapply(as.list(sapply(list.files(workingdir), storebinaryfile)), as.scalar)
 	} 
 	
 	if(`!reproducible`){

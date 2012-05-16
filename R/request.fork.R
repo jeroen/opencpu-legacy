@@ -1,54 +1,58 @@
-request.fork <- function(){
+request.fork <- function(API){
 
-	#Jeffrey says: Don't reference RApache variables in the forked child process.
-	assign("NEWFILESVAR", FILES, "OpenCPU");
-	assign("fnargs", switch(SERVER$method, POST = POST,	PUT = POST, GET), "OpenCPU");
+	#HTTP Method:
+	HTTPMETHOD <- SERVER$method
 	
-	#little trick to have hashme still available after detach
-	assign("hashme", opencpu.server:::hashme, envir=as.environment("package:base"))
-	
-	#Parse HTTP request
-	uri <- SERVER$path_info;
-	
-	#hack for rapache bug when server runs on custom port:
-	if(grepl(":",SERVER$headers_in$Host)){
-		uri <- paste(strsplit(uri,"/")[[1]][-2], collapse="/");
+	#For the CORS stuff.
+	if(HTTPMETHOD == "OPTIONS"){
+		send.response(list());
+		return(OK);
 	}
 	
-	#Serve a documentation page at frontpage
-	if(uri == "" || uri == "/"){
-		uri <- "/frontpage";
+	#Files and arguments
+	NEWFILESVAR <- FILES
+	FNARGS <- switch(SERVER$method, POST = POST, PUT = POST, GET);
+	
+	#In case of no arguments
+	if(is.null(FNARGS)){
+		FNARGS <- list();
 	}
 	
-	#split uri
-	uri.split <- strsplit(substring(uri, 2),"/")[[1]];	
+	#Check for the token cookie
+	ACCESS_TOKEN <- COOKIES$access_token
 	
-	#parse R function URI. If it's too short will result in NA's (no error).
-	Rwhat <- uri.split[1]; #call or store or help
-	Rlocation <- uri.split[2]; #package or store location
-	Rfnobj <- uri.split[3];	#function or md5 object key
-	Routput <- uri.split[4]; #output format
+	#Get uri endpoint (without /R)
+	URI <- strsplit(substring(SERVER$path_info, 2),"/")[[1]];
 	
-	myfork <- parallel(
-		switch(Rwhat,
-			call = FUNCTIONhandler(Rlocation, Rfnobj, Routput),
-			store = STOREhandler(Rlocation, Rfnobj, Routput),
-			frontpage = printFrontpage(),
-			help = HELPhandler(Rlocation, Rfnobj, Routput),
-			lasterror = lasterror(),
-			stop("Unknown location: /", Rwhat)
-		), 
+	#dispatch based on method
+	myfork <- mcparallel(
+		{
+			#Rapache shouldn't be required anymore here.
+			detach("rapache");
+			eval(detach("package:opencpu.server"), globalenv());
+			
+			#In case a user wants to install a package:
+			setLibPaths(c(getwd(), .libPaths()));
+			
+			#Invoke method:
+			switch(API,
+				pubapi = pubapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR),
+				homeapi = homeapi(HTTPMETHOD, URI, FNARGS, NEWFILESVAR, ACCESS_TOKEN),
+				authapi = authapi(URI, FNARGS),
+				stop("Invalid API: ", API)
+			);
+		}, 
 		silent=TRUE
 	);
 	
-	#wait max 20 seconds for a result.
-	myresult <- collect(myfork, wait=FALSE, timeout=config("job.timeout"))[[1]];
+	#wait max n seconds for a result.
+	myresult <- mccollect(myfork, wait=FALSE, timeout=config("job.timeout"))[[1]];
 	
 	#kill fork after collect has returned
-	kill(myfork, SIGKILL);	
+	pskill(myfork$pid, SIGKILL);	
 	
 	#clean up:
-	collect(myfork, wait=TRUE);
+	mccollect(myfork, wait=TRUE);
 
 	#timeout?
 	if(is.null(myresult)){
@@ -57,15 +61,15 @@ request.fork <- function(){
 	
 	#forks don't throw errors themselves
 	if(class(myresult) == "try-error"){
-		stop(myresult, call.=FALSE);
+		#stop(myresult, call.=FALSE);
+		stop(attr(myresult, "condition"));
 	}
 	
-	#select output method
-	switch(SERVER$method,
-		GET = send.GET(myresult),
-		POST = send.GET(myresult),
-		stop("No send method for method: ", SERVER$method)
-	);	
+	#send the buffered response
+	send.response(myresult);
 
-	return(list(status=200));	
+	#Report back to roothandler
+	#After body content has been sent (above) it's too late to change status code.
+	#You can only return OK.
+	return(OK);
 }

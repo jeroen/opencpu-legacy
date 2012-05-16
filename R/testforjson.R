@@ -1,8 +1,4 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
+#used by tryParse to detect a json argument.
 
 testforjson <- function(mystring){
 	

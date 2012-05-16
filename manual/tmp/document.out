@@ -1,0 +1,12 @@
+\BOOKMARK [1][-]{section.1}{Installation}{}
+\BOOKMARK [2][-]{subsection.1.1}{Packages}{section.1}
+\BOOKMARK [2][-]{subsection.1.2}{Installing Ubuntu Linux}{section.1}
+\BOOKMARK [2][-]{subsection.1.3}{Getting the system up-to-date}{section.1}
+\BOOKMARK [2][-]{subsection.1.4}{OpenCPU Installation}{section.1}
+\BOOKMARK [2][-]{subsection.1.5}{Uninstall OpenCPU}{section.1}
+\BOOKMARK [1][-]{section.2}{Administration}{}
+\BOOKMARK [2][-]{subsection.2.1}{Configuration Files}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Apache2}{section.2}
+\BOOKMARK [2][-]{subsection.2.3}{HTTPS access and SSL certificates}{section.2}
+\BOOKMARK [2][-]{subsection.2.4}{Certificates}{section.2}
+\BOOKMARK [1][-]{section.3}{The Caching / Load balancing Server}{}

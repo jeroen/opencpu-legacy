@@ -1,2 +1,4 @@
 /mnt/export/opencpu-admin-library/ rw,
-/mnt/export/opencpu-admin-library/** mrw, 
+/mnt/export/opencpu-admin-library/** mrw,
+/mnt/export/store/user/ rw,
+/mnt/export/store/user/** mrw,

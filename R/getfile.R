@@ -38,12 +38,14 @@ dogetfile <- function(`#dofn`, ...){
 	}
 	
 	#call the new function
-	call <- as.call(c(list(as.name("#dofn")), argn));
-	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
+	if(is.character(`#dofn`)){
+		mycall <- as.call(c(list(parse(text=`#dofn`)[[1]]), argn));
+	} else {
+		mycall <- as.call(c(list(as.name("FUN")), argn));
+		fnargs <- c(fnargs, list("FUN" = `#dofn`));		
+	}
 
-	detach("rapache");
-	detach("package:opencpu.server");
-	output <- eval(call, fnargs, globalenv());
+	output <- eval(mycall, fnargs, globalenv());
 	
 	#check for valid existence.
 	if(!file.exists(output)){

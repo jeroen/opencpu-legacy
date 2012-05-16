@@ -1,1 +1,3 @@
+/mnt/export/store/user/ r,
+/mnt/export/store/user/** mr,
 /mnt/export/store/tmp/* rw,

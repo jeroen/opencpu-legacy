@@ -1,9 +1,4 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-#should replace this with sha1
+#should replace this with digest package
 
 hashme <- function(filename){
 	return(unname(md5sum(filename)));

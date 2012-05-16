@@ -13,14 +13,25 @@ case "$1" in
 	  useradd opencpu --system -U -d/tmp -c"OpenCPU R Server"
 	fi	
 	
-	#copy the config file
-	cp -f /usr/lib/opencpu/opencpu-system-library/opencpu.server/config/default.conf /etc/opencpu/server.conf
+	# Adding OpenCPU Admin.
+	if grep -s -q "^opencpu-admin:" /etc/passwd; then
+	  echo "User opencpu-admin already exists"
+	else
+	  echo "Adding user opencpu-admin..."
+	  useradd opencpu-admin --system -U -d/tmp -c"OpenCPU Admin"
+	fi		
+	
+	#copy the config file	
+	if [ ! -e /etc/opencpu/server.conf ]
+	then
+	    cp -f /usr/lib/opencpu/opencpu-system-library/opencpu.server/config/default.conf /etc/opencpu/server.conf
+	fi	
 	
 	#chmod shell scripts
-	chmod +x /usr/lib/opencpu/scripts/sites.sh
-	chmod +x /usr/lib/opencpu/scripts/apps.sh
-	chmod +x /usr/lib/opencpu/scripts/showip.sh
-	chmod +x /usr/lib/opencpu/scripts/killorphans.sh
+	chmod +x /usr/lib/opencpu/scripts/*.sh
+	
+	#force reload the cron job in /etc/init.d. Should be necessary but never harms:
+	reload cron
 	
 	#create log file
 	touch /var/log/opencpu/access.log

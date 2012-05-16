@@ -2,6 +2,7 @@
 /mnt/export/opencpu-admin-library
 /mnt/export/opencpu-cran-library
 /mnt/export/store/tmp
+/mnt/export/store/user
 /var/log/opencpu
 /usr/lib/opencpu/apps
 /usr/lib/opencpu/opencpu-system-library

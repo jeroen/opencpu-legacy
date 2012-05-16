@@ -2,11 +2,25 @@
 
 set -e
 
-service opencpu-server stop
-service opencpu-sandbox stop
+case "$1" in
+        remove)
+			service opencpu-server stop
+			service opencpu-sandbox stop	
+			
+			rm -Rf /mnt/export/opencpu-cran-library/*
+			rm -Rf /mnt/export/opencpu-admin-library/*
+			rm -Rf /usr/lib/opencpu/apps/*
+        	;;
+        deconfigure|failed-upgrade|upgrade)
+			service opencpu-server stop
+			service opencpu-sandbox stop        
+        	;;
+        *)
+                echo "prerm called with unknown argument \`$1'" >&2
+                exit 1
+        ;;
+esac
 
-rm -Rf /mnt/export/opencpu-cran-library/*
-rm -Rf /mnt/export/opencpu-admin-library/*
-rm -Rf /usr/lib/opencpu/apps/*
+#DEBHELPER#
 
 exit 0

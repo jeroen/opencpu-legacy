@@ -1,0 +1,22 @@
+.justify{
+	text-align: justify;	
+}
+
+.btn-frontpage{
+	width: 82%;	
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.marketing{
+	margin-bottom: 15px;
+}
+
+.span4 p{
+	margin-right: 30px;
+	line-height: 180%
+}
+
+.span3 p{
+	margin-bottom: 30px;	
+}

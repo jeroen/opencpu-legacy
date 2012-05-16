@@ -1,0 +1,13 @@
+p {
+	line-height: 150%;
+}
+
+.accordion-inner{
+	margin-right: 20px;
+	margin-left:  20px;
+	line-height:  150%;		
+}
+
+dt{
+	margin-top: 10px;
+}

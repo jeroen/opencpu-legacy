@@ -1,0 +1,2 @@
+running: lapply(lapply(sys.parents(), sys.frame), ls)
+

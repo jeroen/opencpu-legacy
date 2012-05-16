@@ -4,7 +4,7 @@
 ###############################################################################
 
 getjsonp <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	mytempfile <- do.call(dogetjsonp, fnargs);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }

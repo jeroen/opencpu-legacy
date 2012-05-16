@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OpenCPU: producing and reproducing results.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Le styles -->
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<style>
+body {
+	padding-top: 60px;
+	/* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="common.css" rel="stylesheet">
+<link href="bootstrap-hacks.css" rel="stylesheet">
+<link href="home.css" rel="stylesheet">
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+	<!-- Top Navigation bar (the black one) -->
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#"></a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="active"><a href=".">Home</a></li>
+						<li><a href="docs.html">Docs</a></li>
+						<li><a href="apps.html">Apps</a></li>
+						<li><a href="download.html">Download</a></li>
+						<li><a href="license.html">License</a></li>
+						<li><a href="faq.html">FAQ</a></li>
+						<li><a href="explorer.html">Explorer</a></li>
+					</ul>
+					<ul class="nav pull-right">
+						<li><a href="about.html">About</a></li>
+						<li><a href="support.html">Support</a></li>
+						<li><a href="/auth/login">Login</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="container">
+
+
+		<br /> <br />
+
+
+		<div class="row">
+			<div class="span9 columns">
+
+				<div id="myCarousel" class="carousel slide">
+					<div class="carousel-inner">
+
+						<div class="item active">
+							<img src="images/clouds2.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Cloud computing</h4>
+								<p>More powerful and efficient use of resources by doing
+									computing in the cloud.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/docter.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Statistical Tools</h4>
+								<p>Tools and applications that give specialists additional
+									insight into their data.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/earth.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Next generation of GIS</h4>
+								<p>R has a wealth of packages aimed at spatial analysis that
+									go far beyond current GIS systems.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/finance2.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Live analytics</h4>
+								<p>Process live data streams in domains where seconds count.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/finance3.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Better Visualization</h4>
+								<p>Produce plots and graphics that make Excel charts look
+									prehistoric.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/brainscans.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Scientific Data Analysis</h4>
+								<p>Process large amounts of data, in the cloud, on the fly.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/lab2.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Professional Research</h4>
+								<p>Not exactly sure what is happening on this picture.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/pills.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>Reproducible Research</h4>
+								<p>Share code and data to make results reproducible and
+									conclusions reliable.</p>
+							</div>
+						</div>
+
+						<div class="item">
+							<img src="images/ucla.jpg" alt="">
+							<div class="carousel-caption">
+								<h4>For Business and Academia</h4>
+								<p>OpenCPU is open source and can be used both in academics
+									and professional environments.</p>
+							</div>
+						</div>
+
+
+
+					</div>
+					<a class="left carousel-control" href="#myCarousel"
+						data-slide="prev">&lsaquo;</a> <a class="right carousel-control"
+						href="#myCarousel" data-slide="next">&rsaquo;</a>
+				</div>
+			</div>
+
+			<div class="span3 marketing">
+				<div class="well">
+					<h1>Get started!</h1>
+					<a href="docs.html" class="btn btn-large btn-frontpage btn-primary"><i
+						class="icon-file icon-white"></i> API Documentation</a>
+					<p class="justify">The core of OpenCPU is the REST API for
+						reading, executing and publishing data and code.</p>
+
+					<a href="apps.html" class="btn btn-large btn-frontpage"><i
+						class="icon-file"></i> OpenCPU Apps</a>
+					<p class="justify">OpenCPU has a simple system for turning an R
+						package into a deployable web application.</p>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="marketing">
+			<h1>Scientific computing in the cloud.</h1>
+			<p class="marketing-byline">For everyone, anywhere.</p>
+
+			<div class="bs-links">
+				<ul class="quick-links">
+					<li><iframe class="github-btn"
+							src="github-btn.html?user=jeroenooms&repo=opencpu&type=watch&count=true"
+							allowtransparency="true" frameborder="0" scrolling="0"
+							width="112px" height="20px"></iframe></li>
+					<li><iframe class="github-btn"
+							src="github-btn.html?user=jeroenooms&repo=opencpu&type=fork&count=true"
+							allowtransparency="true" frameborder="0" scrolling="0"
+							width="98px" height="20px"></iframe></li>
+					<li class="follow-btn"><a href="https://twitter.com/opencpu"
+						class="twitter-follow-button" data-link-color="#0069D6"
+						data-show-count="true">Follow @OpenCPU</a></li>
+					<li class="tweet-btn"><a href="https://twitter.com/share"
+						class="twitter-share-button" data-url="http://opencpu.org"
+						data-count="horizontal" data-via="opencpu"
+						data-related="R, Rstats">Tweet</a></li>
+				</ul>
+			</div>
+
+
+			<br />
+
+			<div class="row">
+				<div class="span4">
+					<img class="bs-icon"
+						src="images/presentation.png">
+					<h2>Embedded Analytics</h2>
+					<p>
+						OpenCPU is a framework for scalable, embedded scientific
+						computing, based on <a
+							href="http://en.wikipedia.org/wiki/R_(programming_language)">R</a>
+						and <a href="http://en.wikipedia.org/wiki/LaTeX">Latex</a>. It
+						makes innovations in statistics, vizualization and <a
+							href="http://www.dataists.com/2010/09/the-data-science-venn-diagram/">data-science</a>
+						easy to integrate and more widely applicable.
+					</p>
+				</div>
+
+				<div class="span4">
+					<img class="bs-icon"
+						src="images/cloud.png">
+					<h2>Public cloud computing</h2>
+					<p>
+						OpenCPU provices a free and open platform for statistical
+						computing in <a
+							href="http://en.wikipedia.org/wiki/Cloud_computing">the cloud</a>.
+						For Students and Professors, Researchers and Professionals,
+						Science, Business, Medical or any other field.
+					</p>
+				</div>
+
+				<div class="span4">
+					<img class="bs-icon"
+						src="images/twitter.png">
+					<h2>Collaborative Research</h2>
+					<p>
+						OpenCPU facilitates sharing of <a
+							href="http://en.wikipedia.org/wiki/Open-source_software">code</a>,
+						<a href="http://en.wikipedia.org/wiki/Open_data">data</a> and
+						results, from anywhere and with anyone, without the need for
+						commercial software packages. This way you can contribute to
+						transparent, <a
+							href="http://en.wikipedia.org/wiki/Reproducibility">reproducible
+							research</a>.
+					</p>
+				</div>
+			</div>
+
+			<br />
+
+			<div class="row">
+
+				<div class="span4">
+					<img class="bs-icon"
+						src="images/preferences.png">
+					<h2>The REST API</h2>
+					<p>
+						The core of OpenCPU is a <a
+							href="http://en.wikipedia.org/wiki/Representational_state_transfer">HTTP
+							REST API</a> that facilitates interaction with the computational
+						back-end. Any system or programming language that has the
+						capability to connect to the internet can interact with OpenCPU.
+					</p>
+				</div>
+
+				<div class="span4">
+					<img class="bs-icon"
+						src="images/web.png">
+					<h2>The R language</h2>
+					<p>
+						OpenCPU supports the popular open source programming language R
+						from the <a href="http://www.r-project.org/">R-project</a>.
+						Functionality that is available in R can be called from OpenCPU.
+						Call or publish functions, store or retrieve object and images and
+						generate reproducible reports.
+					</p>
+				</div>
+				<div class="span4">
+					<img class="bs-icon"
+						src="images/podcast.png">
+					<h2>The Community</h2>
+					<p>
+						OpenCPU is meant to be the basis of social data analysis
+						infrastructure. It uses open source software that is used and
+						supported academics, professionals and volunteers. Join a <a
+							href="http://stackoverflow.com/questions/tagged/r?sort=votes">community</a>
+						that encourages you to think, invent, share, and keep learning,
+						every day.
+					</p>
+				</div>
+			</div>
+			<!--/row-->
+
+		</div>
+
+
+
+		<br>
+
+
+		<footer class="footer">
+			<p class="pull-right">
+				<a href="#">Back to top</a>
+			</p>
+			<p>
+				OpenCPU is an initiative from <a
+					href="http://www.stat.ucla.edu/~jeroen">Jeroen Ooms</a> and has
+				been implemented by Stat/Dev consulting in The Netherlands.
+			</p>
+			<p>
+				The implementation has been supported by a Research and Development
+				grant (<a
+					href="http://www.agentschapnl.nl/programmas-regelingen/wbso">WBSO</a>)
+				from the Dutch government.
+			</p>
+			<p>
+				This website was created using <a
+					href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.
+			</p>
+		</footer>
+
+		<!-- /container -->
+	</div>
+
+
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- we host widget.js local for https <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> -->
+	
+	<script type="text/javascript" src="twitter.js"></script>
+	<script src="jquery-1.7.2.min.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+	<script src="common.js"></script>
+
+</body>
+
+</html>

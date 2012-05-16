@@ -9,16 +9,17 @@
 # ErrorDocument 400 /R/lasterror
 
 errorhandler <- function(e){
+	
 	#check if file exists
 	if(!file.exists("/tmp/lasterror")){
 		file.create("/tmp/lasterror");
 	}
 	
 	#try to open connection for writing
-	errorfile <- try(file("/tmp/lasterror", open="w"), silent=T);
+	errorfile <- try(file("/tmp/lasterror", open="wb"), silent=T);
 	
 	#return another error
-	if(class(errorfile)=="try-error"){
+	if("try-error" %in% class(errorfile)){
 		cat(e$message,"\n\n");
 		cat("IMPORTANT: on top of that we could not write the error to file: /tmp/lasterror. Therefore you are now seeing a 200 OK instead of a 400 HTTP_BAD_REQUEST. \nPlease ask sysadmin to remove or chmod this file.\n\n");	
 		return(OK);
@@ -29,9 +30,6 @@ errorhandler <- function(e){
 	errormessage <- gsub("Error in.* : ","Error: ", errormessage);
 	errormessage <- gsub("Error : Error","Error", errormessage);
 	errormessage <- gsub("Error: \n ","Error:", errormessage);
-	
-	#write errormessage to a file
-	write(errormessage, file=errorfile);
 	
 	#log errors
 	if(!is.null(config("errorlog")) && config("errorlog") != ""){
@@ -47,9 +45,22 @@ errorhandler <- function(e){
 	  warningmessage <- "\n\nAdditionaly some warnings:\n";
 	  warningmessage <- paste(warningmessage, tail(warnings(),1)[[1]], ":\n", sep="");
 	  warningmessage <- paste(warningmessage, names(tail(warnings(),1)[1]));
-	  write(warningmessage, errorfile, append=T);
+	  errormessage <- paste(errormessage, "\n", warningmessage);
 	}
 	
-	close(errorfile)
-	return(list(status=HTTP_BAD_REQUEST));
+	#update the error object
+	e$message <- errormessage;
+	
+	#write object to a file
+	saveRDS(e, file=errorfile);
+	close(errorfile);
+	
+	if(is.null(e$statuscode)){
+		return(HTTP_BAD_REQUEST);
+	} else {
+		return(switch(as.character(e$statuscode),
+			'302' = HTTP_MOVED_TEMPORARILY,
+			HTTP_BAD_REQUEST
+		));
+	}
 }

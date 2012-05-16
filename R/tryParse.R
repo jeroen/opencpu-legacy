@@ -15,6 +15,14 @@ tryParse <- function(string, disable.eval = config("disable.eval")){
 		return(string);
 	}
 	
+	if(string == "true"){
+		string <- "TRUE";
+	}
+	
+	if(string == "false"){
+		string <- "FALSE";
+	}
+	
 	#if string starts and ends with [] then assume JSON
 	if(substr(string, 1, 1) == "["){
 		if(!isValidJSON(string, TRUE)){
@@ -77,7 +85,7 @@ tryParse <- function(string, disable.eval = config("disable.eval")){
 	#check if it looks like a UUID
 	myregex <- "^x[a-f0-9]{10}$"
 	if(length(grep(myregex, string) > 0)){
-		return(loadFromStore(string));
+		return(loadFromFileStore    (string));
 	}
 	
 	#if config(eval.args) then eval code
@@ -105,6 +113,6 @@ tryParse <- function(string, disable.eval = config("disable.eval")){
 			return(substr(string, 2, nchar(string)-1));
 		}
 		
-		stop("unparsable argument: ", string, "\n\nValid arguments are:\n- a numeric value, e.g. 3.1415 \n- a boolean, i.e. TRUE or FALSE \n- a character string enclosed in quotes, e.g \"My plot title\" \n- an existing R object (e.g. cars) \n- a JSON object that can be parsed by RJSONIO, e.g. [3,4,5,6] or {\"foo\":[1,2,3], \"bar\":true}");
+		stop("unparsable argument: ", string, "\n\nValid arguments are:\n- a numeric value, e.g. 3.1415 \n- a boolean, i.e. TRUE or FALSE \n- a character string enclosed in quotes, e.g \"My plot title\" \n- an existing R object (e.g. cars) \n- a JSON object that can be parsed by RJSONIO, e.g. [3,4,5,6] or {\"foo\":[1,2,3], \"bar\":true}. \n\nNote that custom code is not allowed for meta parameters or HTTP GET requests.");
 	}
 }

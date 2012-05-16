@@ -1,5 +1,5 @@
 getencode <- function(fnargs){
-	CONTENTTYPE <- "text/plain";
+	CONTENTTYPE <- "text/plain; charset=UTF8";
 	mytempfile <- do.call(dogetencode, fnargs);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }
@@ -28,12 +28,14 @@ dogetencode <- function(`#dofn`, `!digits` =  getOption("digits"), ...){
 	}
 	
 	#call the new function
-	call <- as.call(c(list(as.name("#dofn")), argn));
-	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
+	if(is.character(`#dofn`)){
+		mycall <- as.call(c(list(parse(text=`#dofn`)[[1]]), argn));
+	} else {
+		mycall <- as.call(c(list(as.name("FUN")), argn));
+		fnargs <- c(fnargs, list("FUN" = `#dofn`));		
+	}
 
-	detach("rapache");
-	detach("package:opencpu.server");
-	output <- eval(call, fnargs, globalenv());
+	output <- eval(mycall, fnargs, globalenv());
 
 	#write output
 	write(opencpu.encode::opencpu.encode(unclass(output), digits=`!digits`), mytempfile);

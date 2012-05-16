@@ -2,25 +2,30 @@ Source: opencpu
 Section: gnu-r
 Priority: optional
 Maintainer: Jeroen Ooms <jeroenooms@gmail.com>
-Build-Depends: r-base-dev, xvfb, xauth, xfonts-base, debhelper (>> 4.1.0), r-base-core, opencpu-dev, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-multicore, opencpu-interactivity, opencpu-datamap, cdbs, apache2-mpm-itk, libapache2-mod-r-base, apparmor-utils, libapache2-mod-apparmor, varnish
-Standards-Version: 3.9.1
+Build-Depends: r-base-dev, xvfb, xauth, xfonts-base, debhelper (>> 4.1.0), r-base-core, opencpu-dev, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-interactivity, opencpu-rcurl, apache2-mpm-itk, libapache2-mod-r-base, apparmor-utils, libapache2-mod-apparmor, varnish
+Standards-Version: 3.9.3
 
 Package: opencpu-opencpu.server
 Architecture: all
-Depends: r-base-core (>= 2.12.1), ${shlibs:Depends}, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-multicore, opencpu-interactivity, opencpu-datamap
+Depends: r-base-core (>= 2.12.1), ${shlibs:Depends}, opencpu-opencpu.encode, opencpu-opencpu.tools, opencpu-interactivity, opencpu-rcurl
 Description: The opencpu server R package.
 
 Package: opencpu-server
 Architecture: all
-Depends: r-base (>= 2.14.0), opencpu-opencpu.server, apache2-mpm-itk, libapache2-mod-r-base, apparmor-utils, libapache2-mod-apparmor
+Depends: r-base (>= 2.15), opencpu-opencpu.server (= ${source:Version}), apache2-mpm-itk, libapache2-mod-r-base (>= 1.1.19), apparmor-utils, libapache2-mod-apparmor, ssl-cert
 Description: The OpenCPU REST api for R.
 
 Package: opencpu-cache
 Architecture: all
-Depends: varnish
+Depends: ssl-cert, nginx
 Description: Cache server and load balancer for opencpu.
 
 Package: opencpu-cran
 Architecture: all
 Depends: opencpu-opencpu.tools
 Description: This package installs some cran repositories.
+
+Package: opencpu-meta
+Architecture: all
+Depends: opencpu-server, opencpu-cache, opencpu-cran, texinfo, texlive-full 
+Description: This is a meta package for opencpu.

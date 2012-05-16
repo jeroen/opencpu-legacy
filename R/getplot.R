@@ -10,6 +10,7 @@ dogetplot <- function(`#dofn`, `!printoutput`= TRUE, ...){
 	
 	#record a displaylist
 	postscript(tempfile());
+	par("bg" = "white")
 	dev.control(displaylist="enable");
 	
 	# The code below works fine. However, hadley's method results in a smaller 'call' object for the 
@@ -31,12 +32,14 @@ dogetplot <- function(`#dofn`, `!printoutput`= TRUE, ...){
 	}
 	
 	#call the new function
-	call <- as.call(c(list(as.name("#dofn")), argn));
-	fnargs <- c(fnargs, list("#dofn" = `#dofn`));	
+	if(is.character(`#dofn`)){
+		mycall <- as.call(c(list(parse(text=`#dofn`)[[1]]), argn));
+	} else {
+		mycall <- as.call(c(list(as.name("FUN")), argn));
+		fnargs <- c(fnargs, list("FUN" = `#dofn`));		
+	}
 
-	detach("rapache");
-	detach("package:opencpu.server");
-	output <- eval(call, fnargs, globalenv());
+	output <- eval(mycall, fnargs, globalenv());
 
 	if(`!printoutput`){
 		void <- capture.output(print(output));

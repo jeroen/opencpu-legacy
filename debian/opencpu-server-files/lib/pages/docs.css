@@ -1,0 +1,68 @@
+.examplebutton{
+	float: right;
+	margin-right: 15px;
+	margin-bottom: 10px;
+	margin-top: 3px;	
+	clear: both;
+	width: 120px;
+}
+
+@media (min-width: 768px) { 
+  .ajaxtool-fixed{
+    position: fixed;
+    top: 100px;
+  } 
+}
+
+section {
+  padding-top: 80px;
+  margin-bottom: -50px;
+}
+
+.narrowblock {
+	margin-right: 150px;	
+}
+
+.narrowblock .examplebutton{
+	margin-right: -135px;
+	margin-left: 15px;	
+}
+
+.span6 p{
+  text-align: justify;
+}
+
+.span6 h3{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+#outputpre{
+  max-height: 250px !important;
+}
+
+#headerpre{
+  max-height: 200px !important;
+}
+
+#fullscreenwarning{
+	margin-top: 15px;
+	margin-bottom: -50px;
+}
+
+.tt{
+	font-family: Courier New, monospace;
+	color: #000080;
+}
+
+body{
+	margin-bottom: 100px;	
+}	
+
+.span9 .span3 p{
+	line-height:150%		
+}
+
+p{
+	line-height:150%		
+}

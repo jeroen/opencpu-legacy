@@ -30,12 +30,14 @@ doplotsvg <- function(`#dofn`, `!width` = 11.69, `!height` = 8.27 , `!pointsize`
 	}
 	
 	#call the new function
-	call <- as.call(c(list(as.name("#dofn")), argn));
-	fnargs <- c(fnargs, list("#dofn" = `#dofn`));
-	
-	detach("rapache");
-	detach("package:opencpu.server");
-	output <- eval(call, fnargs, globalenv());
+	if(is.character(`#dofn`)){
+		mycall <- as.call(c(list(parse(text=`#dofn`)[[1]]), argn));
+	} else {
+		mycall <- as.call(c(list(as.name("FUN")), argn));
+		fnargs <- c(fnargs, list("FUN" = `#dofn`));		
+	}
+
+	output <- eval(mycall, fnargs, globalenv());
 
 	if(`!printoutput`){
 		void <- capture.output(print(output));

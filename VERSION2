@@ -1,0 +1,72 @@
+GET  /ocpu/pub/mypackage/scripts/somescript.R
+POST /ocpu/pub/mypackage/scripts/somescript.R
+
+GET  /ocpu/pub/mypackage/docs/foo.Rnw
+GET  /ocpu/pub/mypackage/docs/foo.tex
+
+POST /ocpu/pub/mypackage/docs/foo.Rnw (outputs knitr/sweave files)
+POST /ocpu/pub/mypackage/docs/foo.tex (outpus tex files) 
+
+GET  /ocpu/pub/mypackage/R/nabel/ascii
+POST /ocpu/pub/mypackage/R/nabel (defaults to /save)
+
+GET  /ocpu/tmp/x84c9ba78ba9/object/json
+GET  /ocpu/tmp/x84c9ba78ba9/plots/1/png
+GET  /ocpu/tmp/x84c9ba78ba9/plots/2/png
+GET  /ocpu/tmp/x84c9ba78ba9/files/output.csv
+
+GET  /ocpu/tmp/x84c9ba78ba9/reproduce/rda (is a function closure!)
+POST /ocpu/tmp/x84c9ba78ba9/reproduce (just like calling any other function. Results in a new set, e.g. x8ac3b58c9d)
+
+- What to do with argument x84c9ba78ba9?
+- How to publish outside tmp?
+
+GET  /ocpu/pub/mypackage/apps/index.html
+GET  /ocpu/pub/mypackage/help/nabel
+
+#Publishing to gist
+
+POST /ocpu/gist?publish=x84c9ba78ba9
+
+GET  /ocpu/gist/2606563/reproducible
+GET  /ocpu/gist/2606563/object
+GET  /ocpu/gist/2606563/plots/1/png
+GET  /ocpu/gist/2606563/files/output.csv
+
+POST /ocpu/gist/2606563/reproducible
+POST /ocpu/gist/2606563/object
+
+#Other gist repositories:
+
+POST /ocpu/gist/12346578/docs/foo.Rnw
+POST /ocpu/gist/12345678/scripts/bar.R
+POST /ocpu/gist/12345678/R/myfun?foo=123
+
+# Same stuff for /ocpu/username/package
+# But what about stores? Gist is like a store?
+
+/ocpu/jeroenooms/mystore/R/myfun
+/ocpu/jeroenooms/mystore/apps/index.html
+
+/ocpu/gist/12346578/foo.Rnw
+/ocpu/gist/12345678/bar.R
+
+/home/opencpu.demo
+/home/mystore
+/auth/login
+
+
+Apache2 config:
+
+<LocationMatch "^/opencpu/[a-zA-Z0-9_]+/[a-zA-Z0-9_]+/R$">
+  rapache handler
+</LocationMatch>
+
+
+AliasMatch ^/opencpu/[a-zA-Z0-9_]+/[a-zA-Z0-9_]+/apps$ /usr/lib/opencpu/apps/$1/$2/
+
+Stores:
+
+/mnt/export/store/user/jeroenooms/mystore/objects.Rdata
+/mnt/export/store/user/jeroenooms/mystore/apps
+/mnt/export/store/user/jeroenooms/mystore/man

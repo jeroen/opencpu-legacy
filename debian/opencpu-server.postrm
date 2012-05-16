@@ -16,7 +16,15 @@ case "$1" in
         userdel opencpu
       else
         echo "User opencpu already removed."
-      fi	      
+      fi	
+      
+      # Removing OpenCPU Admin User.
+      if grep -s -q "^opencpu-admin:" /etc/passwd; then
+        echo "Removing user opencpu-admin..."
+        userdel opencpu-admin
+      else
+        echo "User opencpu-admin already removed."
+      fi	            
 
 	  #remove directories. 
 	  rm -Rf /etc/opencpu   
@@ -25,6 +33,9 @@ case "$1" in
 	  rm -Rf /usr/lib/opencpu/apps
 	  rm -Rf /var/log/opencpu 
 	  rm -f /export
+	  
+	  #force reload the cron job in /etc/init.d. Should be necessary but never harms:
+	  reload cron	  
 	  
 	  #restart Apache.
       service apache2 restart

@@ -2,3 +2,5 @@ debian/opencpu-server-files/apparmor.d/* /etc/apparmor.d/
 debian/opencpu-server-files/sites-available/* /etc/apache2/sites-available/
 debian/opencpu-server-files/init.d/* /etc/init.d/
 debian/opencpu-server-files/lib/* /usr/lib/opencpu/
+debian/opencpu-server-files/cron.d/* /etc/cron.d/
+debian/opencpu-server-files/store/* /mnt/export/store/

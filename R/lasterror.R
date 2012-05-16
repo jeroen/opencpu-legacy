@@ -1,10 +1,17 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
 lasterror <- function(){
-	return(list(filename="/tmp/lasterror", type="text/plain", status=OK));
+	e <- readRDS("/tmp/lasterror");
+	mytemp <- tempfile();
+	writeLines(e$message, mytemp);
+	unlink("/tmp/lasterror");
+	
+	return(
+		list(
+			filename=mytemp, 
+			type="text/plain; charset=UTF8",
+			headers=e$headers,
+			cookies=e$cookies
+		)
+	);
 }
 
 

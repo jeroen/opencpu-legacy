@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OpenCPU Documentation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Le styles -->
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<style>
+body {
+	padding-top: 60px;
+	/* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="common.css" rel="stylesheet">
+<link href="bootstrap-hacks.css" rel="stylesheet">
+<link href="docs.css" rel="stylesheet">
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body data-spy="scroll" data-target="#subnav" data-offset="50">
+
+	<!-- Some hidden elements that will be cloned when needed -->
+	<div class="hidden">
+		<div class="httpfile">
+			<a class="close">&times;</a>
+			<div class="row show-grid">
+				<div class="span2">
+					<div class="control-group">
+						<div class="controls">
+							<input type="text" class="input-medium fakeinputname" value="">
+						</div>
+					</div>
+				</div>
+
+				<div class="span3">
+					<div class="control-group">
+						<div class="controls">
+							<input class="input-file realinputvalue" multiple type="file">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="httpparameter">
+			<a class="close">&times;</a>
+			<div class="row show-grid">
+				<div class="span2">
+					<div class="control-group">
+						<div class="controls">
+							<input type="text" class="input-medium fakeinputname" value="">
+						</div>
+					</div>
+				</div>
+
+				<div class="span3">
+					<div class="control-group">
+						<div class="controls">
+							<!-- <textarea class="input-xlarge realinputvalue" rows="2"></textarea>-->
+							<input type="text" class="input-xlarge realinputvalue" value="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End of hidden stuff -->
+
+
+	<!-- Top Navigation bar (the black one) -->
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#"></a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a href=".">Home</a></li>
+						<li class="active"><a href="docs.html">Docs</a></li>
+						<li><a href="apps.html">Apps</a></li>
+						<li><a href="download.html">Download</a></li>
+						<li><a href="license.html">License</a></li>
+						<li><a href="faq.html">FAQ</a></li>
+						<li><a href="explorer.html">Explorer</a></li>
+					</ul>
+					<ul class="nav pull-right">
+						<li><a href="about.html">About</a></li>
+						<li><a href="support.html">Support</a></li>
+						<li><a href="/auth/login">Login</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- subnav, mostly invisible -->
+	<div id="subnav" class="subnav subnav-fixed">
+		<ul class="nav nav-pills">
+			<li><a href="#introduction">Intro</a></li>
+			<li><a href="#r-api">/R</a></li>
+			<li><a href="#r-pub">/R/pub </a></li>
+			<li><a href="#r-tmp">/R/tmp</a></li>
+			<li><a href="#r-user">/R/user</a></li>
+			<li><a href="#arguments">Arguments</a></li>
+			<li><a href="#formats">Formats</a></li>
+			<li><a href="#help">Help</a></li>
+			<li><a href="#auth-api">/auth</a></li>
+			<li><a href="#home-api">/home</a></li>
+			<li><a href="#CORS">CORS</a></li>
+			<li><a href="#caching">Caching</a></li>
+			<li><a href="#apps">Apps</a></li>
+			<li><a href="#admin">Admin</a></li>
+		</ul>
+	</div>
+
+	<div class="container">
+
+		<header class="jumbotron masthead" id="overview">
+
+			<h1>Documentation</h1>
+			<hr>
+		</header>
+
+		<div class="row">
+			<div id="menucolumn" class="span3">
+				<div class="well">
+					<ul class="nav nav-list">
+						<li class="nav-header">What is OpenCPU</li>
+						<li><a href="#introduction">Introduction</a></li>
+						<li class="nav-header">Public API: /R</li>
+						<li><a href="#r-api">R interface</a></li>
+						<li><a href="#r-pub">Public packages </a></li>
+						<li><a href="#r-tmp">Temp directory</a></li>
+						<li><a href="#r-user">User stores</a></li>
+						<li><a href="#arguments">Arguments</a></li>
+						<li><a href="#formats">Output formats</a></li>
+						<li><a href="#help">Help Files</a></li>
+						<li class="nav-header">User API</li>
+						<li><a href="#auth-api">Authentication</a></li>
+						<li><a href="#home-api">Home directory</a></li>
+						<li class="nav-header">Other stuff</li>
+						<li><a href="#CORS">CORS</a></li>
+						<li><a href="#caching">Caching</a></li>
+						<li><a href="#apps">Apps</a></li>
+						<li><a href="#admin">Admin Guide</a></li>
+					</ul>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+
+			<div class="span9 marketing">
+
+				<div class="row">
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
+						<h2>Introduction</h2>
+						<p>The concept of Open Computing can be a little confusing at
+							first. A quick introduction about how and why of OpenCPU.</p>
+					</div>
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
+						<h2>R API</h2>
+						<p>The core of OpenCPU is a REST API to R. Through the API you
+							can read, write and execute R code on OpenCPU servers.</p>
+					</div>
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
+						<h2>Methods &amp; Endpoints</h2>
+						<p>OpenCPU uses HTTP methods GET, PUT, POST and DELETE. What
+							do they mean, and where can they be used?</p>
+					</div>
+
+				</div>
+				<div class="row">
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
+						<h2>Output Formats</h2>
+						<p>An R function might return an object, print one or more
+							plots, or write files to the working directory. Use one of the
+							specified output formats to get the output you need.</p>
+					</div>
+
+
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_042_group.png">
+						<h2>Arguments</h2>
+						<p>The arguments of an R function call are often R objects
+							themselves. There are number of ways in which arguments to
+							function calls can be specified.</p>
+					</div>
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_163_iphone.png">
+						<h2>User Store</h2>
+						<p>OpenCPU allows you to login with your github account, and
+							publish your own packages and R objects to the server. Learn
+							about authentication and user stores.</p>
+					</div>
+
+				</div>
+				<div class="row">
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_163_iphone.png">
+						<h2>CORS</h2>
+						<p>The public OpenCPU API supports CORS to enable cross-domain
+							integration. Embed R functionality in any website without
+							installing your own OpenCPU server.</p>
+					</div>
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_079_podium.png">
+						<h2>Caching</h2>
+						<p>OpenCPU ships with an optional caching and load balancing
+							server in case you need to scale up. Learn about cache-control
+							headers.</p>
+					</div>
+
+					<div class="span3">
+						<img class="bs-icon" src="images/glyphicons_079_podium.png">
+						<h2>Apps</h2>
+						<p>OpenCPU apps are web applications that you can include in
+							an R package. Learn why this is useful and to create your own app</p>
+					</div>
+
+				</div>
+
+
+				<br /> <br />
+
+
+
+			</div>
+		</div>
+
+		<br />
+
+
+		<div class="row">
+			<div class="span6">
+				<div class="page-header">
+					<h1>
+						Testing Tool <small>learn while playing...</small>
+					</h1>
+				</div>
+				<p>This side shows a little ajax tool that you can use to poke
+					around with the API. Simply select a method, endpoint and add some
+					parameters.</p>
+
+				<p>Your browser has multiple mechanisms to perform a HTTP
+					request. In most cases you want to do the request using Ajax, which
+					supports all methods. However, Ajax cannot be used for binary
+					streams (e.g. uploading files or displaying images). For those
+					cases you can use the form request method.</p>
+
+			</div>
+
+			<div class="span6">
+				<div class="page-header">
+					<h1>Text and Examples</h1>
+				</div>
+				<p>This side shows and overview and descriptions of the API.
+					However OpenCPU is best understood while by playing around with the
+					API.</p>
+
+				<p class="narrowblock">
+					<button data-example="example">Example button</button>
+					Whenever you see a red button like the one here, this indicates an
+					example demo. Clicking an example button will automatically fill
+					out the Testing tool and perform the request. Keep your eye on the
+					testing tool while running an example!
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="toolkit" class="span6">
+				<form id="paramform" class="well" target="outputframe">
+					<fieldset>
+
+						<div class="row">
+							<div class="span1">
+								<div class="control-group">
+									<label class="control-label" for="httpmethod">Method</label>
+									<div class="controls">
+										<select class="input-small" id="httpmethod">
+											<option>GET</option>
+											<option>POST</option>
+											<option>PUT</option>
+											<option>DELETE</option>
+											<option>OPTIONS</option>
+											<option>HEAD</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="span4">
+								<div class="control-group">
+									<label class="control-label" for="urlvalue">Endpoint</label>
+									<div class="controls">
+										<input type="text" class="input-xlarge" id="urlvalue"
+											value="/R/pub">
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div id="allparameters">
+							<div class="row show-grid">
+								<div class="span2">
+									<div class="control-group">
+										<label class="control-label">Parameter Name</label>
+									</div>
+								</div>
+								<div class="span3">
+									<div class="control-group">
+										<label class="control-label">Parameter Value</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div align="left">
+							<button id="addprambutton" class="btn btn-primary">
+								<i class="icon-plus icon-white"></i> Add parameter
+							</button>
+							<button id="addfilebutton" class="btn btn-primary">
+								<i class="icon-file icon-white"></i> Add file
+							</button>
+						</div>
+
+						<br />
+
+						<div align="right">
+							<button id="submitblank" class="btn btn-success"
+								data-targetframe="_blank">
+								<i class="icon-share icon-white"></i> Popup
+							</button>
+							<button id="submitform" class="btn btn-success">
+								<i class="icon-share icon-white"></i> iFrame
+							</button>
+							<img src="spinner.gif" id="formspinner" />
+							<button id="submitajax" class="btn btn-success btn-large">
+								<i class="icon-download-alt icon-white"></i> Ajax request
+							</button>
+							<img src="spinner.gif" id="ajaxspinner" />
+						</div>
+					</fieldset>
+				</form>
+
+				<div id="errordiv"></div>
+
+				<div id="ajaxoutput">
+					<pre id="statuspre">0</pre>
+					<pre class="pre-scrollable prettyprint linenums" id="outputpre"></pre>
+					<pre class="pre-scrollable prettyprint linenums" id="headerpre"></pre>
+				</div>
+
+				<iframe name="outputframe" id="outputframe" class="input-xxlarge"></iframe>
+			</div>
+
+
+			<div id="rightcolumndiv" class="span6">
+
+				<div id="fullscreenwarning" class="alert alert-warning">
+					<a class="close" data-dismiss="alert">×</a> <strong>Viewer
+						tip!</strong> When viewing this page on a low resolution it might be useful
+					to enable full screen (F11) or to zoom out a bit (ctrl -) in order
+					to display the full testing tool.
+				</div>
+
+				<section id="introduction">
+					<div class="page-header">
+						<h1>
+							Introduction <small> the big picture</small>
+						</h1>
+					</div>
+
+					<p>
+						OpenCPU provides a REST API to the <a
+							href="http://www.r-project.org">R computing language</a>. One of
+						the goals is to be able to embed R functionality in scalable
+						systems and web applications, without requiring the user or system
+						to install R.
+					</p>
+
+					<p>
+						OpenCPU deals with some of the techincalities that come with R and
+						statistical computing, so that you can focus on your application.
+						Furthermore, OpenCPU implements the concept of <i>Open
+							Computing</i>. In a nutshell this comes down to the following:
+					</p>
+					<ul>
+						<li>Any client can execute arbitrary R code on an OpenCPU
+							server.</li>
+						<li>All R code on the server is by definition Open Source,
+							and readable by anyone.</li>
+						<li>When you publish your own code on the server, it
+							authomatically becomes Open Source.</li>
+					</ul>
+					<p>A helpful UNIX analogy is that you have at least r-x
+						privileges on anything on the system, and you rwx in your home
+						directory.</p>
+
+					<h3>A quick demo.</h3>
+
+					<p class="narrowblock">
+						<button data-example="readfunction">Read an object</button>
+						Lets start playing around! Ever wondered what the source R's
+						<code>rnorm</code>
+						function looks like? Press the button below to find out. Clicking
+						the button should show you the source code for this function in
+						the Ajax panel on the left. Note that to do a HTTP GET you can
+						also simply <a target="_blank" href="/R/pub/stats/rnorm/ascii">open
+							the url in your browser</a>. The source code for rnorm is not overly
+						interesting; it calls out to some C code in the R library.
+						However, one thing that is interesting to observer is that we can
+						see the function arguments in the source code: n, mean, sd.
+					</p>
+
+					<p class="narrowblock">
+						<button data-example="executefunction">Call a function</button>
+						So we can see the source code of this function. But with the same
+						ease, a function can be executed. Suppose we want to generate a
+						couple of random numbers from the normal distribution, using R's
+						<code>rnorm</code>
+						function. Press the button give it a go... Note how the HTTP
+						method was set to
+						<code>POST</code>
+						to trigger a function call instead of a function read. Also some
+						required arguments were filled out for you. Try to change it's
+						values and recalculate by pressing the request Ajax button.
+					</p>
+
+					<p class="narrowblock">
+						<button data-example="plotpng">Create a plot</button>
+						R does not just create text. One of its interesting features is
+						the graphics device. With the same ease as we generated some
+						random numbers, we can create a plot. Because of the way a browser
+						works, we cannot use Ajax to download the figure, so instead we
+						use the form method. This only a limitation of this demo page; it
+						has nothing to do with OpenCPU. In fact OpenCPU has better ways to
+						embed plots in your website. But let's not get ahead of ourselves.
+					</p>
+
+					<p class="narrowblock">
+						<button data-example="plotpdf">Get a pdf plot</button>
+						<button data-example="plotsvg">Get a svg plot</button>
+						To round things up, note that we can easily obtain the same plot
+						in PDF or SVG format, with only a slight change (have a close look
+						at the url).
+					</p>
+
+				</section>
+
+				<section id="r-api">
+					<div class="page-header">
+						<h1>
+							/R API <small> the core of the framework</small>
+						</h1>
+					</div>
+
+					<h3>Methods</h3>
+					<table class="table table-bordered table-striped">
+
+						<thead>
+							<tr>
+								<th>Method</th>
+								<th>Endpoint</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tt">GET</td>
+								<td>Directory</td>
+								<td>List objects or subdirectories.</td>
+							</tr>
+							<tr>
+								<td class="tt">GET</td>
+								<td>Object</td>
+								<td>Render and retrieve object.</td>
+							</tr>
+							<tr>
+								<td class="tt">POST</td>
+								<td>Function object</td>
+								<td>Call function.</td>
+							</tr>
+
+						</tbody>
+					</table>
+
+					<p>
+						The
+						<code>/R</code>
+						api is the working horse and public part of the API. It is used to
+						read directories and objects, and call functions. This part of the
+						API only supports two methods: GET and POST. In a nutshell, GET is
+						used to read something, POST is used to execute something.
+					</p>
+
+					<h3>Subdirectories</h3>
+					<table class="table table-bordered table-striped">
+
+						<thead>
+							<tr>
+								<th>Directory</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tt">/R/pub</td>
+								<td>Public packages, installed by administrator.</td>
+							</tr>
+							<tr>
+								<td class="tt">/R/user</td>
+								<td>User published packages and stores.</td>
+							</tr>
+							<tr>
+								<td class="tt">/R/tmp</td>
+								<td>Temporary objects.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h3>Status Codes</h3>
+					<table class="table table-bordered table-striped">
+
+						<thead>
+							<tr>
+								<th>Code</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tt">200 OK</td>
+								<td>Request successful. Output contains what was requested.</td>
+							</tr>
+							<tr>
+								<td class="tt">400 Bad Request</td>
+								<td>R returned an error. <br />Response body contains
+									error message in plain text format.
+								</td>
+							</tr>
+							<tr>
+								<td class="tt">503 Service Unavailable</td>
+								<td>Server seems down or overloaded.</td>
+							</tr>
+
+						</tbody>
+					</table>
+
+				</section>
+
+				<section id="r-pub">
+					<div class="page-header">
+						<h1>
+							/R/pub API <small> publicly available packages</small>
+						</h1>
+					</div>
+
+					<h3>Reading public packages under /R/pub</h3>
+
+
+					<p class="narrowblock">List available packages on the opencpu
+						server (in json)</p>
+
+					<button data-example="listpub">list packages</button>
+					<pre class="narrowblock"> GET /R/pub	</pre>
+
+					<br />
+
+					<p class="narrowblock">List exported objects from a certain
+						package (in json):</p>
+					<button data-example="liststats">list pkg objects</button>
+					<pre class="narrowblock"> GET /R/pub/[package name]</pre>
+
+					<br />
+
+					<p class="narrowblock">
+						List available <a href="#formats">output formats</a> for an
+						object. Note not every output fromat is appropriate for any
+						object. This depends on the type and class of the objects.
+					</p>
+					<button data-example="listpuboutputs">list formats</button>
+					<pre class="narrowblock"> GET /R/pub/[package name]/[object name]</pre>
+
+					<br />
+
+					<p class="narrowblock">
+						<button data-example="getobject1">get object (ascii)</button>
+						<button data-example="getobject2">get object (json)</button>
+						<button data-example="getobject3">get object (csv)</button>
+						Render and download an R object to a certain <a href="#formats">output
+							format</a>
+					</p>
+
+					<pre class="narrowblock"> GET /R/pub/[package name]/[object name]/[output format]</pre>
+
+
+					<br /> <br /> <br />
+
+
+
+					<h3>Calling functions from packages in /R/pub</h3>
+
+					<p class="narrowblock">
+						<button data-example="executefunction">call function</button>
+						<button data-example="callwithsave">call with save 1</button>
+						<button data-example="callsweave">call with save 2</button>
+						By pointing an HTTP POST request to a function, we call the
+						function. The HTTP requests naturally maps to the function call.
+						Don't forget to end the URL with an <a href="#formats">output
+							format.</a> The recommended output format is generally
+						<code>/save</code>
+						which stores all output in the tmp store, to be retrieved in a
+						seperate call.
+					</p>
+
+					<pre class="narrowblock"> POST /R/pub/[package]/[function]/[output format]</pre>
+
+					<br />
+
+					<p class="narrowblock">
+						<button data-example="manyplots">call identity</button>
+						Note that if you just want to execute a block of R code, one way
+						to do so is pass it on to R's
+						<code>identity</code>
+						function in the
+						<code>base</code>
+						package.
+					</p>
+
+				</section>
+
+				<section id="r-tmp">
+					<div class="page-header">
+						<h1>
+							/R/tmp API <small>Reading and calling in the temp dir</small>
+						</h1>
+					</div>
+
+					<p class="narrowblock">
+						<button data-example="carslm">Create lm object</button>
+						<button data-example="lmsummary">Call lm summary</button>
+						<button data-example="lmplot">Plot lm object</button>
+
+						The cleanest way to use OpenCPU is to use the output type
+						<code>/save</code>
+						for your function calls. This output type stores outputs from a
+						function call in the
+						<code>/R/tmp</code>
+						directory, so that you can download any output in any format in a
+						second step, <b>or you can pass on the object as an argument
+							to a subsequent function call</b>. Note that due to randomness, the
+						actual hashkey of the lm object might or might not vary between
+						calls.
+					</p>
+
+
+					<button data-example="getlm">Get the object</button>
+					<pre class="narrowblock"> GET /R/tmp/[hashkey]/[output format]</pre>
+
+					<br />
+
+					<p class="narrowblock">
+						When an object of class
+						<code>function</code>
+						has been stored in the tmp store, this object can be called using
+						POST just like functions anywhere else under /R.
+					</p>
+
+					<br />
+
+					<p class="narrowblock">
+						<button data-example="storefun">Save a function</button>
+						<button data-example="readfun">Get the function</button>
+						Another use of the tmp store is as a temporary place to put
+						functions, so that you can try to call them. This is a good way to
+						test if your function works as expected on OpenCPU.
+					</p>
+					<br />
+
+					<button data-example="callfun">Call the function</button>
+					<pre class="narrowblock"> POST /R/tmp/[hashkey]/[output format]</pre>
+
+					<br />
+
+				</section>
+
+				<section id="r-user">
+					<div class="page-header">
+						<h1>
+							/R/user API <small>User published packages and objects</small>
+						</h1>
+					</div>
+
+
+					<p>
+						Packages in /R/pub can only be installed by an OpenCPU
+						administrator. However, authenticated users can also publish their
+						own packages and objects. <b>The /R/user api is only for
+							reading and calling objects and functions that have already been
+							published by users. </b> The API's to authenticate and publish
+						yourself things yourself are not part of the /R API and are
+						described further down.
+					</p>
+
+					<p class="narrowblock">List available users:</p>
+					<button data-example="listusers">list users</button>
+					<pre class="narrowblock"> GET /R/user	</pre>
+					<br />
+
+					<p class="narrowblock">List packages and stores for a certain
+						user:</p>
+					<button data-example="listuserstores">list user stores</button>
+					<pre class="narrowblock"> GET /R/user/[user name]</pre>
+					<br />
+
+					<p class="narrowblock">List the objects inside a user package
+						or store:</p>
+					<button data-example="liststoreobjects">list store objects</button>
+					<pre class="narrowblock"> GET /R/user/[user name]/[store name]</pre>
+					<br />
+
+					<p class="narrowblock">Read an object from a user store</p>
+					<button data-example="readuserobject">read user object</button>
+					<pre class="narrowblock"> GET /R/user/[user]/[store]/[object name]/[output type]</pre>
+					<br />
+
+					<p class="narrowblock">Call a function from a user store</p>
+					<button data-example="calluserfunction">call user function</button>
+					<pre class="narrowblock"> POST /R/user/[user]/[store]/[object name]/[output type]</pre>
+					<br />
+
+
+
+				</section>
+
+				<section id="arguments">
+					<div class="page-header">
+						<h1>
+							Arguments <small> passing parameters to R function calls</small>
+						</h1>
+					</div>
+
+
+					<p>The core of OpenCPU is the ability to call R functions
+						through the /R api. When calling functions you need to pass
+						arguments. Some functions have relatively simple arguments, e.g a
+						number or a character string. However in some cases you might need
+						to pass a more complex R object or datastructure in a function
+						call. In order to accomplish this, there are a number of ways to
+						specify function arguments in OpenCPU.</p>
+
+					<p>There are basically 6 ways in which an argument can be
+						passed to opencpu:</p>
+					<ul>
+						<li>A primitive value</li>
+						<li>An existing R object</li>
+						<li>A JSON encoded object</li>
+						<li>A hashkey of a valid object in /R/tmp</li>
+						<li>A valid R code snippet</li>
+						<li>A file that is uploaded with a POST request</li>
+						<li>A HTTP or FTP URL pointing to a valid RDS file</li>
+					</ul>
+
+					<h3>Arguments: Primitive values</h3>
+					<p class="narrowblock">
+						<button data-example="argumentprimitive">Primitive arg.</button>
+						A primitive value can either be a number e.g.
+						<code>3.1415</code>
+						, a character string wrapped in single / double quotes e.g.
+						<code>"my title"</code>
+						, or a boolean e.g.
+						<code>TRUE</code>
+						.
+					</p>
+
+					<h3>Arguments: An existing object</h3>
+					<p class="narrowblock">
+						<button data-example="summarycars">object argument</button>
+						A pre-existing object in R.
+					</p>
+
+					<h3>Arguments: JSON encoding</h3>
+					<p class="narrowblock">
+						<button data-example="argumentjson">JSON argument</button>
+						A json encoded object which will be decoded with the RJSONIO
+						package. Mostly useful for simple datastructures.
+					</p>
+
+					<h3>Arguments: A hashkey</h3>
+					<p class="narrowblock">
+						<button data-example="carslm">Create object</button>
+						<button data-example="lmsummary">Use hashkey</button>
+						If the argument is an object that you previously calculated on the
+						same OpenCPU server using the
+						<code>/save</code>
+						output format, then you can pass the hashkey on to the next
+						function call.
+					</p>
+
+					<h3>Arguments: A code snipped</h3>
+					<p class="narrowblock">
+						<button data-example="argumentcode">Run code</button>
+						A valid R code snipped will be included in the R function call.
+					</p>
+
+					<h3>Arguments: A URL</h3>
+					<p class="narrowblock">
+						<button data-example="argumenturl">URL argument</button>
+						When an argument begins with http:// or ftp:// it is assumed to be
+						a url to an RDS file. This allows for calling a function with an
+						object that you have stored on a homepage, or that is available on
+						a different OpenCPU server.
+					</p>
+
+					<h3>Arguments: A file included in POST</h3>
+
+					<div class="alert alert-warning">
+						<a class="close" data-dismiss="alert">×</a> <strong>Note:</strong>
+						Because of browser security restrictions you have to manually
+						select a file after clicking the example button. Also it is not
+						possible to upload files using Ajax.
+					</div>
+
+					<p class="narrowblock">
+						<button data-example="uploadfilerds">RDS file arg.</button>
+						<button data-example="uploadfilefile">!file:argname</button>
+						<button data-example="uploadfilecopy">!copy:filename</button>
+						A tricky, but important way to get pass an argument as an object
+						is to include it a
+						<code>multipart/form-data‎</code>
+						HTTP POST request. This sounds complicated, but it is the default
+						method that your browser use when you submit a file through a HTML
+						form. When you submit a file to OpenCPU, it will by default assume
+						that the file is a RDS file, and read the file with
+						<code>readRDS()</code>
+						. When you need to upload another type of file, you need to prefix
+						the argument name with
+						<code>!file:</code>
+						For example if the argument of your function is called 'file',
+						then you would name the HTTP argument
+						<code>!file:file</code>
+						. Finally if you want to include a file with a request that is not
+						an actual argument of the function, you can use the
+						<code>!copy:</code>
+						prefix. When using this prefix, the file will simply be copied
+						copied to a temporary location and a variable will be available in
+						your session that has the file path (and and attribute with the
+						orriginal filename). To test file uploads, dowload the following
+						files and manually include them in the demo calls <a
+							href="/R/pub/datasets/cars/rds">example rds file</a>, <a
+							href="/R/pub/datasets/cars/csv">example csv file</a>.
+					</p>
+
+					<br />
+
+				</section>
+
+				<section id="formats">
+					<div class="page-header">
+						<h1>
+							Output formats <small> Getting output from R </small>
+						</h1>
+					</div>
+
+					<p>
+						Calling an R function can result in many outputs. The function can
+						return an object, write one or more plots to the grahpics device,
+						print stuff to STDOUT or write files to the working directory. On
+						top of that, there are many ways to <b>represent</b> these
+						outputs. For example, a plot can be rendered to png, pdf, svg, or
+						saved an R display list. An R object could be represented as a
+						Rdata file, as its
+						<code>dput</code>
+						ascii representation or serialized to a format that can be
+						interpreted by other languages through JSON, etc. OpenCPU has
+						defined a number of output formats that you can use to render an
+						object, or capture certain output of a function.
+					</p>
+
+					<h3>Format overview</h3>
+
+					<p>
+						The table below shows an overview of the different output formats
+						that are available in OpenCPU. The
+						<code>/save</code>
+						format can only be used for POST requests, all other formats can
+						both be used for GET and POST, i.e. both for reading objects or
+						calling functions. Also, some of the output types have a number of
+						<b>meta parameters</b> that you can pass on with the request to
+						control the output format.
+					</p>
+
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Format</th>
+								<th>Used for</th>
+								<th>Meta Parameters</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tt">/save</td>
+								<td>Anything</td>
+								<td class="tt">!saveobject !savegraphs !savefiles</td>
+							</tr>
+							<tr>
+								<td class="tt">/json</td>
+								<td>Simple Object Types</td>
+								<td class="tt">!digits !pretty</td>
+							</tr>
+							<tr>
+								<td class="tt">/png</td>
+								<td>Plots</td>
+								<td class="tt">!width !heigh !units !pointsize</td>
+							</tr>
+							<tr>
+								<td class="tt">/svg</td>
+								<td>Plots</td>
+								<td class="tt">!width !heigh !pointsize</td>
+							</tr>
+							<tr>
+								<td class="tt">/pdf</td>
+								<td>Plots</td>
+								<td class="tt">!width !heigh !paper !pointsize</td>
+							</tr>
+							<tr>
+								<td class="tt">/plot</td>
+								<td>Plots</td>
+								<td class="tt"></td>
+							</tr>
+							<tr>
+								<td class="tt">/csv</td>
+								<td>Matrix / Dataframe</td>
+								<td class="tt">!quote !sep !eol !na !dec !row.names
+									!col.names</td>
+							</tr>
+							<tr>
+								<td class="tt">/table</td>
+								<td>Matrix / Dataframe</td>
+								<td class="tt">!quote !sep !eol !na !dec !row.names
+									!col.names</td>
+							</tr>
+							<tr>
+								<td class="tt">/jsonp</td>
+								<td>Simple Object Types</td>
+								<td class="tt">!digits !pretty !prefix</td>
+							</tr>
+							<tr>
+								<td class="tt">/ascii</td>
+								<td>Any R Object</td>
+								<td class="tt"></td>
+							</tr>
+							<tr>
+								<td class="tt">/rds</td>
+								<td>Any R Object</td>
+								<td class="tt"></td>
+							</tr>
+							<tr>
+								<td class="tt">/rda</td>
+								<td>Any R Object</td>
+								<td class="tt"></td>
+							</tr>
+							<tr>
+								<td class="tt">/encode</td>
+								<td>Any R Object</td>
+								<td class="tt">!digits</td>
+							</tr>
+							<tr>
+								<td class="tt">/print</td>
+								<td>Any R Object</td>
+								<td class="tt">!digits</td>
+							</tr>
+							<tr>
+								<td class="tt">/file</td>
+								<td>File paths</td>
+								<td class="tt">!digits</td>
+							</tr>
+							<tr>
+								<td class="tt">/bin</td>
+								<td>"raw" vectors and <br />stored files
+								</td>
+								<td class="tt"></td>
+							</tr>
+							<tr>
+								<td class="tt">/help</td>
+								<td>functions</td>
+								<td class="tt">Special output. See <a href="#help">help
+										section</a> below.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h3>The /save output</h3>
+
+					<p class="narrowblock">
+
+						<button data-example="carslm">Save object</button>
+						<button data-example="getlm">Get the object</button>
+						<button data-example="lmplot">Plot lm object</button>
+
+						The
+						<code>/save</code>
+						output is usually the preferred output type to use for HTTP POST,
+						i.e. function calls. The save output can capture plots, files and
+						objects. Instead of directly returning output, the save output
+						saves the objects in a temporary store and returns hashkeys of
+						these objects. These keys can be used to retrieve the objects
+						later on, or pass them on as an argument to a subsequent function
+						call. See also the section about the <a href="#r-tmp">/R/tmp</a>
+						store.
+					</p>
+
+					<br />
+
+					<p class="narrowblock">
+						<button data-example="manyplots">Save plots</button>
+						<button data-example="getplotpng">Get plot PNG</button>
+						<button data-example="getplotpnglarge">Get larger PNG</button>
+						<button data-example="getplotpdf">Get plot PDF</button>
+						An additional advantage of using
+						<code>/save</code>
+						is that an output can be rendered to multiple output formats
+						without re-calculating the function. For example if your R
+						function generates a plot, you might want to show a PNG
+						representation of the plot in the application, but also include a
+						link to download a PDF version of the same plot <b>without
+							actually recalculating</b>. This can really speed up your
+						application. Also if your function generates multiple plots, all
+						of them will be saved! To see how this functionality can work in
+						an application, have a look at the <a
+							href="http://public.opencpu.org/apps/opencpu.demo/nabel/">Nabel
+							demo application</a>.
+					</p>
+
+					<h3>Output types for plots</h3>
+
+					<p class="narrowblock">
+						<button data-example="manyplots">Save plots</button>
+						<button data-example="getplotpng">Get plot PNG</button>
+						<button data-example="getplotpdf">Get plot PDF</button>
+						<button data-example="getplotsvg">Get plot SVG</button>
+						There are a number of output types for plots. These include
+						<code>/png</code>
+						,
+						<code>/svg</code>
+						,
+						<code>/pdf</code>
+						, and
+						<code>/plot</code>
+						. The last one returns a RDS object of the display list of the
+						plot. If you don't know what this means you probably won't need
+						it.
+					</p>
+					<p class="narrowblock">The meta-parameters associated with
+						these output types are very similar to the parameters of the
+						respective graphics devices in R. Note that the !width and !height
+						parameters are in pixels for PNG, and in inches for PDF/SVG.</p>
+
+					<h3>JSON output types for objects</h3>
+
+					<p class="narrowblock">
+						<button data-example="carsjson">cars /json</button>
+						<button data-example="carsencode">cars /encode</button>
+						A good way to pull and push some simple data between OpenCPU and a
+						client is using JSON. OpenCPU supports two JSON encoding schemas:
+						<code>/json</code>
+						and
+						<code>/encode</code>
+						. The first one uses class-based json encoding as defined by the
+						RJSONIO package. The /encode output type uses a much more verbose
+						type-based JSON encoding which tries to serialize the entire
+						object with all of its attributes. This format is further
+						described on the <a
+							href="https://github.com/jeroenooms/opencpu.encode">opencpu.encode
+							package github page</a>.
+					</p>
+
+					<h3>Outputs for datasets</h3>
+
+					<p class="narrowblock">
+						<button data-example="carscsv">cars /csv</button>
+						<button data-example="carstable">cars /table</button>
+						Data frames and matrices are maybe the most important data
+						structures for R. A special output type for these object classes
+						are
+						<code>/csv</code>
+						and
+						<code>/table</code>
+						which simply call write.csv and write.table in R. However note
+						that we cannot use these output type of objects other than
+						matrices and dataframes.
+					</p>
+
+					<h3>Outputs for R clients</h3>
+
+					<p class="narrowblock">
+						<button data-example="carsascii">cars /ascii</button>
+						<button data-example="carsrds">cars /rds</button>
+						<button data-example="carsrda">cars /rda</button>
+						The
+						<code>/ascii</code>
+						output type returns a snippet of R code that can be used to
+						reconstruct the object. The
+						<code>rds</code>
+						and
+						<code>rda</code>
+						return binary formats that can be read in R using respectively the
+						<code>readRDS()</code>
+						and
+						<code>load()</code>
+						functions. These formats are probably only useful for an R-based
+						client, for example another OpenCPU server.
+					</p>
+
+					<h3>Outputs for files</h3>
+
+					<p class="narrowblock">
+						<button data-example="outputfile">using /file</button>
+						The
+						<code>/file</code>
+						output can be somewhat confusing. It should be used to download an
+						actual file that exists on the OpenCPU server. For this to work,
+						the function must return a <b>a path to an existing file on
+							the system.</b>. However, to retrieve files that was stored as a
+						result of a function call, one should generally use
+						<code>/bin</code>
+						instead (see below).
+					</p>
+
+					<p class="narrowblock">
+						<button data-example="savefile">store a file</button>
+						<button data-example="getstoredfile">get file /bin</button>
+						The
+						<code>/bin</code>
+						output type can be used for objects of type
+						<code>raw</code>
+						. If you use the
+						<code>/save</code>
+						output type for a function call that resulted in <b>files</b>,
+						then these files are stored as raw-objects in /R/tmp. Hence to
+						retrieve them you use the /bin output type.
+					</p>
+
+
+
+
+				</section>
+
+				<br />
+
+				<section id="help">
+					<div class="page-header">
+						<h1>
+							Help files <small> Getting help documents </small>
+						</h1>
+					</div>
+
+					<p class="narrowblock">
+						<button data-example="helptext">glm help/text</button>
+						<button data-example="helphtml">glm help/html</button>
+						<button data-example="helppdf">glm help/pdf</button>
+						<button data-example="helpjson">glm help/json</button>
+						R comes with a great documentation system, and OpenCPU exposes a
+						nice interface to get help files that are included in R packages
+						in a number of formats. Help files are available in
+						<code>text</code>
+						,
+						<code>html</code>
+						,
+						<code>pdf</code>
+						and
+						<code>json</code>
+						format. The json format is somewhat experimental. Help files are
+						available through HTTP GET:
+					</p>
+
+					<pre class="narrowblock"> GET /R/pub/[package]/[function]/help/[help-format]</pre>
+
+					<p class="narrowblock">At this point, the only way to expose
+						help files is by installing a package that contains the help
+						files.</p>
+
+				</section>
+
+				<section id="auth-api">
+					<div class="page-header">
+						<h1>
+							Authentication <small> login, logout </small>
+						</h1>
+					</div>
+
+					<p class="narrowblock">
+						Everything under /R is public and does not require authentication.
+						Being authenticated does not change the behavior of requests to
+						/R. Authentication is only required for requests to
+						<code>/home</code>
+						i.e to manage your personal user directory.
+					</p>
+
+					<p class="narrowblock">OpenCPU uses Github Authentication.
+						Hence you need to register on Github to be able to login. The
+						first time you login, Github will ask your persmission to connect
+						to OpenCPU. Note because of this, you need a browser client to
+						authenticate.</p>
+					<button data-example="login">login</button>
+					<pre class="narrowblock"> GET /auth/login</pre>
+					<br />
+
+					<div class="alert alert-warning narrowblock">
+						<a class="close" data-dismiss="alert">×</a> <strong>Note</strong>
+						You might need to refresh this page (F5) after logging in to be
+						able to call the /home API.
+					</div>
+
+					<p class="narrowblock">
+						After a successful login, OpenCPU will set an
+						<code>access_token</code>
+						cookie that your browser will automatically include in subsequent
+						requests.
+					</p>
+
+					<button data-example="logout">logout</button>
+					<pre class="narrowblock"> GET /auth/logout</pre>
+					<br />
+
+					<h3>Login from desktop client</h3>
+
+					<p>
+						To login from a non-browser client, you need to obtain a valid
+						github access_token and pass that on as a cookie header to HTTP
+						requests to anything under
+						<code>/home</code>
+						. See the <a href="http://developer.github.com/v3/oauth/">github
+							OAuth docs</a> on how to obtain an access token.
+					</p>
+
+
+					<p>One way is to use basic authentication to authenticate with
+						Github. Use something like this:</p>
+					<pre>curl -i -L -u username:password https://github.com/login/oauth/authorize?client_id=5fee823ec85095c103d5</pre>
+
+					<button data-example="getclientid">Client ID</button>
+					<p class="narrowblock">
+						Where
+						<code>username</code>
+						and
+						<code>password</code>
+						are your github credentials, and the
+						<code>client_id</code>
+						is a client ID that has been registered at github. The client_id
+						for public.opencpu.org is
+						<code>5fee823ec85095c103d5</code>
+						.
+					</p>
+
+				</section>
+
+
+				<section id="home-api">
+					<div class="page-header">
+						<h1>
+							Home directory <small> your personal packages and stores.
+							</small>
+						</h1>
+					</div>
+
+					<p>
+						The
+						<code>/home</code>
+						location represents your personal stuff. You need to be
+						authenticated to be able to do requests to /home. Anything that
+						you put in your /home dir is published to
+						<code>/R/user/[yourname]</code>
+						. Note that you cannot actually run any R by caling to /home. This
+						part of the API is solely for publishing or deleting objects from
+						your personal store. To actually call functions that after you
+						published them, you need to call to
+						<code>/R/user/[yourname]</code>
+						.
+					</p>
+
+					<h3>Stores and Packages</h3>
+
+					<p>There are 2 ways to publish objects in your personal user
+						space: by installing an R package or creating an object store. If
+						you know how to create an R package, this is the preferred way. R
+						packages can include documentation and opencpu apps. The namespace
+						of an R package is locked: you cannot add or remove objects from
+						the package through the API. To update a package you need to
+						reinstall it.</p>
+
+					<p>
+						If you just want to publish some objects without creating a
+						package you can create a <b>store</b>. A store is simply a named
+						collection of objects. Experienced R users might think of a stores
+						as published environments or workspaces. Using the
+						<code>/home</code>
+						API you can dynamically create new stores, and add/remove R
+						objects to your a store. This is a convenient way to publish some
+						data or functions, but a limitation is that you cannot publish
+						documentation or apps using a store.
+					</p>
+
+
+					<h3>Methods</h3>
+					<table class="table table-bordered table-striped">
+
+						<thead>
+							<tr>
+								<th>Method</th>
+								<th>Endpoint</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tt">GET</td>
+								<td>Directory / Object</td>
+								<td>List namespace or download object.</td>
+							</tr>
+							<tr>
+								<td class="tt">PUT</td>
+								<td>Store / Object</td>
+								<td>Create a new store or place an object in a store.</td>
+							</tr>
+							<tr>
+								<td class="tt">DELETE</td>
+								<td>Store / Object</td>
+								<td>Remove an object or a complete store.</td>
+							</tr>
+
+						</tbody>
+					</table>
+
+					<p class="narrowblock">List your packages and stores</p>
+					<button data-example="gethome">list home</button>
+					<pre class="narrowblock"> GET /home</pre>
+					<br />
+
+					<h3>Managing packages</h3>
+
+					<button data-example="installpackage">install package</button>
+					<p class="narrowblock">
+						Publishing a package takes two steps. In the first step you
+						compile and install the package to the tmp dir using the regular
+						<code>/R/pub</code>
+						API. In the second step, you copy the already compiled package to
+						your user directory.
+					</p>
+
+					<button data-example="copypackage">Copy package</button>
+					<pre class="narrowblock">PUT /home/[package name] </pre>
+					<br />
+
+					<p class="narrowblock">Get package description.</p>
+					<button data-example="getpackage">package desc.</button>
+					<pre class="narrowblock">GET /home/[package name] </pre>
+					<br />
+
+					<p class="narrowblock">Delete package from your user dir.</p>
+					<button data-example="deletepackage">delete package.</button>
+					<pre class="narrowblock">DELETE /home/[package name] </pre>
+					<br />
+
+					<h3>Managing stores</h3>
+
+					<p class="narrowblock">Create a new, empty store.</p>
+					<button data-example="createstore">create store</button>
+					<pre class="narrowblock">PUT /home/[store name] </pre>
+					<br />
+
+					<button data-example="createobject">create object</button>
+					<p class="narrowblock">Copy an object from /R/tmp to your store
+						store.</p>
+					<button data-example="copytostore">copy to store</button>
+					<pre class="narrowblock">PUT /home/[store name]/[object name]</pre>
+					<br />
+
+					<p class="narrowblock">
+						Try to run the function using the
+						<code>/R/user API</code>
+					</p>
+					<button data-example="callhomefunction">call function</button>
+					<pre class="narrowblock"> POST /R/user/[user]/[store]/[function]/[output]</pre>
+					<br />
+
+					<p class="narrowblock">Get the object</p>
+					<button data-example="getobjectfromstore">download object</button>
+					<pre class="narrowblock"> GET /home/[store name]/[object name]</pre>
+					<br />
+
+					<p class="narrowblock">Downoad the entire store as a workspace</p>
+					<button data-example="getwholestore">download store</button>
+					<pre class="narrowblock"> GET /home/[store name]</pre>
+					<br />
+
+					<p class="narrowblock">Delete an object</p>
+					<button data-example="deleteobject">delete object</button>
+					<pre class="narrowblock"> DELETE /home/[store name]/[object name]</pre>
+					<br />
+
+					<p class="narrowblock">Delete the store.</p>
+					<button data-example="deletestore">delete store</button>
+					<pre class="narrowblock"> DELETE /home/[store name]</pre>
+					<br />
+				</section>
+
+				<section id="CORS">
+					<div class="page-header">
+						<h1>
+							CORS <small> Cross Origin Resource Sharing</small>
+						</h1>
+					</div>
+
+					<p>
+						All browsers implement something called the <a
+							href="http://en.wikipedia.org/wiki/Same_origin_policy">same
+							origin policy</a>. This is a security restriction that prevents a
+						website from doing AJAX requests to servers on a different domain.
+						This is very important to pevent shady websites from trying to
+						access e.g. your email or banking account. However sometimes we
+						explicitly want to allow 3rd party websites to access your web
+						services. This is where CORS (Cross Origin Resource Sharing) comes
+						in.
+					</p>
+
+					<button data-example="executefunction">call function</button>
+					<p class="narrowblock">
+						CORS is simply a http response header that a webserver can include
+						in a response, and looks like this:
+						<code>Access-Control-Allow-Origin: *</code>
+						. When a webserver includes this header it is basically sayings: <i>"This
+							response does not contain any confidential information. It is OK
+							for third party websites to read this response."</i>
+					</p>
+
+					<p>
+						All OpenCPU calls to the
+						<code>/R</code>
+						support CORS. This means that you can host your web applications
+						on your own website or domain and call a third party OpenCPU
+						server directly through Ajax, without having to setup your own
+						OpenCPU server or do some sort of proxying/jsonp/etc.
+					</p>
+				</section>
+
+				<section id="apps">
+					<div class="page-header">
+						<h1>
+							Apps <small> OpenCPU Web Applications.</small>
+						</h1>
+					</div>
+
+					<p>
+						OpenCPU allows you (and encourages you) to package up clients in
+						the form of <i>apps</i>. An OpenCPU app is simply a HTML/CSS/JS
+						web application that you can ship with an R package. By putting
+						your application in the
+						<code>/inst/opencpu/apps</code>
+						directory of your R package, the web application will
+						automatically become available when the R package is installed on
+						an opencpu server.
+					</p>
+
+					<p>
+						For an example of an opencpu app, have a look at the <a
+							href="https://github.com/jeroenooms/opencpu.demo">opencpu.demo</a>
+						package, which contain several simple apps.
+					</p>
+
+					<p>
+						When installing an R package that contains apps on an OpenCPU
+						server, the apps become automatically available through the <a
+							href="/apps">/apps directory</a>. The goal is to have a single
+						package that contains both the server-side R code and client-side
+						web client and can be installed on any OpenCPU server simply by
+						installing the R package.
+					</p>
+				</section>
+
+				<section id="admin">
+					<div class="page-header">
+						<h1>
+							Admin Guide <small> install and manage your own
+								server.</small>
+						</h1>
+					</div>
+
+					<p>
+						If you want to install your own OpenCPU server, go to the <a
+							href="download.html">download page</a> and get a copy of the
+						OpenCPU administrators manual. This document covers the basics of
+						installing and managing an OpenCPU server.
+					</p>
+					<p>The OpenCPU framework is evolving quite rapidly, and we do
+						our best keeping documentation and manual up to date. No
+						guarantees though :-)</p>
+				</section>
+
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	<br>
+
+	<!-- /container -->
+
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="jquery-1.7.2.min.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+	<script src="common.js"></script>
+	<script src="docs.js"></script>
+	<script src="doc-examples.js"></script>
+
+</body>
+
+</html>

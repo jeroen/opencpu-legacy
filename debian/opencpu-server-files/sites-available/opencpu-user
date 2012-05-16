@@ -1,0 +1,38 @@
+<IfModule mod_R.c>
+	
+	<Location /home>
+	
+		SetHandler r-handler
+		RHandler opencpu.server::homehandler
+		ErrorDocument 400 /R/lasterror
+		
+		<IfModule mod_apparmor.c>
+			AAHatName opencpu_admin
+		</IfModule>
+		
+		<IfModule mpm_itk_module>
+			AssignUserID opencpu opencpu
+			NiceValue 10
+		</IfModule>
+	
+	</Location>
+	
+	<Location /auth>
+	
+		SetHandler r-handler
+		RHandler opencpu.server::authhandler
+		ErrorDocument 400 /R/lasterror
+		ErrorDocument 302 /R/lasterror
+		
+		<IfModule mod_apparmor.c>
+			AAHatName opencpu_admin
+		</IfModule>
+		
+		<IfModule mpm_itk_module>
+			AssignUserID opencpu opencpu
+			NiceValue 10
+		</IfModule>
+	
+	</Location>		
+
+</IfModule>

@@ -1,14 +1,14 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-
 storeobject <- function(obj){
 	#save displaylist to file
 	plottempfile <- tempfile();
 	saveRDS(obj, plottempfile);
 
 	#store the file
-	return(storefile(plottempfile));	
+	output <- storefile(plottempfile);
+	
+	#clean up
+	unlink(plottempfile);
+	
+	#return
+	return(output);	
 }

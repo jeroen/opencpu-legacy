@@ -1,6 +1,6 @@
-opencpu (0.6-oneiric10) oneiric; urgency=low
+opencpu (0.7.0-precise14) precise; urgency=low
 
-  * First build for Oneiric
+  * Ubuntu package with OpenCPU software.
 
- -- Jeroen Ooms <jeroen@opencpu.org>  Mon, 7 Nov 2011 18:00:00 -0800
+ -- Jeroen Ooms <jeroen@opencpu.org>  Thu, 26 Apr 2012 18:00:00 -0800
 

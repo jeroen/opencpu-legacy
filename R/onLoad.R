@@ -1,19 +1,12 @@
-# TODO: Add comment
-# 
-# Author: jeroen
-###############################################################################
-
-#.onLoad is for packages with namespaces
-#.First.lib is for packages without namespace
-
-
 .onLoad <- function(path, package){
 
 	conffile <- "/etc/opencpu/server.conf";
 	config <- loadconfig(conffile);	
 	attach(list(config = config), name="OpenCPU");
-	
-	options(keep.source=FALSE);
+
+	options(repos=config('repos'));
+	options(keep.source = FALSE);
+	options(useFancyQuotes = FALSE);
 	setInteractive(FALSE);
 	Sys.setlocale(category='LC_ALL', 'en_US.UTF-8');
 	

@@ -1,0 +1,342 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+\documentclass{scrartcl}
+\usepackage[colorlinks, urlcolor=blue]{hyperref}
+\usepackage{fullpage}
+\usepackage{graphics} 
+\usepackage{graphicx}
+\usepackage{verbatim}
+
+\author{Jeroen Ooms}
+\title{OpenCPU Installation and Administration Manual for Ubuntu 12.04
+(LTS)}
+\subtitle{Version 0.70-0}
+
+
+\begin{document}
+
+\maketitle
+
+\section*{About}
+
+\noindent This document describes installation and administration of the \texttt{OpenCPU}
+server. \texttt{OpenCPU} runs on \texttt{Ubuntu Linux 12.04 (LTS)}, either on a
+\texttt{i386} (32 bit) or \texttt{x64} architecture. \texttt{Ubuntu Server}
+edition is recommended, but all versions of \texttt{Ubuntu 12.04}, including
+\texttt{Ubuntu Server}, \texttt{Ubuntu Desktop}, \texttt{Kubuntu},
+\texttt{EDUbuntu}, etc are supported. \texttt{Ubuntu 12.04} is a Long Term
+Support edition (LTS), and the official nickname of this version of
+\texttt{Ubuntu} is \emph{Precise Pangolin}, or for short: \emph{Precise}.
+Version 12.04 refers to the month in which it was released: April 2012.\\
+
+The installation described in this document should work out of the box on a
+clean version of \texttt{Ubuntu} 12.04. We highly recommend taking advantage of
+modern technology by using some sort of virtual server or cloud environment to
+host \texttt{OpenCPU}. Virtual servers are easy to install, delete or clone, and
+furthermore most cloud environments offer convenient preinstalled version of
+\texttt{Ubuntu Linux}. This way installation of \texttt{OpenCPU} is easy and can
+be done in a couple of minutes. If you have no idea where to start: Amazon EC2
+is a nice and affordable pay-by-hour hosting service which includes great
+preinstalled versions of \texttt{Ubuntu Linux}.\\
+
+Note that \texttt{OpenCPU} is Open Source software and does not
+come with any guarantees or warranties. The project is still in an early stage
+and most likely the software will contain bugs. Please post feedback, problems,
+comments, suggestions, etc, of any kind on github: \\
+
+\url{https://github.com/jeroenooms/opencpu/issues} \\
+
+Thank you for giving it a try. More information on the project can be found on
+the OpenCPU website: \url{http://opencpu.org}.
+
+\newpage 
+
+\section{Installation}
+
+The following instructions will deploy a server with:
+
+\begin{itemize}
+  \item \texttt{Ubuntu 12.04}
+  \item \texttt{OpenCPU 0.70}
+  \item \texttt{R 2.15}
+\end{itemize}
+
+\noindent The 12.04 version of \texttt{Ubuntu} ships with the following
+versions of third party dependencies:
+
+\begin{itemize}
+  \item \texttt{Linux kernel 3.2.0}
+  \item \texttt{Apache 2.2.22} (includes \texttt{mod-ssl})
+  \item \texttt{Apparmor 2.7.102}
+  \item \texttt{Nginx 1.1.19}
+\end{itemize}
+
+\subsection{Packages}
+
+
+This section will show how to install \texttt{OpenCPU} on \texttt{Ubuntu 12.04
+(LTS)}. The \texttt{OpenCPU} software has been wrapped up in a number of
+packages. These include:
+\begin{itemize}
+  \item \texttt{opencpu-server} -- \texttt{OpenCPU} API server.
+  \item \texttt{opencpu-cache} -- load balancing / caching server
+  (\textbf{optional})
+  \item \texttt{opencpu-cran} -- installs all CRAN packages (\textbf{optional})
+\end{itemize}
+Only installation of the \texttt{opencpu-server} package is required. The
+\texttt{opencpu-cache} and \texttt{opencpu-cran} packages contain optional
+additional functionality. When installing either of these packages, all
+dependencies will automatically be installed as well.
+
+\subsection{Installing Ubuntu Linux}
+
+\noindent The current version of \texttt{OpenCPU} requires an \texttt{Ubuntu
+12.04} system, either on a \texttt{i386} (32 bit) and \texttt{x64} architecture.
+\texttt{Ubuntu Server} edition is recommended, but all versions of
+\texttt{Ubuntu 12.04}, including \texttt{Ubuntu Server}, \texttt{Ubuntu
+Desktop}, \texttt{KUbuntu}, \texttt{EDUbuntu}, etc are supported. The preferred
+way of running \texttt{OpenCPU} is on a clean \texttt{Ubuntu Server} edition. A
+free copy of the \texttt{Ubuntu Server} installation disc can be obtained from
+the \texttt{Ubuntu} download page: \\
+
+\url{http://www.ubuntu.com/download/server/download} \\
+
+\noindent If you would like to run \texttt{OpenCPU} on an Amazon EC2 server, the best way
+is to use one of the official AMI's as provided by the \texttt{Ubuntu} team: \\
+
+\url{http://cloud-images.ubuntu.com/releases/precise/release/} \\
+
+\noindent Another possibility is to install a \texttt{Ubuntu} on a virtual server inside
+another OS. For example, on Windows and \texttt{Linux} the free VMware Player or VMware
+vSphere Hypervisor (ESXi) can be used to run one or more virtual servers, and on
+Mac OSX, one can use Parallels. This way you can install \texttt{Ubuntu} and \texttt{OpenCPU}
+safely on top of an existing system, and easily remove it at any time.
+
+\subsection{Getting the system up-to-date}
+
+\noindent Throughout this manual it is assumed that you have shell access,
+either through a terminal or over SSH. Before beginning installation of
+\texttt{OpenCPU}, make sure you are running \texttt{Ubuntu 12.04 (Precise)} by
+entering:
+
+\begin{verbatim}
+    cat /etc/*release
+\end{verbatim}
+If it turns out the system is running an older version of \texttt{Ubuntu}, upgrade the OS
+to 12.04 first. If the system is indeed 12.04, continue by updating existing
+software packages on the system to the latest versions:
+
+\begin{verbatim}
+    sudo apt-get update
+    sudo apt-get upgrade
+\end{verbatim}
+Once the system is up to date, you can begin installing \texttt{OpenCPU}.
+
+\subsection{OpenCPU Installation}
+
+Start by adding the \texttt{opencpu-0.7} package respository to the system:
+
+\begin{verbatim}
+    sudo apt-get install python-software-properties
+    sudo add-apt-repository ppa:opencpu/opencpu-0.7
+\end{verbatim}
+The system will ask for confirmation on importing the public key. After the
+repository has been added to the system, update the package list:
+
+\begin{verbatim}
+    sudo apt-get update
+\end{verbatim}
+Once this has succeeded \texttt{OpenCPU} can be installed. Enter:
+
+\begin{verbatim}
+    sudo apt-get install opencpu-server
+\end{verbatim}
+This will be sufficient to get started with \texttt{OpenCPU}. \texttt{OpenCPU} has many
+dependencies, and first installation might take a while. If the installation
+finished without any problems, it will display the ip address of the host at
+the very end, which you can can open in your browser and use to test the
+server.
+
+\subsection{Uninstall \texttt{OpenCPU}}
+
+To remove \texttt{OpenCPU} from a system, enter:
+
+\begin{verbatim}
+    sudo apt-get remove --purge opencpu-server
+    sudo apt-get autoremove
+\end{verbatim}
+
+Note that if objects were saved in the store, you might have to remove this
+manually by removing contents of the \texttt{/mnt/export} directory.
+
+\section{Administration}
+
+The default install of \texttt{OpenCPU} contains 2 services that you can independently
+control. To control the \texttt{OpenCPU} web server, use:
+
+\begin{verbatim}
+    sudo service opencpu-server {start | stop | restart}
+\end{verbatim}
+
+This will completely enable/disable \texttt{OpenCPU} and restart the webserver. To
+enable/disable the sandbox, use:
+
+\begin{verbatim}
+    sudo service opencpu-sandbox {start | stop | restart}
+\end{verbatim}
+The sandbox is based on AppArmor and is there to prevent users from running
+malicious code through the R API. It is enabled by default, but for debugging or
+testing purposes you might want to temporary disable the sandbox.
+
+\subsection{Configuration Files}
+
+All configuration files for \texttt{OpenCPU} are stored in
+\texttt{/etc/opencpu}. The main server configuration file is called
+\texttt{server.conf}. To edit it, use a text editor, like nano:
+
+\begin{verbatim}
+    sudo nano /etc/opencpu/server.conf
+\end{verbatim}
+The configuration file is formatted in JSON. The syntax should be pretty
+intuitive. Make sure that when you edit it, you validate that it is still
+valid JSON or the server might not be able to read it. Below a list of the
+settings that can be modified in the server.conf file:
+
+\begin{itemize}
+   \item \texttt{github.clientid} -- Github client ID for this domain.
+   \item \texttt{github.secretfile} -- points to file with the github secret.
+   \item \texttt{disable.eval} -- disables evaluation of code in parameters.
+   \item \texttt{enable.cors} -- enable/disable CORS headers.
+   \item \texttt{whitelist} -- either \texttt{false} or an array of packages
+   that are allowed.
+   \item \texttt{key.length} -- length of the hashkeys for store objects.
+   \item \texttt{job.timeout} -- soft limit on R jobs (in seconds)
+   \item \texttt{time.limit} -- harder limit on R jobs (in seconds)
+   \item \texttt{max.storesize} -- max size of an object in the store.
+   \item \texttt{storedir} -- directory of the object store.
+   \item \texttt{cache.store} -- cache-control value for getting objects (in
+   seconds)
+   \item \texttt{cache.call} -- cache-control header value for function calls
+   (in seconds)
+   \item \texttt{cache.help} -- cache-control header value for help files (in
+   seconds)
+   \item \texttt{return.warnings} -- if warnings should be included in case of
+   an error.
+   \item \texttt{accesslog} -- file with access log entries
+   \item \texttt{errorlog} -- file with error log entries
+   \item \texttt{syslib} -- library of \texttt{OpenCPU} system dependencies
+   \item \texttt{libpaths} -- paths where to look for packages
+   \item \texttt{preload} -- an array of packages to preload when the server
+   starts.
+\end{itemize}
+After editing configurations, the server has to be restarted to activate them:
+\begin{verbatim}
+    sudo service opencpu-server restart
+\end{verbatim}
+
+\subsection{Apache2}
+
+\texttt{OpenCPU} is based on the Apache2 webserver. It should not be necessary to
+manually edit these configurations, but in case you want to hack around,
+below a short intro to managing Apache2 on \texttt{Ubuntu}. To manage the server daemon:
+
+\begin{verbatim}
+    sudo service apache2 {start | stop | restart}
+\end{verbatim}
+This command calls the \texttt{/etc/init.d/apache2} script which should usually
+not be edited. The main configuration file for apache2 is located at
+
+\begin{verbatim}
+    /etc/apache2/httpd.conf
+\end{verbatim}
+However by convention this file should also rarely be edited. Custom
+configurations are located at:
+
+\begin{verbatim}
+    /etc/apache2/mods-available/
+    /etc/apache2/sites-available/
+\end{verbatim}
+These custom configurations can be activated and de-activated as follows:
+
+\begin{verbatim}
+    sudo a2enmod mod_R
+    sudo a2dismod mod_R
+    sudo a2ensite opencpu-user
+    sudo a2dissite opencpu-user
+\end{verbatim}
+These commands create or remove symoblic inside links to available configuration
+files inside the following directories:
+
+\begin{verbatim}
+    /etc/apache2/mods-enabled/
+    /etc/apache2/sites-enabled/
+\end{verbatim}
+All files in these directories are automatically included by the main
+\texttt{httpd.conf} file. The \texttt{OpenCPU} sites are defined in the
+following files:
+
+\begin{verbatim}
+    /etc/apache2/sites-available/opencpu
+    /etc/apache2/sites-available/opencpu-user
+    /etc/apache2/sites-available/opencpu-apps
+\end{verbatim}
+
+The Apache2 log files \texttt{access.log} and \texttt{error.log} are located at
+\begin{verbatim}
+    /var/log/apache2/
+\end{verbatim}
+
+\subsection{HTTPS access and SSL certificates}
+
+By default Apache only listens to port 80 (HTTP). To enable HTTPS, run the
+following commands:
+
+\begin{verbatim}
+    sudo a2enmod ssl
+    sudo a2ensite default-ssl
+    sudo service apache2 restart
+\end{verbatim}
+This will enable SSL access to your website. Note that SSL is not compatible
+with the caching server; HTTPS requests will never be cached on the server.
+
+\subsection{Certificates}
+By default, Apache uses self signed a.k.a. snakeoil certificates. This is
+convenient for development servers, but in a production setting these should be
+replaced by SSL certificates signed by an official Certificate Authority. \\
+
+\noindent The https configurations and locations of the certificates are defined
+in
+
+\begin{verbatim}
+    /etc/apache2/sites-available/default-ssl
+\end{verbatim}
+This file also contains detailed comments with configuration instructions. \\
+
+\noindent When the caching server is enabled, the SSL certificates should be
+installed on NginX instead of Apache. Modify the file: 
+
+\begin{verbatim}
+    /etc/nginx/sites-available/opencpu
+\end{verbatim}
+and look for the directives \texttt{ssl\_certificate} and
+\texttt{ssl\_certificate\_key}.
+
+\section{The Caching / Load balancing Server}
+
+\texttt{OpenCPU} has an optional caching/load balancing server based on NGINX.
+To install it, enter:
+
+\begin{verbatim}
+    sudo apt-get install opencpu-cache
+\end{verbatim}
+When enabled, the server will automatically take over port 80 and 443. The
+caching server can be enabled/disabled using:
+
+\begin{verbatim}
+    sudo service opencpu-cache {start | stop | restart}
+\end{verbatim}
+The server configuration can be edited to include additional back-ends and hence
+work as a load balancer as well. The balancer is configured using NGINX
+configurations found in \texttt{/etc/nginx}.
+
+\end{document}

@@ -1,2 +1,6 @@
-debian/opencpu-cache-files/opencpu.vcl /etc/opencpu
 debian/opencpu-cache-files/opencpu-cache /etc/init.d
+debian/opencpu-cache-files/scripts/* /usr/lib/opencpu/scripts/
+debian/opencpu-cache-files/nginx/opencpu /etc/nginx/sites-available/
+debian/opencpu-cache-files/nginx/opencpu-locations.conf /etc/nginx/opencpu/
+debian/opencpu-cache-files/nginx/opencpu-pages.conf /etc/nginx/opencpu/
+debian/opencpu-cache-files/nginx/opencpu.conf /etc/nginx/conf.d/
