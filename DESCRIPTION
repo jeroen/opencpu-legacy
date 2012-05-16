@@ -1,7 +1,7 @@
 Package: opencpu.server
 Type: Package
 Title: OpenCPU
-Version: 0.70
+Version: 0.7.0
 Date: 2012-03-10
 Author: Jeroen Ooms
 Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>

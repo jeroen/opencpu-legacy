@@ -15,7 +15,7 @@ case "$1" in
 	while true; do
 	    read -p "Do you want to add a cron job to update new CRAN packages? [y/n]" yn
 	    case $yn in
-	        [Yy]* ) ln -s /usr/lib/opencpu/scripts/update.recent.cron.sh /etc/cron.daily/updaterecent; 
+	        [Yy]* ) ln -sf /usr/lib/opencpu/scripts/update.recent.cron.sh /etc/cron.daily/updaterecent; 
 	        		break;;
 	        [Nn]* ) break;;
 	        	* ) echo "Please answer y or n.";;

@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /var/log/opencpu
 apt-get update
-apt-get -y install ^r-cran* ^r-bioc*
+apt-get -y install ^r-cran* #^r-bioc*
 apt-get clean
 
 ## Warning: auto upgrading R is dangerous!
