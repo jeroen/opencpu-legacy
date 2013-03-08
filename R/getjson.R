@@ -1,5 +1,5 @@
 getjson <- function(fnargs){
-	CONTENTTYPE <- "text/plain; charset=UTF8";
+	CONTENTTYPE <- "application/json; charset=UTF8";
 	mytempfile <- do.call(dogetjson, fnargs);
 	return(list(filename = mytempfile, type = CONTENTTYPE));
 }
